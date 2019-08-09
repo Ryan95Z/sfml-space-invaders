@@ -1,7 +1,9 @@
+#include <GL/glew.h>
 #include "Game.hpp"
 
 Game::Game()
 {
+	glewInit();
 }
 
 Game::~Game()

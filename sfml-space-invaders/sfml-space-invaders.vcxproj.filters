@@ -24,12 +24,18 @@
     <ClCompile Include="core\Window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="core\Triangle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\Game.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="core\Window.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\Triangle.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
