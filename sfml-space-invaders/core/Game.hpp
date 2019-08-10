@@ -3,6 +3,7 @@
 
 #include "Window.hpp"
 #include "Shader.hpp"
+#include "Triangle.hpp"
 
 class Game
 {
@@ -16,6 +17,7 @@ public:
 	void update();
 	void handleEvents();
 private:
+	Triangle *triangle;
 	Window window;
 };
 

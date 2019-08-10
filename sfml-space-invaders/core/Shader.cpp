@@ -1,11 +1,8 @@
-#include <GL/glew.h>
+#include "Shader.hpp"
 
 #include <sstream>
 #include <fstream>
 #include <iostream>
-
-
-#include "Shader.hpp"
 
 #define BUFFER_SIZE 512
 
@@ -16,9 +13,12 @@ Shader::Shader(std::string vertexPath, std::string fragPath)
 	char infoLog[BUFFER_SIZE];
 	GLuint vertexShader, fragShader;
 
-	const char *vertexShaderSrc = readFile(vertexPath).c_str();
-	const char *fragShaderSrc = readFile(fragPath).c_str();
-	
+	std::string vertex = readFile(vertexPath);
+	std::string frag = readFile(fragPath);
+
+	const char *vertexShaderSrc = vertex.c_str();
+	const char *fragShaderSrc = frag.c_str();
+
 	// Create and compile the vertex shader
 	vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(vertexShader, 1, &vertexShaderSrc, NULL);
@@ -79,5 +79,6 @@ std::string Shader::readFile(const std::string filePath)
 
 	shaderFile.open(filePath);
 	ss << shaderFile.rdbuf();
+	shaderFile.close();
 	return ss.str();
 }

@@ -1,29 +1,14 @@
-#include <iostream>
-
 #include "core/Game.hpp"
 
 
 int main()
 {
-	Game *game = nullptr;
-
-	try {
-		game = new Game;
-	}
-	catch (std::exception &ex)
+	Game game;	
+	while (game.isOpen())
 	{
-		std::cerr << ex.what() << std::endl;
-		return -1;
+		game.handleEvents();
+		game.update();
+		game.render();
 	}
-	
-	while (game->isOpen())
-	{
-		game->handleEvents();
-		game->update();
-		game->render();
-	}
-	
-	delete game;
-	game = nullptr;
 	return 0;
 }

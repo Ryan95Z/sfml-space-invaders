@@ -1,5 +1,7 @@
 #include "Window.hpp"
 
+#include <iostream>
+
 Window::Window() : isRunning(true), window(nullptr)
 {
 	setUp(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -57,6 +59,11 @@ void Window::setUp(const int width, const int height)
 	window = new sf::Window(sf::VideoMode(width, height), WINDOW_TITLE, sf::Style::Default, Window::getSettings());
 	glViewport(0, 0, width, height);
 	window->setVerticalSyncEnabled(true);
+	if (glewInit() != GLEW_OK)
+	{
+		std::cout << "GLEW failed to initalise\n";
+		exit(EXIT_FAILURE);
+	}
 }
 
 sf::ContextSettings Window::getSettings()

@@ -2,8 +2,8 @@
 #define CORE_TRIANGLE_HPP
 
 #include <GL/glew.h>
-#include <SFML/OpenGL.hpp>
 #include <glm/glm.hpp>
+#include <SFML/OpenGL.hpp>
 
 #include "Shader.hpp"
 

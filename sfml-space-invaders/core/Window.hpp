@@ -1,6 +1,7 @@
 #ifndef CORE_WINDOW_HPP
 #define CORE_WINDOW_HPP
 
+#include <GL/glew.h>
 #include <SFML/Window.hpp>
 #include <SFML/OpenGL.hpp>
 

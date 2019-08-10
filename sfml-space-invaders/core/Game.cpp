@@ -1,13 +1,11 @@
-#include <GL/glew.h>
 #include <iostream>
+
 #include "Game.hpp"
+
 
 Game::Game()
 {
-	if (glewInit() != GLEW_OK)
-	{
-		throw std::runtime_error("GLEW failed to initialise!");
-	}
+	triangle = new Triangle;
 }
 
 Game::~Game()
@@ -23,7 +21,7 @@ void Game::render()
 {
 	window.beginDrawing();
 
-	// render stuff here
+	triangle->draw();
 
 	window.endDrawing();
 }
