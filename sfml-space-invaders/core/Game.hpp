@@ -19,6 +19,9 @@ public:
 private:
 	Triangle *triangle;
 	Window window;
+
+	sf::Time elapsed_time;
+	sf::Clock clock;
 };
 
 #endif // CORE_GAME_HPP

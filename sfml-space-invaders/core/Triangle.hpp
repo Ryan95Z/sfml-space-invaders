@@ -3,6 +3,8 @@
 
 #include <GL/glew.h>
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include <SFML/OpenGL.hpp>
 
 #include "Shader.hpp"
@@ -21,6 +23,7 @@ public:
 	~Triangle();
 
 	void draw();
+	void update(float dt);
 private:
 	float verticies[9] = {
 		-0.5f, -0.5f, 0.0f,
@@ -28,6 +31,7 @@ private:
 		 0.0f,  0.5f, 0.0f
 	};
 
+	glm::mat4 trans;
 	Shader *shader;
 	GLuint vao[NUM_VAOs];
 	GLuint vbo[NUM_VBOs];

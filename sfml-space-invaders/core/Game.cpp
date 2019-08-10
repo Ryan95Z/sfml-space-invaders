@@ -28,6 +28,7 @@ void Game::render()
 
 void Game::update()
 {
+	triangle->update(0.0f);
 }
 
 void Game::handleEvents()
