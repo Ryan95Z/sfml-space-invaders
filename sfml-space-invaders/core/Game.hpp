@@ -2,6 +2,7 @@
 #define CORE_GAME_HPP
 
 #include "Window.hpp"
+#include "Shader.hpp"
 
 class Game
 {

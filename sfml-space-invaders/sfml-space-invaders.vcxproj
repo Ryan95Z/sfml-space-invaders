@@ -120,14 +120,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="core\Game.cpp" />
+    <ClCompile Include="core\Shader.cpp" />
     <ClCompile Include="core\Triangle.cpp" />
     <ClCompile Include="core\Window.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\Game.hpp" />
+    <ClInclude Include="core\Shader.hpp" />
     <ClInclude Include="core\Triangle.hpp" />
     <ClInclude Include="core\Window.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\frag.glsl" />
+    <None Include="shaders\vertex.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

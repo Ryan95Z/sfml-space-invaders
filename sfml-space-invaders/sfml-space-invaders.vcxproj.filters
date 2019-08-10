@@ -27,6 +27,9 @@
     <ClCompile Include="core\Triangle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="core\Shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\Game.hpp">
@@ -38,5 +41,12 @@
     <ClInclude Include="core\Triangle.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="core\Shader.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\vertex.glsl" />
+    <None Include="shaders\frag.glsl" />
   </ItemGroup>
 </Project>
