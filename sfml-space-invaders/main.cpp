@@ -10,11 +10,6 @@ int main()
 	try {
 		game = new Game;
 	}
-	catch (std::runtime_error &ex)
-	{
-		std::cerr << ex.what() << std::endl;
-		return -1;
-	}
 	catch (std::exception &ex)
 	{
 		std::cerr << ex.what() << std::endl;
