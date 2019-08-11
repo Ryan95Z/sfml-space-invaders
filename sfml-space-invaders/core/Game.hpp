@@ -16,6 +16,7 @@ public:
 	void render();
 	void update();
 	void handleEvents();
+	void restartClock();
 private:
 	Triangle *triangle;
 	Window window;

@@ -28,10 +28,21 @@ void Game::render()
 
 void Game::update()
 {
-	triangle->update(0.0f);
+	float timestep = 1 / 60.0f;
+	float elpased = elapsed_time.asSeconds();
+	if (elpased > timestep)
+	{
+		triangle->update(timestep);
+		elapsed_time -= sf::seconds(timestep);
+	}
 }
 
 void Game::handleEvents()
 {
 	window.handleEvents();
+}
+
+void Game::restartClock()
+{
+	elapsed_time += clock.restart();
 }
