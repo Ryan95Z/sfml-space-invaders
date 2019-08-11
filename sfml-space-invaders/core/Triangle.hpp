@@ -31,6 +31,8 @@ private:
 		 0.0f,  0.5f, 0.0f
 	};
 
+	float rotation;
+
 	glm::mat4 trans;
 	Shader *shader;
 	GLuint vao[NUM_VAOs];

@@ -1,6 +1,6 @@
 	#include "Triangle.hpp"
 
-Triangle::Triangle()
+Triangle::Triangle() : rotation(0.0f)
 {
 	shader = new Shader(VERTEX_SHADER, FRAG_SHADER);
 
@@ -43,6 +43,7 @@ void Triangle::draw()
 
 void Triangle::update(float dt)
 {
+	rotation = (float)((int)rotation + 1 % 360);
 	trans = glm::mat4(1.0f);
-	trans = glm::rotate(trans, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0f));
+	trans = glm::rotate(trans, glm::radians(rotation), glm::vec3(0.0, 0.0, 1.0f));
 }
