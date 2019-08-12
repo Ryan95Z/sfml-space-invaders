@@ -5,7 +5,7 @@
 
 Game::Game()
 {
-	triangle = new Triangle;
+	state_mgr.pushState(1);
 }
 
 Game::~Game()
@@ -20,9 +20,7 @@ bool Game::isOpen() const
 void Game::render()
 {
 	window.beginDrawing();
-
-	triangle->draw();
-
+	state_mgr.render();
 	window.endDrawing();
 }
 
@@ -32,7 +30,7 @@ void Game::update()
 	float elapased = elapsed_time.asSeconds();
 	if (elapased > timestep)
 	{
-		triangle->update(elapased);
+		state_mgr.update(timestep);
 		elapsed_time -= sf::seconds(timestep);
 	}
 }

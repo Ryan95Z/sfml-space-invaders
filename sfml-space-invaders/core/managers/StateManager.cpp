@@ -1,9 +1,11 @@
 #include "StateManager.hpp"
 
 #include "../BaseState.hpp"
+#include "../../states/GameState.hpp"
 
 StateManager::StateManager()
 {
+	registerState<GameState>(1);
 }
 
 StateManager::~StateManager()
@@ -45,17 +47,19 @@ bool StateManager::pushState(StateID state_id)
 	state->init();
 	state->start();
 	active_states.push_back(state);
+	return true;
 }
 
 StateID StateManager::popState()
 {
 	BaseState *state = *active_states.begin();
+	StateID id = state->getId();
 	state->stop();
 	state->destroy();
 	delete state;
 	state = nullptr;
 	active_states.erase(active_states.begin());
-	return 1;
+	return id;
 }
 
 StateID StateManager::top() const

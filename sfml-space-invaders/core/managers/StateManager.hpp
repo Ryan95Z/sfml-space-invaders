@@ -1,7 +1,6 @@
 #ifndef CORE_MANAGERS_STATE_MANAGER_HPP
 #define CORE_MANAGERS_STATE_MANAGER_HPP
 
-
 #include <unordered_map>
 #include <vector>
 #include <functional>
@@ -28,10 +27,9 @@ public:
 	template <class T>
 	bool registerState(StateID state_id)
 	{
-		factory[state_id] = []() ->
-		{
-			return new T;
-		}
+		factory[state_id] = [state_id]() -> BaseState * {
+			return new T(state_id);
+		};
 		return true;
 	}
 private:

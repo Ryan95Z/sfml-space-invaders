@@ -2,8 +2,7 @@
 #define CORE_GAME_HPP
 
 #include "Window.hpp"
-#include "Shader.hpp"
-#include "Triangle.hpp"
+#include "managers/StateManager.hpp"
 
 class Game
 {
@@ -18,7 +17,7 @@ public:
 	void handleEvents();
 	void restartClock();
 private:
-	Triangle *triangle;
+	StateManager state_mgr;
 	Window window;
 
 	sf::Time elapsed_time;

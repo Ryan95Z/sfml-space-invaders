@@ -2,11 +2,12 @@
 #define CORE_BASE_STATE_HPP
 
 #include <string>
+#include "managers/StateManager.hpp"
 
 class BaseState
 {
 public:
-	BaseState() {}
+	BaseState(StateID state_id) : id(state_id) {}
 	BaseState(BaseState &) = delete;
 	virtual ~BaseState() {}
 
@@ -18,6 +19,14 @@ public:
 
 	virtual void update(float dt) = 0;
 	virtual void draw() = 0;
+
+	StateID getId() const
+	{
+		return id;
+	}
+
+private:
+	StateID id;
 };
 
 #endif // CORE_BASE_STATE_HPP
