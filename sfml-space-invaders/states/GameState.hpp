@@ -8,6 +8,8 @@ class GameState : public BaseState
 {
 public:
 	GameState(StateID id);
+	GameState() = delete;
+	GameState(GameState &) = delete;
 	virtual ~GameState();
 
 	virtual void start();

@@ -15,6 +15,7 @@ class StateManager
 {
 public:
 	StateManager();
+	StateManager(StateManager &) = delete;
 	~StateManager();
 
 	void update(float dt);

@@ -2,10 +2,11 @@
 
 #include "../BaseState.hpp"
 #include "../../states/GameState.hpp"
+#include "../../states/StateInfo.hpp"
 
 StateManager::StateManager()
 {
-	registerState<GameState>(1);
+	registerState<GameState>(GAME_STATE_ID);
 }
 
 StateManager::~StateManager()
@@ -64,5 +65,5 @@ StateID StateManager::popState()
 
 StateID StateManager::top() const
 {
-	return 1;
+	return (*active_states.begin())->getId();
 }

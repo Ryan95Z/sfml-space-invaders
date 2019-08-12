@@ -1,0 +1,6 @@
+#ifndef STATES_STATE_INFO_HPP
+#define STATES_STATE_INFO_HPP
+
+#define GAME_STATE_ID 1
+
+#endif // STATES_STATE_INFO_HPP

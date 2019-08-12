@@ -1,5 +1,7 @@
 #include "GameState.hpp"
 
+#include <iostream>
+
 GameState::GameState(StateID id) : BaseState(id), triangle(nullptr)
 {
 	triangle = new Triangle;

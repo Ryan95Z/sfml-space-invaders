@@ -8,7 +8,9 @@ class BaseState
 {
 public:
 	BaseState(StateID state_id) : id(state_id) {}
+	BaseState() = delete;
 	BaseState(BaseState &) = delete;
+
 	virtual ~BaseState() {}
 
 	virtual void start() = 0;

@@ -135,6 +135,7 @@
     <ClInclude Include="core\Triangle.hpp" />
     <ClInclude Include="core\Window.hpp" />
     <ClInclude Include="states\GameState.hpp" />
+    <ClInclude Include="states\StateInfo.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\frag.glsl" />
