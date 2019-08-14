@@ -122,10 +122,13 @@
     <ClCompile Include="core\Game.cpp" />
     <ClCompile Include="core\loaders\TextureLoader.cpp" />
     <ClCompile Include="core\managers\StateManager.cpp" />
+    <ClCompile Include="core\objects\GObject.hpp" />
     <ClCompile Include="core\Shader.cpp" />
     <ClCompile Include="core\Triangle.cpp" />
     <ClCompile Include="core\Window.cpp" />
+    <ClCompile Include="entities\Cube.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="states\ExperimentState.cpp" />
     <ClCompile Include="states\GameState.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -136,10 +139,14 @@
     <ClInclude Include="core\Shader.hpp" />
     <ClInclude Include="core\Triangle.hpp" />
     <ClInclude Include="core\Window.hpp" />
+    <ClInclude Include="entities\Cube.hpp" />
+    <ClInclude Include="states\ExperimentState.hpp" />
     <ClInclude Include="states\GameState.hpp" />
     <ClInclude Include="states\StateInfo.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="shaders\cube_frag.glsl" />
+    <None Include="shaders\cube_vertex.glsl" />
     <None Include="shaders\frag.glsl" />
     <None Include="shaders\vertex.glsl" />
   </ItemGroup>

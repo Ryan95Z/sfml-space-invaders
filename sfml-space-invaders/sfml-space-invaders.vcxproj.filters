@@ -39,6 +39,15 @@
     <ClCompile Include="core\loaders\TextureLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="core\objects\GObject.hpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="entities\Cube.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="states\ExperimentState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\Game.hpp">
@@ -68,9 +77,17 @@
     <ClInclude Include="core\loaders\TextureLoader.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="entities\Cube.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="states\ExperimentState.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\vertex.glsl" />
     <None Include="shaders\frag.glsl" />
+    <None Include="shaders\cube_vertex.glsl" />
+    <None Include="shaders\cube_frag.glsl" />
   </ItemGroup>
 </Project>

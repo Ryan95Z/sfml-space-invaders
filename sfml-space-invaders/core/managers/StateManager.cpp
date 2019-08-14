@@ -2,11 +2,13 @@
 
 #include "../BaseState.hpp"
 #include "../../states/GameState.hpp"
+#include "../../states/ExperimentState.hpp"
 #include "../../states/StateInfo.hpp"
 
 StateManager::StateManager()
 {
 	registerState<GameState>(GAME_STATE_ID);
+	registerState<ExperimentState>(EXPERIMENT_STATE_ID);
 }
 
 StateManager::~StateManager()

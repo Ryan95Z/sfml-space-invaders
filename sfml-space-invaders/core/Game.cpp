@@ -5,7 +5,7 @@
 
 Game::Game()
 {
-	state_mgr.pushState(1);
+	state_mgr.pushState(2);
 }
 
 Game::~Game()

@@ -36,12 +36,12 @@ void Cube::draw()
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
 	glEnableVertexAttribArray(0);
 
-	glUseProgram(shader->id);
+	glUseProgram(shader->id());
 
 	// Get the model, view and projection uniform locations
-	modelLoc = glGetUniformLocation(shader->id, "model");
-	viewLoc = glGetUniformLocation(shader->id, "view");
-	projLoc = glGetUniformLocation(shader->id, "projection");
+	modelLoc = glGetUniformLocation(shader->id(), "model");
+	viewLoc = glGetUniformLocation(shader->id(), "view");
+	projLoc = glGetUniformLocation(shader->id(), "projection");
 
 	// load the model matrix into the shader
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
