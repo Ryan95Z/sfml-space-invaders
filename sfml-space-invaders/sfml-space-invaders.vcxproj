@@ -120,6 +120,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="core\Game.cpp" />
+    <ClCompile Include="core\loaders\TextureLoader.cpp" />
     <ClCompile Include="core\managers\StateManager.cpp" />
     <ClCompile Include="core\Shader.cpp" />
     <ClCompile Include="core\Triangle.cpp" />
@@ -130,6 +131,7 @@
   <ItemGroup>
     <ClInclude Include="core\BaseState.hpp" />
     <ClInclude Include="core\Game.hpp" />
+    <ClInclude Include="core\loaders\TextureLoader.hpp" />
     <ClInclude Include="core\managers\StateManager.hpp" />
     <ClInclude Include="core\Shader.hpp" />
     <ClInclude Include="core\Triangle.hpp" />
