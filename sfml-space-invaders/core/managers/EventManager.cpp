@@ -1,7 +1,5 @@
 #include "EventManager.hpp"
 
-#include <iostream>
-
 EventManager::EventManager()
 {
 }
@@ -18,10 +16,32 @@ EventManager::~EventManager()
 
 void EventManager::handleEvents(sf::Event evnt)
 {
+	EventBinding *binding = nullptr;
+	sf::Keyboard::Key key = evnt.key.code;
 	EventType type = (EventType) evnt.type;
-	if (type == EventType::KeyPressed)
+	Bindings::iterator b_itr = bindings.begin();
+
+	for (auto binding_pair : bindings)
 	{
-		std::cout << ((int) type) << std::endl;
+		EventDetails details;
+		binding = binding_pair.second;
+		if (binding->type == type)
+		{
+			if (type == EventType::KeyPressed || type == EventType::KeyReleased)
+			{
+				if (key == binding->key)
+				{
+					details.key = key;
+					continue;
+				}
+			}
+
+			if (type == EventType::MouseMoved)
+			{
+				glm::vec2 coords = glm::vec2(evnt.mouseMove.x, evnt.mouseMove.x);
+				details.mouseCoords = coords;
+			}
+		}
 	}
 }
 

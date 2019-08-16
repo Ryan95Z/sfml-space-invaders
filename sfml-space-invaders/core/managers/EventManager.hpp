@@ -6,9 +6,11 @@
 
 #include <vector>
 #include <string>
+#include <iostream>
 #include <functional>
 #include <unordered_map>
 
+// Define the Events that will be supported based on SFML's existing events
 enum class EventType
 {
 	Closed = sf::Event::Closed,
@@ -23,6 +25,7 @@ enum class EventType
 	MouseButtonReleased = sf::Event::MouseButtonReleased,
 	MouseEntered = sf::Event::MouseEntered,
 	MouseLeft = sf::Event::MouseLeft,
+	MouseMoved = sf::Event::MouseMoved
 };
 
 struct EventDetails
@@ -41,7 +44,8 @@ struct EventBinding
 
 using Bindings = std::unordered_map<std::string, EventBinding *>;
 using Callbacks = std::unordered_map<std::string, std::function<void(EventBinding *)>>;
-using CallbackQueue = std::vector<std::function<void(EventBinding *)>>;
+using Event = std::tuple<EventDetails *, std::function<void(EventBinding *)>>;
+using EventQueue = std::vector<Event>;
 
 class EventManager
 {
@@ -55,11 +59,18 @@ public:
 	bool addBinding(std::string name, EventType type, sf::Keyboard::Key key);
 	
 	template <class T>
-	bool addCallback(std::string, void(T::*func)(EventDetails *), T *instance)
+	bool addCallback(std::string name, void(T::*func)(EventDetails *), T *instance)
 	{
-
+		Callbacks::iterator c_itr = callbacks.find(name);
+		if (c_itr != callbacks.end())
+		{
+			std::cout << name << " has already been registered as a callback\n";
+			return false;
+		}
+		auto callback = std::bind(func, instance, std::placeholders::_1);
+		callback.emplace(name, callback);
+		return true;
 	}
-
 
 protected:
 	void processCallbacks();
@@ -67,7 +78,7 @@ protected:
 private:
 	Bindings bindings;
 	Callbacks callbacks;
-	Callbacks callback_queue;
+	EventQueue event_queue;
 };
 
 #endif // CORE_MANAGERS_EVENT_MANAGER

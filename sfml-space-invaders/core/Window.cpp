@@ -29,6 +29,8 @@ void Window::handleEvents()
 		{
 			isRunning = false;
 		}
+
+		event_mgr.handleEvents(evnt);
 	}
 }
 
