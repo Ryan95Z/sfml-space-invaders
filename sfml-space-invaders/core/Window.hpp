@@ -5,6 +5,8 @@
 #include <SFML/Window.hpp>
 #include <SFML/OpenGL.hpp>
 
+#include "managers/EventManager.hpp"
+
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 800
 #define WINDOW_TITLE "Window!"
@@ -31,6 +33,7 @@ private:
 	bool isRunning;
 	sf::Event evnt;
 	sf::Window *window;
+	EventManager event_mgr;
 
 	static sf::ContextSettings getSettings();
 };

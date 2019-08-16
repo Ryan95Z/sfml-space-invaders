@@ -48,6 +48,9 @@
     <ClCompile Include="states\ExperimentState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="core\managers\EventManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\Game.hpp">
@@ -81,6 +84,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="states\ExperimentState.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="core\managers\EventManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

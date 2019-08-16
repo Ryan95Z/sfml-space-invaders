@@ -37,6 +37,7 @@ void Window::beginDrawing()
 	window->setActive(true);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glEnable(GL_DEPTH_BUFFER);
 }
 
 void Window::endDrawing()
@@ -64,6 +65,8 @@ void Window::setUp(const int width, const int height)
 		std::cout << "GLEW failed to initalise\n";
 		exit(EXIT_FAILURE);
 	}
+
+	event_mgr.addBinding("name", EventType::KeyPressed, sf::Keyboard::S);
 }
 
 sf::ContextSettings Window::getSettings()
