@@ -1,8 +1,6 @@
 #include "EventManager.hpp"
 
-EventManager::EventManager()
-{
-}
+EventManager::EventManager() {}
 
 EventManager::~EventManager()
 {
@@ -24,6 +22,7 @@ void EventManager::handleEvents(sf::Event evnt)
 	for (auto binding_pair : bindings)
 	{
 		EventDetails details;
+		details.name = binding_pair.first;
 		binding = binding_pair.second;
 		if (binding->type == type)
 		{
@@ -64,5 +63,20 @@ bool EventManager::addBinding(std::string name, EventType type, sf::Keyboard::Ke
 
 void EventManager::processCallbacks()
 {
+	Callbacks::iterator c_itr = callbacks.end();
+	for (EventDetails details : event_queue)
+	{
+		c_itr = callbacks.find(details.name);
 
+		// Check that the callback exists
+		if (c_itr == callbacks.end())
+		{
+			std::cout << "Missing callback: " << details.name << std::endl;
+			continue;
+		}
+
+		// Execute the callback
+		c_itr->second(&details);
+	}
+	event_queue.clear();
 }
