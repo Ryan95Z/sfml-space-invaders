@@ -1,6 +1,5 @@
 #include "ExperimentState.hpp"
 
-#include "../core/managers/EventManager.hpp"
 
 ExperimentState::ExperimentState(StateID id, SharedContext *context) : BaseState(id, context), cube(nullptr)
 {
@@ -24,6 +23,7 @@ void ExperimentState::init()
 {
 	EventManager *event_mgr = context->event_mgr;
 	event_mgr->addBinding("name", EventType::KeyPressed, sf::Keyboard::S);
+	event_mgr->addCallback("name", &ExperimentState::testCallback, this);
 }
 
 void ExperimentState::destroy()
@@ -41,3 +41,9 @@ void ExperimentState::draw()
 {
 	cube->draw();
 }
+
+void ExperimentState::testCallback(EventDetails * details)
+{
+	std::cout << "Hello World\n";
+}
+

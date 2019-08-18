@@ -10,6 +10,8 @@ EventManager::~EventManager()
 		delete bindings.begin()->second;
 		bindings.erase(bindings.begin());
 	}
+	callbacks.clear();
+	event_queue.clear();
 }
 
 void EventManager::handleEvents(sf::Event evnt)
@@ -31,6 +33,7 @@ void EventManager::handleEvents(sf::Event evnt)
 				if (key == binding->key)
 				{
 					details.key = key;
+					event_queue.emplace_back(details);
 					continue;
 				}
 			}
@@ -39,9 +42,12 @@ void EventManager::handleEvents(sf::Event evnt)
 			{
 				glm::vec2 coords = glm::vec2(evnt.mouseMove.x, evnt.mouseMove.x);
 				details.mouseCoords = coords;
+				event_queue.emplace_back(details);
 			}
 		}
 	}
+
+	processCallbacks();
 }
 
 bool EventManager::addBinding(std::string name, EventType type, sf::Keyboard::Key key)

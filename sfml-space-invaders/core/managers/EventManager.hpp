@@ -76,7 +76,7 @@ public:
 			return false;
 		}
 		auto callback = std::bind(func, instance, std::placeholders::_1);
-		callback.emplace(name, callback);
+		callbacks.emplace(name, callback);
 		return true;
 	}
 private:

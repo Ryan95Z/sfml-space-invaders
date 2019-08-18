@@ -4,6 +4,8 @@
 #include "../core/BaseState.hpp"
 #include "../entities/Cube.hpp"
 
+#include "../core/managers/EventManager.hpp"
+
 class ExperimentState : public BaseState
 {
 public:
@@ -19,6 +21,8 @@ public:
 	virtual void update(float dt);
 	virtual void draw();
 private:
+	void testCallback(EventDetails *details);
+
 	Cube *cube;
 };
 
