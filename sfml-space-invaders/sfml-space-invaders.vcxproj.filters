@@ -92,6 +92,9 @@
     <ClInclude Include="core\SharedContext.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="core\tools\Logger.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\vertex.glsl" />

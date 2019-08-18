@@ -1,11 +1,12 @@
 #ifndef CORE_MANAGERS_STATE_MANAGER_HPP
 #define CORE_MANAGERS_STATE_MANAGER_HPP
 
-#include "../SharedContext.hpp"
-
 #include <unordered_map>
 #include <vector>
 #include <functional>
+
+#include "../SharedContext.hpp"
+#include "../tools/Logger.hpp"
 
 class BaseState;
 
@@ -35,9 +36,11 @@ public:
 		factory[state_id] = [state_id, this]() -> BaseState * {
 			return new T(state_id, this->context);
 		};
+		logger.info("State Registered");
 		return true;
 	}
 private:
+	Logger<StateManager> logger;
 	SharedContext *context;
 	StateFactory factory;
 	StateVector active_states;

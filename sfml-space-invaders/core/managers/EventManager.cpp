@@ -21,21 +21,21 @@ void EventManager::handleEvents(sf::Event evnt)
 	EventType type = (EventType) evnt.type;
 	Bindings::iterator b_itr = bindings.begin();
 
+	// Go through all the bindings
 	for (auto binding_pair : bindings)
 	{
 		EventDetails details;
 		details.name = binding_pair.first;
 		binding = binding_pair.second;
+
+		// If a binding type matches the event type
 		if (binding->type == type)
 		{
-			if (type == EventType::KeyPressed || type == EventType::KeyReleased)
+			if ((type == EventType::KeyPressed || type == EventType::KeyReleased) && key == binding->key)
 			{
-				if (key == binding->key)
-				{
-					details.key = key;
-					event_queue.emplace_back(details);
-					continue;
-				}
+				details.key = key;
+				event_queue.emplace_back(details);
+				continue;
 			}
 
 			if (type == EventType::MouseMoved)
@@ -47,6 +47,7 @@ void EventManager::handleEvents(sf::Event evnt)
 		}
 	}
 
+	// Execute all the callbacks
 	processCallbacks();
 }
 

@@ -5,7 +5,7 @@
 #include "../../states/ExperimentState.hpp"
 #include "../../states/StateInfo.hpp"
 
-StateManager::StateManager(SharedContext *context) : context(context)
+StateManager::StateManager(SharedContext *context) : context(context), logger(this)
 {
 	registerState<GameState>(GAME_STATE_ID);
 	registerState<ExperimentState>(EXPERIMENT_STATE_ID);
