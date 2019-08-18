@@ -5,8 +5,10 @@
 
 Game::Game() : state_mgr(&context)
 {
-	state_mgr.pushState(2);
 	context.event_mgr = window.getEventManager();
+
+	state_mgr.pushState(2);
+	
 }
 
 Game::~Game()

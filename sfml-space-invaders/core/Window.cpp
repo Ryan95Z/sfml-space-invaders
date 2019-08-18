@@ -72,8 +72,6 @@ void Window::setUp(const int width, const int height)
 		std::cout << "GLEW failed to initalise\n";
 		exit(EXIT_FAILURE);
 	}
-
-	event_mgr.addBinding("name", EventType::KeyPressed, sf::Keyboard::S);
 }
 
 sf::ContextSettings Window::getSettings()

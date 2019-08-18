@@ -1,7 +1,7 @@
 #ifndef CORE_SHARED_CONTEXT_HPP
 #define CORE_SHARED_CONTEXT_HPP
 
-#include "managers/EventManager.hpp"
+class EventManager;
 
 struct SharedContext
 {

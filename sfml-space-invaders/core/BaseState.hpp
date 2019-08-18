@@ -7,9 +7,9 @@
 class BaseState
 {
 public:
-	BaseState(StateID state_id, SharedContext *context) : id(state_id), context(context) {}
 	BaseState() = delete;
 	BaseState(BaseState &) = delete;
+	BaseState(StateID state_id, SharedContext *context) : id(state_id), context(context) {}
 
 	virtual ~BaseState() {}
 
@@ -26,10 +26,11 @@ public:
 	{
 		return id;
 	}
+protected:
+	SharedContext *context;
 
 private:
 	StateID id;
-	SharedContext *context;
 };
 
 #endif // CORE_BASE_STATE_HPP
