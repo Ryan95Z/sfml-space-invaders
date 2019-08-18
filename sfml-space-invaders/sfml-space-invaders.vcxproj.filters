@@ -89,6 +89,9 @@
     <ClInclude Include="core\managers\EventManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="core\SharedContext.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\vertex.glsl" />

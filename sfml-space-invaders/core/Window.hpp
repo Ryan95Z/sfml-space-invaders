@@ -25,8 +25,9 @@ public:
 	void endDrawing();
 
 	const sf::Window * getWindow() const;
-
 	bool isOpen() const;
+
+	EventManager * getEventManager();
 private:
 	void setUp(const int width, const int height);
 

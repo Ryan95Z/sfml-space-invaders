@@ -7,7 +7,7 @@
 class BaseState
 {
 public:
-	BaseState(StateID state_id) : id(state_id) {}
+	BaseState(StateID state_id, SharedContext *context) : id(state_id), context(context) {}
 	BaseState() = delete;
 	BaseState(BaseState &) = delete;
 
@@ -29,6 +29,7 @@ public:
 
 private:
 	StateID id;
+	SharedContext *context;
 };
 
 #endif // CORE_BASE_STATE_HPP

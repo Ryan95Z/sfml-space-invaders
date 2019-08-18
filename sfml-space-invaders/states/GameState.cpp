@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-GameState::GameState(StateID id) : BaseState(id), triangle(nullptr)
+GameState::GameState(StateID id, SharedContext *context) : BaseState(id, context), triangle(nullptr)
 {
 	triangle = new Triangle;
 }

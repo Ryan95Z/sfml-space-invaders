@@ -57,6 +57,11 @@ bool Window::isOpen() const
 	return isRunning;
 }
 
+EventManager * Window::getEventManager()
+{
+	return &event_mgr;
+}
+
 void Window::setUp(const int width, const int height)
 {
 	window = new sf::Window(sf::VideoMode(width, height), WINDOW_TITLE, sf::Style::Default, Window::getSettings());

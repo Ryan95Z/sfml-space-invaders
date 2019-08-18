@@ -134,6 +134,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\BaseState.hpp" />
+    <ClInclude Include="core\SharedContext.hpp" />
     <ClInclude Include="core\Game.hpp" />
     <ClInclude Include="core\loaders\TextureLoader.hpp" />
     <ClInclude Include="core\managers\EventManager.hpp" />

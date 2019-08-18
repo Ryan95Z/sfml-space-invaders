@@ -1,6 +1,8 @@
 #ifndef CORE_MANAGERS_STATE_MANAGER_HPP
 #define CORE_MANAGERS_STATE_MANAGER_HPP
 
+#include "../SharedContext.hpp"
+
 #include <unordered_map>
 #include <vector>
 #include <functional>
@@ -14,8 +16,9 @@ using StateFactory = std::unordered_map <StateID, std::function<BaseState * (voi
 class StateManager
 {
 public:
-	StateManager();
+	StateManager() = delete;
 	StateManager(StateManager &) = delete;
+	StateManager(SharedContext *context);
 	~StateManager();
 
 	void update(float dt);
@@ -28,12 +31,14 @@ public:
 	template <class T>
 	bool registerState(StateID state_id)
 	{
-		factory[state_id] = [state_id]() -> BaseState * {
-			return new T(state_id);
+		// Assign a lambda function to construct the State based on the ID
+		factory[state_id] = [state_id, this]() -> BaseState * {
+			return new T(state_id, this->context);
 		};
 		return true;
 	}
 private:
+	SharedContext *context;
 	StateFactory factory;
 	StateVector active_states;
 };

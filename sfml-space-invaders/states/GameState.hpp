@@ -7,9 +7,9 @@
 class GameState : public BaseState
 {
 public:
-	GameState(StateID id);
 	GameState() = delete;
 	GameState(GameState &) = delete;
+	GameState(StateID id, SharedContext *context);
 	virtual ~GameState();
 
 	virtual void start();

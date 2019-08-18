@@ -1,6 +1,6 @@
 #include "ExperimentState.hpp"
 
-ExperimentState::ExperimentState(StateID id) : BaseState(id), cube(nullptr)
+ExperimentState::ExperimentState(StateID id, SharedContext *context) : BaseState(id, context), cube(nullptr)
 {
 	cube = new Cube;
 }
