@@ -36,6 +36,8 @@ protected:
 	glm::vec3 camera_front;
 	glm::vec3 camera_up;
 
+	float time;
+
 private:
 	void setUp();
 };

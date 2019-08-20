@@ -16,10 +16,7 @@ Cube::Cube() : model(1.0f), view(1.0f), projection(1.0f), shader(nullptr)
 	glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-	model = glm::rotate(model, glm::radians(20.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	/*view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));*/
-	view = camera.getLookUpMatrix();
-	projection = glm::perspective(glm::radians(45.0f), (float) (800 / 800), 1.0f, 100.0f);	
+	// model = glm::rotate(model, glm::radians(20.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 }
 
 Cube::~Cube()
@@ -41,7 +38,12 @@ void Cube::draw()
 
 	glUseProgram(shader->id());
 
+	model = glm::mat4(1.0f);
+	
+	// Second param sets the position in world space
+	model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
 	view = camera.getLookUpMatrix();
+	projection = glm::perspective(glm::radians(FOV), (float)(800 / 800), 1.0f, 100.0f);
 
 	// Get the model, view and projection uniform locations
 	modelLoc = glGetUniformLocation(shader->id(), "model");
@@ -62,7 +64,27 @@ void Cube::draw()
 
 void Cube::update(float dt)
 {
+	camera.update(dt);
+}
 
+void Cube::left(EventDetails * details)
+{
+	camera.move(Direction::LEFT);
+}
+
+void Cube::right(EventDetails * details)
+{
+	camera.move(Direction::RIGHT);
+}
+
+void Cube::up(EventDetails * details)
+{
+	camera.move(Direction::UP);
+}
+
+void Cube::down(EventDetails * details)
+{
+	camera.move(Direction::DOWN);
 }
 
 

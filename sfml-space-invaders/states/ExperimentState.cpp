@@ -22,8 +22,19 @@ void ExperimentState::stop()
 void ExperimentState::init()
 {
 	EventManager *event_mgr = context->event_mgr;
-	event_mgr->addBinding("name", EventType::KeyPressed, sf::Keyboard::S);
-	event_mgr->addCallback("name", &ExperimentState::testCallback, this);
+	event_mgr->addBinding("left", EventType::KeyPressed, sf::Keyboard::A);
+	event_mgr->addCallback("left", &Cube::left, cube);
+
+	event_mgr->addBinding("right", EventType::KeyPressed, sf::Keyboard::D);
+	event_mgr->addCallback("right", &Cube::right, cube);
+
+	event_mgr->addBinding("up", EventType::KeyPressed, sf::Keyboard::W);
+	event_mgr->addCallback("up", &Cube::up, cube);
+
+	event_mgr->addBinding("down", EventType::KeyPressed, sf::Keyboard::S);
+	event_mgr->addCallback("down", &Cube::down, cube);
+
+
 }
 
 void ExperimentState::destroy()

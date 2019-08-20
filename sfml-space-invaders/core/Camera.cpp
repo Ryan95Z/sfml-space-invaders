@@ -16,11 +16,12 @@ Camera::~Camera()
 
 void Camera::update(float dt)
 {
+	time = dt;
 }
 
 void Camera::move(Direction direction)
 {
-	float speed = 0.55;
+	float speed = time * 5.0f;
 	if (direction == Direction::LEFT)
 	{
 		camera_pos -= glm::normalize(glm::cross(camera_front, camera_up)) * speed;

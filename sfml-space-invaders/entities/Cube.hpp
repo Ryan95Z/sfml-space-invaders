@@ -11,6 +11,8 @@
 #include "../core/Shader.hpp"
 #include "../core/Camera.hpp"
 
+#include "../core/managers/EventManager.hpp"
+
 #define NUM_VAO 1
 #define NUM_VBO 1
 #define NUM_POINTS 108
@@ -23,6 +25,11 @@ public:
 
 	virtual void draw();
 	virtual void update(float dt);
+
+	void left(EventDetails *details);
+	void right(EventDetails *details);
+	void up(EventDetails *details);
+	void down(EventDetails *details);
 
 private:
 	Camera camera;
