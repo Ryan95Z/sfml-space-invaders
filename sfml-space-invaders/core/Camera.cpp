@@ -21,7 +21,7 @@ void Camera::update(float dt)
 
 void Camera::move(Direction direction)
 {
-	float speed = time * 5.0f;
+	float speed = time * 3.0f;
 	if (direction == Direction::LEFT)
 	{
 		camera_pos -= glm::normalize(glm::cross(camera_front, camera_up)) * speed;
@@ -47,7 +47,7 @@ void Camera::move(Direction direction)
 
 glm::mat4 Camera::getLookUpMatrix() const
 {
-	return glm::lookAt(camera_pos, camera_front, camera_up);
+	return glm::lookAt(camera_pos, camera_pos + camera_front, camera_up);
 }
 
 void Camera::setUp()
