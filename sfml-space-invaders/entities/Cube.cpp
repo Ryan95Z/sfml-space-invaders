@@ -1,5 +1,7 @@
 #include "Cube.hpp"
 
+
+
 #define VERTEX_SHADER "shaders/cube_vertex.glsl"
 #define FRAG_SHADER "shaders/cube_frag.glsl"
 
@@ -15,7 +17,8 @@ Cube::Cube() : model(1.0f), view(1.0f), projection(1.0f), shader(nullptr)
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
 	model = glm::rotate(model, glm::radians(20.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+	/*view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));*/
+	view = camera.getLookUpMatrix();
 	projection = glm::perspective(glm::radians(45.0f), (float) (800 / 800), 1.0f, 100.0f);	
 }
 
@@ -38,6 +41,8 @@ void Cube::draw()
 
 	glUseProgram(shader->id());
 
+	view = camera.getLookUpMatrix();
+
 	// Get the model, view and projection uniform locations
 	modelLoc = glGetUniformLocation(shader->id(), "model");
 	viewLoc = glGetUniformLocation(shader->id(), "view");
@@ -55,6 +60,9 @@ void Cube::draw()
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 }
 
-void Cube::update(float dt) {}
+void Cube::update(float dt)
+{
+
+}
 
 

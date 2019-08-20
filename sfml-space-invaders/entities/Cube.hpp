@@ -9,6 +9,7 @@
 
 #include "../core/objects/GObject.hpp"
 #include "../core/Shader.hpp"
+#include "../core/Camera.hpp"
 
 #define NUM_VAO 1
 #define NUM_VBO 1
@@ -24,6 +25,7 @@ public:
 	virtual void update(float dt);
 
 private:
+	Camera camera;
 	glm::mat4 model;
 	glm::mat4 view;
 	glm::mat4 projection;
