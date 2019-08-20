@@ -3,7 +3,8 @@
 
 #include <string>
 #include <iostream>
-
+#include <cstring>
+#include <ctime>
 
 template <class T>
 class Logger
@@ -32,7 +33,6 @@ public:
 	}
 
 private:
-
 	T *instance;
 };
 
