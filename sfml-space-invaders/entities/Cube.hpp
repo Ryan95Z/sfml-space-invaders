@@ -25,18 +25,24 @@ public:
 
 	virtual void draw();
 	virtual void update(float dt);
+	
+	void setPosition(glm::vec3 position);
+	glm::vec3 getPosition() const;
 
 	void left(EventDetails *details);
 	void right(EventDetails *details);
 	void up(EventDetails *details);
 	void down(EventDetails *details);
 
+protected:
+	glm::vec3 position;
+
 private:
 	Camera camera;
 	glm::mat4 model;
 	glm::mat4 view;
 	glm::mat4 projection;
-
+	
 	GLuint modelLoc;
 	GLuint viewLoc;
 	GLuint projLoc;

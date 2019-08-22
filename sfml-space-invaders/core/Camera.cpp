@@ -1,5 +1,7 @@
 #include "Camera.hpp"
 
+#include <iostream>
+
 Camera::Camera() : camera_pos(glm::vec3(0.0f, 0.0f, 3.0f))
 {
 	setUp();
@@ -21,7 +23,7 @@ void Camera::update(float dt)
 
 void Camera::move(Direction direction)
 {
-	float speed = time * 3.0f;
+	float speed = time * 4.0f;
 	if (direction == Direction::LEFT)
 	{
 		camera_pos -= glm::normalize(glm::cross(camera_front, camera_up)) * speed;
@@ -41,8 +43,6 @@ void Camera::move(Direction direction)
 	{
 		camera_pos -= speed * camera_front;
 	}
-
-	logger.vec3(camera_pos);
 }
 
 glm::mat4 Camera::getLookUpMatrix() const

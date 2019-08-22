@@ -18,6 +18,10 @@ public:
 	void handleEvents();
 	void restartClock();
 private:
+	float delta_time;
+	float last_frame;
+	float current_frame;
+
 	Window window;
 	SharedContext context;
 	StateManager state_mgr;

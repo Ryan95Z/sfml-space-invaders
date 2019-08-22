@@ -5,7 +5,7 @@
 #define VERTEX_SHADER "shaders/cube_vertex.glsl"
 #define FRAG_SHADER "shaders/cube_frag.glsl"
 
-Cube::Cube() : model(1.0f), view(1.0f), projection(1.0f), shader(nullptr)
+Cube::Cube() : model(1.0f), view(1.0f), projection(1.0f), shader(nullptr), position(glm::vec3(0.0f, 0.0f, 0.0f))
 {
 	shader = new Shader(VERTEX_SHADER, FRAG_SHADER);
 
@@ -15,8 +15,6 @@ Cube::Cube() : model(1.0f), view(1.0f), projection(1.0f), shader(nullptr)
 	glGenBuffers(NUM_VBO, vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-	// model = glm::rotate(model, glm::radians(20.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 }
 
 Cube::~Cube()
@@ -64,7 +62,18 @@ void Cube::draw()
 
 void Cube::update(float dt)
 {
+	model = glm::rotate(model, glm::radians(glm::sin(dt)), glm::vec3(1.0f, 0.0f, 0.0f));
 	camera.update(dt);
+}
+
+void Cube::setPosition(glm::vec3 position)
+{
+	this->position = position;
+}
+
+glm::vec3 Cube::getPosition() const
+{
+	return position;
 }
 
 void Cube::left(EventDetails * details)

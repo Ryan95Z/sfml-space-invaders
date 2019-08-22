@@ -26,6 +26,11 @@ public:
 	{
 		std::cout << "[DEBUG]: " << "(" << typeid(*instance).name() << ") " << msg << std::endl;
 	}
+
+	void debug(float f) const noexcept
+	{
+		std::cout << "[DEBUG]: " << "(" << typeid(*instance).name() << ") " << f << std::endl;
+	}
 	
 	void error(std::string msg) const noexcept
 	{
