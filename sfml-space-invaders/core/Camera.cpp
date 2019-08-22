@@ -1,6 +1,6 @@
 #include "Camera.hpp"
 
-#include <iostream>
+#define MOVE_SPEED 2.0f
 
 Camera::Camera() : camera_pos(glm::vec3(0.0f, 0.0f, 3.0f))
 {
@@ -23,7 +23,7 @@ void Camera::update(float dt)
 
 void Camera::move(Direction direction)
 {
-	float speed = time * 4.0f;
+	float speed = time * MOVE_SPEED;
 	if (direction == Direction::LEFT)
 	{
 		camera_pos -= glm::normalize(glm::cross(camera_front, camera_up)) * speed;

@@ -38,6 +38,7 @@ protected:
 	glm::vec3 position;
 
 private:
+	float rotation;
 	Camera camera;
 	glm::mat4 model;
 	glm::mat4 view;

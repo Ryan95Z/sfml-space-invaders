@@ -15,6 +15,8 @@ Cube::Cube() : model(1.0f), view(1.0f), projection(1.0f), shader(nullptr), posit
 	glGenBuffers(NUM_VBO, vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+	rotation = 0.0f;
 }
 
 Cube::~Cube()
@@ -36,10 +38,8 @@ void Cube::draw()
 
 	glUseProgram(shader->id());
 
-	model = glm::mat4(1.0f);
-	
 	// Second param sets the position in world space
-	model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+	// model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
 	view = camera.getLookUpMatrix();
 	projection = glm::perspective(glm::radians(FOV), (float)(800 / 800), 1.0f, 100.0f);
 
@@ -58,12 +58,15 @@ void Cube::draw()
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
 	glDrawArrays(GL_TRIANGLES, 0, 36);
+
+	model = glm::mat4(1.0f);
 }
 
 void Cube::update(float dt)
 {
-	model = glm::rotate(model, glm::radians(glm::sin(dt)), glm::vec3(1.0f, 0.0f, 0.0f));
 	camera.update(dt);
+	model = glm::rotate(model, glm::radians(rotation), glm::vec3(1.0f, 1.0f, 0.0f)) * dt;
+	rotation = (int) (rotation + 1) % 360;
 }
 
 void Cube::setPosition(glm::vec3 position)
