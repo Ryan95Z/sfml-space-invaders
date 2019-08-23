@@ -3,7 +3,7 @@
 #define VERTEX_SHADER "shaders/square_vertex.glsl"
 #define FRAG_SHADER "shaders/frag.glsl"
 
-Square::Square() : shader(nullptr)
+Square::Square() : shader(nullptr), model(1.0f), view(1.0f), proj(1.0f)
 {
 	shader = new Shader(VERTEX_SHADER, FRAG_SHADER);
 
@@ -43,10 +43,26 @@ void Square::draw()
 {
 	glUseProgram(shader->id());
 
+	model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+
+	modelLoc = glGetUniformLocation(shader->id(), "model");
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
 	glBindVertexArray(vao[0]);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+	model = glm::mat4(1.0f);
 }
 
 void Square::update(float dt) {}
 
 
+void Square::setPerspectiveMatrix(glm::mat4 proj)
+{
+	this->proj = proj;
+}
+
+void Square::setViewMatrix(glm::mat4 view)
+{
+	this->view = view;
+}

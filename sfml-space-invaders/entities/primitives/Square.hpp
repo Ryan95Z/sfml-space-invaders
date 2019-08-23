@@ -3,6 +3,8 @@
 
 #include <GL/glew.h>
 #include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 #include "../../core/Shader.hpp"
 #include "../../core/objects/GObject.hpp"
@@ -22,7 +24,15 @@ public:
 
 	virtual void draw();
 	virtual void update(float dt);
+
+	void setPerspectiveMatrix(glm::mat4 proj);
+	void setViewMatrix(glm::mat4 view);
+
 private:
+	glm::mat4 model;
+	glm::mat4 view;
+	glm::mat4 proj;
+
 	float verticies[NUM_VERTICIES] = {
 		0.5f, 0.5f, 0.0f,		// top right
 		0.5f, -0.5f, 0.0f,		// bottom right
@@ -35,6 +45,7 @@ private:
 		1, 2, 3		// second triangle
 	};
 
+	GLuint modelLoc;
 	GLuint vao[NUM_VAOs];
 	GLuint vbo[NUM_VBOs];
 	GLuint ebo[NUM_EBOs];
