@@ -2,6 +2,7 @@
 #define CORE_GAME_HPP
 
 #include "Window.hpp"
+#include "SharedContext.hpp"
 #include "managers/StateManager.hpp"
 
 class Game
@@ -17,8 +18,13 @@ public:
 	void handleEvents();
 	void restartClock();
 private:
-	StateManager state_mgr;
+	float delta_time;
+	float last_frame;
+	float current_frame;
+
 	Window window;
+	SharedContext context;
+	StateManager state_mgr;
 
 	sf::Time elapsed_time;
 	sf::Clock clock;

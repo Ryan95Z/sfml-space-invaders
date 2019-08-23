@@ -5,6 +5,8 @@
 #include <SFML/Window.hpp>
 #include <SFML/OpenGL.hpp>
 
+#include "managers/EventManager.hpp"
+
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 800
 #define WINDOW_TITLE "Window!"
@@ -23,14 +25,16 @@ public:
 	void endDrawing();
 
 	const sf::Window * getWindow() const;
-
 	bool isOpen() const;
+
+	EventManager * getEventManager();
 private:
 	void setUp(const int width, const int height);
 
 	bool isRunning;
 	sf::Event evnt;
 	sf::Window *window;
+	EventManager event_mgr;
 
 	static sf::ContextSettings getSettings();
 };

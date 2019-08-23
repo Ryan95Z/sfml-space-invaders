@@ -3,9 +3,12 @@
 #include "Game.hpp"
 
 
-Game::Game()
+Game::Game() : state_mgr(&context), delta_time(0.0f), last_frame(0.0f), current_frame(0.0f)
 {
-	state_mgr.pushState(1);
+	context.event_mgr = window.getEventManager();
+
+	state_mgr.pushState(2);
+	
 }
 
 Game::~Game()
@@ -26,13 +29,10 @@ void Game::render()
 
 void Game::update()
 {
-	float timestep = 1 / 60.0f;
-	float elapased = elapsed_time.asSeconds();
-	if (elapased > timestep)
-	{
-		state_mgr.update(timestep);
-		elapsed_time -= sf::seconds(timestep);
-	}
+	current_frame = elapsed_time.asSeconds();
+	state_mgr.update(delta_time);
+	delta_time = current_frame - last_frame;
+	last_frame = current_frame;
 }
 
 void Game::handleEvents()

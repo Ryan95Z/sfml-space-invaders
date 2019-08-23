@@ -29,6 +29,8 @@ void Window::handleEvents()
 		{
 			isRunning = false;
 		}
+
+		event_mgr.handleEvents(evnt);
 	}
 }
 
@@ -37,6 +39,7 @@ void Window::beginDrawing()
 	window->setActive(true);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glEnable(GL_DEPTH_BUFFER);
 }
 
 void Window::endDrawing()
@@ -52,6 +55,11 @@ const sf::Window * Window::getWindow() const
 bool Window::isOpen() const
 {
 	return isRunning;
+}
+
+EventManager * Window::getEventManager()
+{
+	return &event_mgr;
 }
 
 void Window::setUp(const int width, const int height)
