@@ -129,6 +129,7 @@
     <ClCompile Include="core\Triangle.cpp" />
     <ClCompile Include="core\Window.cpp" />
     <ClCompile Include="entities\Cube.cpp" />
+    <ClCompile Include="entities\primitives\Square.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="states\ExperimentState.cpp" />
     <ClCompile Include="states\GameState.cpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="core\Triangle.hpp" />
     <ClInclude Include="core\Window.hpp" />
     <ClInclude Include="entities\Cube.hpp" />
+    <ClInclude Include="entities\primitives\Square.hpp" />
     <ClInclude Include="states\ExperimentState.hpp" />
     <ClInclude Include="states\GameState.hpp" />
     <ClInclude Include="states\StateInfo.hpp" />
@@ -156,6 +158,7 @@
     <None Include="shaders\cube_frag.glsl" />
     <None Include="shaders\cube_vertex.glsl" />
     <None Include="shaders\frag.glsl" />
+    <None Include="shaders\square_vertex.glsl" />
     <None Include="shaders\vertex.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

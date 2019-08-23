@@ -2,7 +2,8 @@
 #define STATES_GAME_STATE_HPP
 
 #include "../core/BaseState.hpp"
-#include "../core/Triangle.hpp"
+
+#include "../entities/primitives/Square.hpp"
 
 class GameState : public BaseState
 {
@@ -21,7 +22,7 @@ public:
 	virtual void update(float dt);
 	virtual void draw();
 private:
-	Triangle *triangle;
+	Square s;
 };
 
 #endif // STATES_GAME_STATE_HPP

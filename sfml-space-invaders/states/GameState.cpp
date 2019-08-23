@@ -2,15 +2,9 @@
 
 #include <iostream>
 
-GameState::GameState(StateID id, SharedContext *context) : BaseState(id, context), triangle(nullptr)
-{
-	triangle = new Triangle;
-}
+GameState::GameState(StateID id, SharedContext *context) : BaseState(id, context) {}
 
-GameState::~GameState()
-{
-	destroy();
-}
+GameState::~GameState() {}
 
 void GameState::start() {}
 
@@ -18,21 +12,14 @@ void GameState::stop() {}
 
 void GameState::init() {}
 
-void GameState::destroy()
-{
-	if (triangle != nullptr)
-	{
-		delete triangle;
-		triangle = nullptr;
-	}
-}
+void GameState::destroy() {}
 
 void GameState::update(float dt)
 {
-	triangle->update(dt);
+	s.update(dt);
 }
 
 void GameState::draw()
 {
-	triangle->draw();
+	s.draw();
 }

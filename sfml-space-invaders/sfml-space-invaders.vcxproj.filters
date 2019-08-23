@@ -54,6 +54,9 @@
     <ClCompile Include="core\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="entities\primitives\Square.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\Game.hpp">
@@ -101,11 +104,15 @@
     <ClInclude Include="core\Camera.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="entities\primitives\Square.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\vertex.glsl" />
     <None Include="shaders\frag.glsl" />
     <None Include="shaders\cube_vertex.glsl" />
     <None Include="shaders\cube_frag.glsl" />
+    <None Include="shaders\square_vertex.glsl" />
   </ItemGroup>
 </Project>
