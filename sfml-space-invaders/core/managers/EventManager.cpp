@@ -6,7 +6,7 @@ EventManager::~EventManager()
 {
 	while (bindings.begin() != bindings.end())
 	{
-		std::cout << "Removing: " << bindings.begin()->first << std::endl;
+		Logger::debug("Removing: " + bindings.begin()->first);
 		delete bindings.begin()->second;
 		bindings.erase(bindings.begin());
 	}
@@ -57,14 +57,13 @@ bool EventManager::addBinding(std::string name, EventType type, sf::Keyboard::Ke
 	Bindings::iterator b_itr = bindings.find(name);
 	if (b_itr != bindings.end())
 	{
-		std::cout << name << " is already in use as a binding\n";
+		Logger::error(name + " is already in use as a binding");
 		return false;
 	}
 	binding = new EventBinding;
 	binding->type = type;
 	binding->key = key;
 	bindings.emplace(name, binding);
-	std::cout << "Size of bindings: " << bindings.size() << std::endl;
 	return true;
 }
 
@@ -78,7 +77,7 @@ void EventManager::processCallbacks()
 		// Check that the callback exists
 		if (c_itr == callbacks.end())
 		{
-			std::cout << "Missing callback: " << details.name << std::endl;
+			Logger::error("Missing callback: " + details.name);
 			continue;
 		}
 

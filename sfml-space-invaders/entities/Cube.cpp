@@ -66,7 +66,7 @@ void Cube::update(float dt)
 {
 	camera.update(dt);
 	model = glm::rotate(model, glm::radians(rotation), glm::vec3(1.0f, 1.0f, 0.0f)) * dt;
-	rotation = (int) (rotation + 1) % 360;
+	rotation = (float) ((int) (rotation + 1) % 360);
 }
 
 void Cube::setPosition(glm::vec3 position)

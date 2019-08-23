@@ -11,6 +11,8 @@
 #include <functional>
 #include <unordered_map>
 
+#include "../tools/Logger.hpp"
+
 // Define the Events that will be supported based on SFML's existing events
 enum class EventType
 {
@@ -66,7 +68,7 @@ public:
 
 		if (b_itr == bindings.end())
 		{
-			std::cout << "Not binding assigned to " << name << std::endl;
+			std::cout << "No binding assigned to " << name << std::endl;
 			return false;
 		}
 

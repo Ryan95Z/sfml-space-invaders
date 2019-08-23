@@ -54,9 +54,6 @@
     <ClCompile Include="core\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="core\tools\GlmLogger.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\Game.hpp">
@@ -102,9 +99,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="core\Camera.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="core\tools\GlmLogger.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -5,8 +5,6 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "tools/GlmLogger.hpp"
-
 #define FOV 45.0f
 
 enum Direction
@@ -30,8 +28,6 @@ public:
 	glm::mat4 getLookUpMatrix() const;
 
 protected:
-	GlmLogger logger;
-
 	glm::vec3 camera_pos;
 	glm::vec3 camera_front;
 	glm::vec3 camera_up;

@@ -126,7 +126,6 @@
     <ClCompile Include="core\managers\StateManager.cpp" />
     <ClCompile Include="core\objects\GObject.hpp" />
     <ClCompile Include="core\Shader.cpp" />
-    <ClCompile Include="core\tools\GlmLogger.cpp" />
     <ClCompile Include="core\Triangle.cpp" />
     <ClCompile Include="core\Window.cpp" />
     <ClCompile Include="entities\Cube.cpp" />
@@ -137,7 +136,6 @@
   <ItemGroup>
     <ClInclude Include="core\BaseState.hpp" />
     <ClInclude Include="core\Camera.hpp" />
-    <ClInclude Include="core\tools\GlmLogger.hpp" />
     <ClInclude Include="core\tools\Logger.hpp">
       <DeploymentContent>false</DeploymentContent>
     </ClInclude>
