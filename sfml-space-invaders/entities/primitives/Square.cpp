@@ -43,10 +43,11 @@ void Square::draw()
 {
 	glUseProgram(shader->id());
 
-	model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-
 	modelLoc = glGetUniformLocation(shader->id(), "model");
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+	projLoc = glGetUniformLocation(shader->id(), "proj");
+	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(proj));
 
 	glBindVertexArray(vao[0]);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
@@ -54,15 +55,9 @@ void Square::draw()
 	model = glm::mat4(1.0f);
 }
 
-void Square::update(float dt) {}
-
-
-void Square::setPerspectiveMatrix(glm::mat4 proj)
+void Square::update(float dt)
 {
-	this->proj = proj;
-}
-
-void Square::setViewMatrix(glm::mat4 view)
-{
-	this->view = view;
+	proj = glm::ortho(0.0f, 800.0f, 800.0f, 0.0f, -1.0f, 1.0f);
+	model = glm::translate(model, glm::vec3(200.0f, 200.0f, 0.0f));
+	model = glm::scale(model, glm::vec3(50.0f, 50.0f, 0.0f));
 }

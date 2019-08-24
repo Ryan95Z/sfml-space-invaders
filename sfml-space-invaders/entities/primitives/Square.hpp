@@ -25,10 +25,9 @@ public:
 	virtual void draw();
 	virtual void update(float dt);
 
-	void setPerspectiveMatrix(glm::mat4 proj);
-	void setViewMatrix(glm::mat4 view);
-
 private:
+	glm::vec2 pos;
+
 	glm::mat4 model;
 	glm::mat4 view;
 	glm::mat4 proj;
@@ -46,6 +45,7 @@ private:
 	};
 
 	GLuint modelLoc;
+	GLuint projLoc;
 	GLuint vao[NUM_VAOs];
 	GLuint vbo[NUM_VBOs];
 	GLuint ebo[NUM_EBOs];
