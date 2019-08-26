@@ -2,9 +2,10 @@
 #define STATES_GAME_STATE_HPP
 
 #include "../core/BaseState.hpp"
-
 #include "../core/SpriteRender.hpp"
+#include "../core/managers/EventManager.hpp"
 
+#define NUM_ALIENS 3
 
 class GameState : public BaseState
 {
@@ -22,7 +23,16 @@ public:
 
 	virtual void update(float dt);
 	virtual void draw();
+
+protected:
+	void left(EventDetails *details);
+	void right(EventDetails *details);
+	void fire(EventDetails *details);
+
 private:
+	float deltaTime;
+	glm::vec2 pos;
+	glm::vec2 alien_pos[NUM_ALIENS];
 	SpriteRender render;
 };
 
