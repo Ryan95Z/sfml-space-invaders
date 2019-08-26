@@ -16,10 +16,11 @@ void GameState::destroy() {}
 
 void GameState::update(float dt)
 {
-	s.update(dt);
+
 }
 
 void GameState::draw()
 {
-	s.draw();
+	render.drawSprite(glm::vec2(100.0f, 100.0f));
+	render.drawSprite(glm::vec2(300.0f, 100.0f));
 }

@@ -6,6 +6,8 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+#include "../core/Shader.hpp"
+
 #define NUM_VAO 1
 #define NUM_VBO 1
 
@@ -20,11 +22,14 @@ public:
 	void drawSprite(glm::vec2 position);
 
 private:
+	Shader *shader;
+
 	void initSpriteRender();
 	void destroySpriteRender();
-
 	glm::mat4 model;
 	glm::mat4 proj;
+	GLuint modelLoc;
+	GLuint projLoc;
 	GLuint vao[NUM_VAO];
 	GLuint vbo[NUM_VBO];
 

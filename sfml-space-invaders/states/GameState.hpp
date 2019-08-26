@@ -3,7 +3,8 @@
 
 #include "../core/BaseState.hpp"
 
-#include "../entities/primitives/Square.hpp"
+#include "../core/SpriteRender.hpp"
+
 
 class GameState : public BaseState
 {
@@ -22,7 +23,7 @@ public:
 	virtual void update(float dt);
 	virtual void draw();
 private:
-	Square s;
+	SpriteRender render;
 };
 
 #endif // STATES_GAME_STATE_HPP
