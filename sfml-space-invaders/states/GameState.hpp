@@ -5,7 +5,7 @@
 #include "../core/SpriteRender.hpp"
 #include "../core/managers/EventManager.hpp"
 
-#define NUM_ALIENS 3
+#define NUM_ALIENS 20
 
 class GameState : public BaseState
 {
@@ -27,10 +27,11 @@ public:
 protected:
 	void left(EventDetails *details);
 	void right(EventDetails *details);
+	void stop(EventDetails *details);
 	void fire(EventDetails *details);
 
 private:
-	float deltaTime;
+	glm::vec2 velocity;
 	glm::vec2 pos;
 	glm::vec2 alien_pos[NUM_ALIENS];
 	SpriteRender render;
