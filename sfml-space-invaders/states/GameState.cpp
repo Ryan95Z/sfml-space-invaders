@@ -99,8 +99,6 @@ void GameState::update(float dt)
 	}
 
 	Logger::debug("Projectiles: " + std::to_string(pvec.size()));
-	
-	
 }
 
 void GameState::draw()
