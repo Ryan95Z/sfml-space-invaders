@@ -44,6 +44,11 @@ void StateManager::render()
 	(*active_states.begin())->draw();
 }
 
+void StateManager::cleanup()
+{
+	(*active_states.begin())->cleanup();
+}
+
 bool StateManager::pushState(StateID state_id)
 {
 	BaseState *state = factory[state_id]();

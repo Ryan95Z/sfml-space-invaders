@@ -20,6 +20,8 @@ public:
 
 	virtual void update(float dt);
 	virtual void draw();
+
+	virtual void cleanup();
 private:
 	void testCallback(EventDetails *details);
 

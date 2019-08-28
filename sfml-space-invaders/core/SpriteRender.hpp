@@ -19,7 +19,7 @@ public:
 	SpriteRender();
 	~SpriteRender();
 
-	void drawSprite(glm::vec2 position);
+	void drawSprite(glm::vec2 position, glm::vec2 size);
 
 private:
 	Shader *shader;

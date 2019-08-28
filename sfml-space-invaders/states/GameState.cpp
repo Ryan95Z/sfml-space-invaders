@@ -1,5 +1,7 @@
 #include "GameState.hpp"
 
+#include "../core/tools/Logger.hpp"
+
 #define LEFT_EVENT "left"
 #define LEFT_RELEASE_EVENT "left_released"
 #define RIGHT_EVENT "right"
@@ -12,9 +14,14 @@
 #define ALIEN_INITIAL_Y 100.0f
 #define ALIEN_POS_INCREMENT 100.0f
 
+#define SPRITE_SIZE glm::vec2(50.0f, 50.0f)
+
 GameState::GameState(StateID id, SharedContext *context) : BaseState(id, context) {}
 
-GameState::~GameState() {}
+GameState::~GameState()
+{
+	cleanup();
+}
 
 void GameState::start()
 {
@@ -34,6 +41,8 @@ void GameState::start()
 
 	// Player's initial position
 	pos = glm::vec2(400.0f, 700.0f);
+
+	game_count = 0;
 }
 
 void GameState::stop() {}
@@ -59,16 +68,64 @@ void GameState::destroy() {}
 void GameState::update(float dt)
 {
 	pos += velocity * dt;
+
+	for (int i = 0; i < NUM_ALIENS; ++i)
+	{
+		if (move_left == true)
+		{
+			alien_pos[i].x -= 100 * dt;
+		}
+		else
+		{
+			alien_pos[i].x += 100 * dt;
+		}
+	}
+	game_count++;
+	if (game_count == 100)
+	{
+		game_count = 0;
+		move_left = !move_left;
+	}
+
+	PositionVector::iterator itr = pvec.begin();
+	while (itr != pvec.end())
+	{
+		if (itr->y < 0.0f) {
+			rvec.push_back(itr);
+		}
+
+		itr->y -= 200.0f * dt;
+		++itr;
+	}
+
+	Logger::debug("Projectiles: " + std::to_string(pvec.size()));
+	
+	
 }
 
 void GameState::draw()
 {
 	for (int i = 0; i < NUM_ALIENS; ++i)
 	{
-		render.drawSprite(alien_pos[i]);
+		render.drawSprite(alien_pos[i], SPRITE_SIZE);
 	}
 
-	render.drawSprite(pos);
+	for (glm::vec2 &p : pvec)
+	{
+		render.drawSprite(p, glm::vec2(10.0f, 10.0f));
+	}
+
+	render.drawSprite(pos, SPRITE_SIZE);
+
+}
+
+void GameState::cleanup()
+{
+	while (rvec.begin() != rvec.end())
+	{
+		pvec.erase(*rvec.begin());
+		rvec.erase(rvec.begin());
+	}
 }
 
 void GameState::left(EventDetails * details)
@@ -88,5 +145,7 @@ void GameState::stop(EventDetails * details)
 
 void GameState::fire(EventDetails * details)
 {
-	std::cout << "Fire\n";
+	glm::vec2 x = pos;
+	x.x += 20.0f;
+	pvec.push_back(glm::vec2(x));
 }

@@ -53,6 +53,8 @@ void ExperimentState::draw()
 	cube->draw();
 }
 
+void ExperimentState::cleanup() {}
+
 void ExperimentState::testCallback(EventDetails * details)
 {
 	std::cout << "Hello World\n";

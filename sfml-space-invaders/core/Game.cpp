@@ -42,5 +42,6 @@ void Game::handleEvents()
 
 void Game::restartClock()
 {
+	state_mgr.cleanup();
 	elapsed_time += clock.restart();
 }
