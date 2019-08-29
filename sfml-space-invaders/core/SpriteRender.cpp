@@ -15,12 +15,13 @@ SpriteRender::~SpriteRender()
 
 void SpriteRender::drawSprite(glm::vec2 position, glm::vec2 size)
 {
-	model = glm::translate(glm::mat4(1.0f), glm::vec3(0.5f * size.x, 0.5f * size.y, 0.0f));
-	model = glm::translate(model, glm::vec3(position, 1.0f));
+	model = glm::translate(glm::mat4(1.0f), glm::vec3(position, 0.0f));
 	
+	// Set the origin to be the middle of the object
 	model = glm::translate(model, glm::vec3(-0.5f * size.x, -0.5f * size.y, 0.0f));
 	model = glm::scale(model, glm::vec3(size, 0.0f));
-	proj = glm::ortho(0.0f, 800.0f, 0.0f, 800.0f, -1.0f, 1.0f);
+
+	proj = glm::ortho(0.0f, 800.0f, 800.0f, 0.0f, -1.0f, 1.0f);
 
 	glUseProgram(shader->id());
 

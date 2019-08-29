@@ -40,7 +40,7 @@ void EventManager::handleEvents(sf::Event evnt)
 
 			if (type == EventType::MouseMoved)
 			{
-				glm::vec2 coords = glm::vec2(evnt.mouseMove.x, evnt.mouseMove.x);
+				glm::vec2 coords = glm::vec2(evnt.mouseMove.x, evnt.mouseMove.y);
 				details.mouseCoords = coords;
 				event_queue.emplace_back(details);
 			}
