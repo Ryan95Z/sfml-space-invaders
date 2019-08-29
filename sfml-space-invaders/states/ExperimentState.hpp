@@ -7,6 +7,8 @@
 #include "../core/SpriteRender.hpp"
 #include "../core/managers/EventManager.hpp"
 
+#include "../entities/Alien.hpp"
+
 class ExperimentState : public BaseState
 {
 public:
@@ -26,6 +28,8 @@ public:
 private:
 	b2Vec2 gravity;
 	b2World *world;
+
+	Alien *a1;
 
 	glm::vec2 pos;
 	glm::vec2 s_pos;

@@ -5,18 +5,25 @@
 
 #define SCALE 30.0f
 
-ExperimentState::ExperimentState(StateID id, SharedContext *context) : BaseState(id, context)
+ExperimentState::ExperimentState(StateID id, SharedContext *context) : BaseState(id, context), a1(nullptr)
 {
 	gravity = b2Vec2(0.0f, 9.8f);
 	world = new b2World(gravity);
+
+	a1 = new Alien(world);
+
+	a1->setPosition(glm::vec2(200.0f, 20.0f));
 }
 
 ExperimentState::~ExperimentState()
 {
 	destroy();
 
-	world->DestroyBody(body);
-	world->DestroyBody(s_body);
+	//world->DestroyBody(body);
+	//world->DestroyBody(s_body);
+
+	delete a1;
+	a1 = nullptr;
 
 	delete world;
 	world = nullptr;
@@ -24,10 +31,10 @@ ExperimentState::~ExperimentState()
 
 void ExperimentState::start()
 {
-	pos = glm::vec2(700, 0.0f);
+	/*pos = glm::vec2(50.0f, 50.0f);
 
 	b2BodyDef mybodyDef;
-	mybodyDef.type = b2_dynamicBody;
+	mybodyDef.type = b2_kinematicBody;
 	mybodyDef.position = b2Vec2(pos.x / SCALE, pos.y / SCALE);
 
 	body = world->CreateBody(&mybodyDef);
@@ -54,7 +61,7 @@ void ExperimentState::start()
 	b2FixtureDef s_fixture;
 	s_fixture.density = 0.0f;
 	s_fixture.shape = &s_shape;
-	s_body->CreateFixture(&s_fixture);
+	s_body->CreateFixture(&s_fixture);*/
 }
 
 void ExperimentState::stop() {}
@@ -76,8 +83,9 @@ void ExperimentState::draw()
 		if (body_itr->GetType() == b2_dynamicBody)
 		{
 			
-			pos = glm::vec2(b2_pos.x * SCALE, b2_pos.y * SCALE);
-			render.drawSprite(pos, SPRITE_SIZE);
+			/*pos = glm::vec2(b2_pos.x * SCALE, b2_pos.y * SCALE);
+			render.drawSprite(pos, SPRITE_SIZE);*/
+			render.drawSprite(a1->getPosition(), a1->getSize());
 		}
 		else
 		{
