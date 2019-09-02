@@ -1,5 +1,7 @@
 #include "Sprite.hpp"
 
+#include <iostream>
+
 Sprite::Sprite(b2World * world, b2BodyType type, glm::vec2 size, float density) : world(world), body(nullptr), size(size)
 {
 	b2BodyDef body_def;
@@ -24,6 +26,7 @@ Sprite::~Sprite()
 {
 	if ((world != nullptr) && (body != nullptr))
 	{
+		std::cout << "Removing Body\n";
 		world->DestroyBody(body);
 	}
 }
