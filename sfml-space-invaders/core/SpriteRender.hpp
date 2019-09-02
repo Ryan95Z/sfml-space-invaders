@@ -7,6 +7,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "../core/Shader.hpp"
+#include "../core/Sprite.hpp"
 
 #define NUM_VAO 1
 #define NUM_VBO 1
@@ -20,6 +21,7 @@ public:
 	~SpriteRender();
 
 	void drawSprite(glm::vec2 position, glm::vec2 size);
+	void drawSprite(Sprite *sprite);
 
 private:
 	Shader *shader;

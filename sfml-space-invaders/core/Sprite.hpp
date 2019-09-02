@@ -9,10 +9,10 @@
 class Sprite
 {
 public:
-	Sprite(b2World *world);
+	Sprite(b2World *world, b2BodyType type, glm::vec2 size, float density);
 	virtual ~Sprite();
 
-	virtual glm::vec2 getSize() = 0;
+	virtual glm::vec2 getSize() const noexcept;
 
 	virtual void setPosition(glm::vec2 pos) const noexcept;
 	virtual glm::vec2 getPosition() const noexcept;
@@ -20,6 +20,7 @@ public:
 protected:
 	b2World *world;
 	b2Body *body;
+	glm::vec2 size;
 };
 
 #endif // CORE_SPRITE_HPP

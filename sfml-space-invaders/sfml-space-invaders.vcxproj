@@ -126,11 +126,13 @@
     <ClCompile Include="core\managers\StateManager.cpp" />
     <ClCompile Include="core\objects\GObject.hpp" />
     <ClCompile Include="core\Shader.cpp" />
+    <ClCompile Include="core\Sprite.cpp" />
     <ClCompile Include="core\SpriteRender.cpp" />
     <ClCompile Include="core\Triangle.cpp" />
     <ClCompile Include="core\Window.cpp" />
     <ClCompile Include="entities\Alien.cpp" />
     <ClCompile Include="entities\Cube.cpp" />
+    <ClCompile Include="entities\Floor.cpp" />
     <ClCompile Include="entities\primitives\Square.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="states\ExperimentState.cpp" />
@@ -139,6 +141,7 @@
   <ItemGroup>
     <ClInclude Include="core\BaseState.hpp" />
     <ClInclude Include="core\Camera.hpp" />
+    <ClInclude Include="core\Sprite.hpp" />
     <ClInclude Include="core\SpriteRender.hpp" />
     <ClInclude Include="core\tools\Logger.hpp">
       <DeploymentContent>false</DeploymentContent>
@@ -153,6 +156,7 @@
     <ClInclude Include="core\Window.hpp" />
     <ClInclude Include="entities\Alien.hpp" />
     <ClInclude Include="entities\Cube.hpp" />
+    <ClInclude Include="entities\Floor.hpp" />
     <ClInclude Include="entities\primitives\Square.hpp" />
     <ClInclude Include="states\ExperimentState.hpp" />
     <ClInclude Include="states\GameState.hpp" />

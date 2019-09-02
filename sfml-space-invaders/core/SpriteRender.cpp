@@ -35,6 +35,11 @@ void SpriteRender::drawSprite(glm::vec2 position, glm::vec2 size)
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
+void SpriteRender::drawSprite(Sprite * sprite)
+{
+	drawSprite(sprite->getPosition(), sprite->getSize());
+}
+
 void SpriteRender::initSpriteRender()
 {
 	glGenVertexArrays(NUM_VAO, vao);

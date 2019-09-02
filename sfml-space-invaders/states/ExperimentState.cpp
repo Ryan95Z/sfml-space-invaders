@@ -29,40 +29,7 @@ ExperimentState::~ExperimentState()
 	world = nullptr;
 }
 
-void ExperimentState::start()
-{
-	/*pos = glm::vec2(50.0f, 50.0f);
-
-	b2BodyDef mybodyDef;
-	mybodyDef.type = b2_kinematicBody;
-	mybodyDef.position = b2Vec2(pos.x / SCALE, pos.y / SCALE);
-
-	body = world->CreateBody(&mybodyDef);
-
-	b2PolygonShape shape;
-	shape.SetAsBox((SPRITE_SIZE.x / 2.0f) / SCALE, (SPRITE_SIZE.y / 2.0f) / SCALE);
-
-	b2FixtureDef fixture_def;
-	fixture_def.density = 1.0f;
-	fixture_def.shape = &shape;
-	body->CreateFixture(&fixture_def);
-
-	s_pos = glm::vec2(400.0f, 775.0f);
-
-	b2BodyDef s_bodyx;
-	s_bodyx.type = b2_staticBody;
-	s_bodyx.position = b2Vec2(s_pos.x / SCALE, s_pos.y / SCALE);
-
-	s_body = world->CreateBody(&s_bodyx);
-
-	b2PolygonShape s_shape;
-	s_shape.SetAsBox((FLOOR_SIZE.x / 2.0f) / SCALE, (FLOOR_SIZE.y / 2.0f) / SCALE);
-
-	b2FixtureDef s_fixture;
-	s_fixture.density = 0.0f;
-	s_fixture.shape = &s_shape;
-	s_body->CreateFixture(&s_fixture);*/
-}
+void ExperimentState::start() {}
 
 void ExperimentState::stop() {}
 
@@ -82,9 +49,6 @@ void ExperimentState::draw()
 		b2Vec2 b2_pos = body_itr->GetPosition();
 		if (body_itr->GetType() == b2_dynamicBody)
 		{
-			
-			/*pos = glm::vec2(b2_pos.x * SCALE, b2_pos.y * SCALE);
-			render.drawSprite(pos, SPRITE_SIZE);*/
 			render.drawSprite(a1->getPosition(), a1->getSize());
 		}
 		else

@@ -1,11 +1,14 @@
 #ifndef ENTITIES_FLOOR_HPP
 #define ENTITIES_FLOOR_HPP
 
-class Floor
+#include "../core/Sprite.hpp"
+
+class Floor : public Sprite
 {
 public:
-private:
-
+	Floor(b2World *world);
+	Floor(b2World *world, glm::vec2 size);
+	virtual ~Floor();
 };
 
 #endif // ENTITIES_FLOOR_HPP

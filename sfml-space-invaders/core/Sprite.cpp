@@ -1,7 +1,23 @@
 #include "Sprite.hpp"
 
-Sprite::Sprite(b2World * world) : world(world), body(nullptr)
+Sprite::Sprite(b2World * world, b2BodyType type, glm::vec2 size, float density) : world(world), body(nullptr), size(size)
 {
+	b2BodyDef body_def;
+	body_def.type = type;
+	body->GetPosition = b2Vec2(0.0f, 0.0f);
+
+	body = world->CreateBody(&body_def);
+	
+	b2PolygonShape shape;
+	shape.SetAsBox((size.x / 2.0f) / SCALE, (size.y / 2.0f) / SCALE);
+
+	b2FixtureDef fixture_def;
+	fixture_def.density = density;
+	fixture_def.shape = &shape;
+
+	body->CreateFixture(&fixture_def);
+
+	body->SetUserData((void *) this);
 }
 
 Sprite::~Sprite()
@@ -10,6 +26,11 @@ Sprite::~Sprite()
 	{
 		world->DestroyBody(body);
 	}
+}
+
+glm::vec2 Sprite::getSize() const noexcept
+{
+	return size;
 }
 
 void Sprite::setPosition(glm::vec2 pos) const noexcept
