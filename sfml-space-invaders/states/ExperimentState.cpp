@@ -11,16 +11,15 @@ ExperimentState::ExperimentState(StateID id, SharedContext *context) : BaseState
 	world = new b2World(gravity);
 
 	a1 = new Alien(world);
-
 	a1->setPosition(glm::vec2(200.0f, 20.0f));
+
+	f1 = new Floor(world);
+	f1->setPosition(glm::vec2(400.0f, 600.0f));
 }
 
 ExperimentState::~ExperimentState()
 {
 	destroy();
-
-	//world->DestroyBody(body);
-	//world->DestroyBody(s_body);
 
 	delete a1;
 	a1 = nullptr;
@@ -44,6 +43,7 @@ void ExperimentState::update(float dt)
 
 void ExperimentState::draw()
 {
+	Sprite *sprite = nullptr;
 	for (b2Body *body_itr = world->GetBodyList(); body_itr != 0; body_itr = body_itr->GetNext())
 	{
 		b2Vec2 b2_pos = body_itr->GetPosition();
@@ -53,8 +53,8 @@ void ExperimentState::draw()
 		}
 		else
 		{
-			glm::vec2 x = glm::vec2(b2_pos.x * SCALE, b2_pos.y * SCALE);
-			render.drawSprite(x, FLOOR_SIZE);
+			sprite = (Sprite *) body_itr->GetUserData();
+			render.drawSprite(sprite);
 		}
 	}
 }

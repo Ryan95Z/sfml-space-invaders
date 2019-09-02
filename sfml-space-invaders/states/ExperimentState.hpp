@@ -8,6 +8,7 @@
 #include "../core/managers/EventManager.hpp"
 
 #include "../entities/Alien.hpp"
+#include "../entities/Floor.hpp"
 
 class ExperimentState : public BaseState
 {
@@ -30,6 +31,7 @@ private:
 	b2World *world;
 
 	Alien *a1;
+	Floor *f1;
 
 	glm::vec2 pos;
 	glm::vec2 s_pos;

@@ -4,7 +4,7 @@ Sprite::Sprite(b2World * world, b2BodyType type, glm::vec2 size, float density) 
 {
 	b2BodyDef body_def;
 	body_def.type = type;
-	body->GetPosition = b2Vec2(0.0f, 0.0f);
+	body_def.position = b2Vec2(0.0f, 0.0f);
 
 	body = world->CreateBody(&body_def);
 	
