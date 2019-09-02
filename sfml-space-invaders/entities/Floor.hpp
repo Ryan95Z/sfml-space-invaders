@@ -9,6 +9,8 @@ public:
 	Floor(b2World *world);
 	Floor(b2World *world, glm::vec2 size);
 	virtual ~Floor();
+
+	virtual void update(float dt);
 };
 
 #endif // ENTITIES_FLOOR_HPP

@@ -24,7 +24,7 @@ void ExperimentState::init()
 	world = new b2World(gravity);
 
 	a1 = new Alien(world);
-	a1->setPosition(glm::vec2(200.0f, 20.0f));
+	a1->setPosition(glm::vec2(200.0f, 30.0f));
 
 	f1 = new Floor(world);
 	f1->setPosition(glm::vec2(400.0f, 600.0f));
@@ -45,6 +45,7 @@ void ExperimentState::destroy()
 void ExperimentState::update(float dt)
 {
 	world->Step(dt, 8, 3);
+	a1->update(dt);
 }
 
 void ExperimentState::draw()

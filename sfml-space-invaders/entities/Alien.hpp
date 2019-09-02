@@ -11,9 +11,10 @@ public:
 	Alien(b2World *world);
 	virtual ~Alien();
 
-protected:
-	b2World *world;
-	b2Body *body;
+	virtual void update(float dt);
+private:
+	int tick_count;
+	bool left;
 };
 
 #endif // ENTITES_ALIEN_HPP

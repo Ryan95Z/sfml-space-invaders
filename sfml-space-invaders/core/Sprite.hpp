@@ -12,6 +12,8 @@ public:
 	Sprite(b2World *world, b2BodyType type, glm::vec2 size, float density);
 	virtual ~Sprite();
 
+	virtual void update(float dt) = 0;
+
 	virtual glm::vec2 getSize() const noexcept;
 
 	virtual void setPosition(glm::vec2 pos) const noexcept;
