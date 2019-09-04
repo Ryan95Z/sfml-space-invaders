@@ -8,6 +8,11 @@
 Alien::Alien(b2World * world) : Sprite(world, b2_kinematicBody, ALIEN_SIZE, ALIEN_BODY_DENSITY), 
 	left(false), tick_count(0) {}
 
+Alien::Alien(b2World * world, glm::vec2 pos) : Alien(world)
+{
+	this->setPosition(pos);
+}
+
 Alien::~Alien() {}
 
 void Alien::update(float dt)

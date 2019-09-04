@@ -1,16 +1,23 @@
 #ifndef STATES_GAME_STATE_HPP
 #define STATES_GAME_STATE_HPP
 
+#include <Box2D/Box2D.h>
+#include <vector>
+
 #include "../core/BaseState.hpp"
 #include "../core/SpriteRender.hpp"
 #include "../core/managers/EventManager.hpp"
 
-#include <vector>
+#include "../entities/Alien.hpp"
+#include "../entities/Player.hpp"
+
 
 #define NUM_ALIENS 20
 
 using PositionVector = std::vector<glm::vec2>;
 using PositionRemovalVector = std::vector<PositionVector::iterator>;
+
+using AlienVector = std::vector<Alien *>;
 
 class GameState : public BaseState
 {
@@ -37,14 +44,19 @@ protected:
 	void fire(EventDetails *details);
 
 private:
-	bool move_left;
+	b2World *world;
+	Player *player;
+	AlienVector aliens;
+	SpriteRender render;
+
+	/*bool move_left;
 	unsigned int game_count;
 	glm::vec2 velocity;
 	glm::vec2 pos;
 	glm::vec2 alien_pos[NUM_ALIENS];
 	SpriteRender render;
 	PositionVector pvec;
-	PositionRemovalVector rvec;
+	PositionRemovalVector rvec;*/
 };
 
 #endif // STATES_GAME_STATE_HPP

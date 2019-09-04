@@ -10,16 +10,18 @@
 
 #define MOVEMENT_STEP 250
 
-#define ALIEN_INITIAL_X 200.0f
+#define ALIEN_INITIAL_X 50.0f
 #define ALIEN_INITIAL_Y 100.0f
 #define ALIEN_POS_INCREMENT 100.0f
 
 #define SPRITE_SIZE glm::vec2(50.0f, 50.0f)
 
-GameState::GameState(StateID id, SharedContext *context) : BaseState(id, context) {}
+GameState::GameState(StateID id, SharedContext *context) : BaseState(id, context),
+	world(nullptr), player(nullptr) {}
 
 GameState::~GameState()
 {
+	destroy();
 	cleanup();
 }
 
@@ -30,7 +32,7 @@ void GameState::start()
 	
 	for (int i = 0; i < NUM_ALIENS; ++i)
 	{
-		alien_pos[i] = glm::vec2(alien_x, alien_y);
+		aliens.push_back(new Alien(world, glm::vec2(alien_x, alien_y)));
 		alien_x += ALIEN_POS_INCREMENT;
 
 		if ((i + 1) % 5 == 0) {
@@ -39,16 +41,16 @@ void GameState::start()
 		}
 	}
 
-	// Player's initial position
-	pos = glm::vec2(400.0f, 700.0f);
-
-	game_count = 0;
+	player = new Player(world, glm::vec2(400.0f, 700.0f));
 }
 
 void GameState::stop() {}
 
 void GameState::init()
 {
+	b2Vec2 gravity = b2Vec2(0.0f, 9.8f);
+	world = new b2World(gravity);
+
 	EventManager *event_mgr = context->event_mgr;
 	event_mgr->addBinding(LEFT_EVENT, EventType::KeyPressed, sf::Keyboard::A);
 	event_mgr->addBinding(RIGHT_EVENT, EventType::KeyPressed, sf::Keyboard::D);
@@ -63,31 +65,32 @@ void GameState::init()
 	event_mgr->addCallback(SPACE_BAR_EVENT, &GameState::fire, this);
 }
 
-void GameState::destroy() {}
+void GameState::destroy()
+{
+	while (aliens.begin() != aliens.end())
+	{
+		delete *aliens.begin();
+		aliens.erase(aliens.begin());
+	}
+
+	if (player != nullptr)
+	{
+		delete player;
+		player = nullptr;
+	}
+}
 
 void GameState::update(float dt)
 {
-	pos += velocity * dt;
-
-	for (int i = 0; i < NUM_ALIENS; ++i)
+	world->Step(dt, 8, 3);
+	for (Alien *alien : aliens)
 	{
-		if (move_left == true)
-		{
-			alien_pos[i].x -= 100 * dt;
-		}
-		else
-		{
-			alien_pos[i].x += 100 * dt;
-		}
-	}
-	game_count++;
-	if (game_count == 100)
-	{
-		game_count = 0;
-		move_left = !move_left;
+		alien->update(dt);
 	}
 
-	PositionVector::iterator itr = pvec.begin();
+	player->update(dt);
+
+	/*PositionVector::iterator itr = pvec.begin();
 	while (itr != pvec.end())
 	{
 		if (itr->y < 0.0f) {
@@ -98,52 +101,35 @@ void GameState::update(float dt)
 		++itr;
 	}
 
-	Logger::debug("Projectiles: " + std::to_string(pvec.size()));
+	Logger::debug("Projectiles: " + std::to_string(pvec.size()));*/
 }
 
 void GameState::draw()
 {
-	for (int i = 0; i < NUM_ALIENS; ++i)
+
+	Sprite *sprite = nullptr;
+	for (b2Body *body_itr = world->GetBodyList(); body_itr != 0; body_itr = body_itr->GetNext())
 	{
-		render.drawSprite(alien_pos[i], SPRITE_SIZE);
-	}
-
-	for (glm::vec2 &p : pvec)
-	{
-		render.drawSprite(p, glm::vec2(10.0f, 10.0f));
-	}
-
-	render.drawSprite(pos, SPRITE_SIZE);
-
-}
-
-void GameState::cleanup()
-{
-	while (rvec.begin() != rvec.end())
-	{
-		pvec.erase(*rvec.begin());
-		rvec.erase(rvec.begin());
+		sprite = (Sprite *)body_itr->GetUserData();
+		render.drawSprite(sprite);
 	}
 }
+
+void GameState::cleanup() {}
 
 void GameState::left(EventDetails * details)
 {
-	velocity.x = -MOVEMENT_STEP;
+	player->left();
 }
 
 void GameState::right(EventDetails * details)
 {
-	velocity.x = MOVEMENT_STEP;
+	player->right();
 }
 
 void GameState::stop(EventDetails * details)
 {
-	velocity.x = 0;
+	player->stop();
 }
 
-void GameState::fire(EventDetails * details)
-{
-	glm::vec2 x = pos;
-	x.x += 20.0f;
-	pvec.push_back(glm::vec2(x));
-}
+void GameState::fire(EventDetails * details) {}

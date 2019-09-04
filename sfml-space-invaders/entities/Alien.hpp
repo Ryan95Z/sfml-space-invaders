@@ -9,6 +9,7 @@ public:
 	Alien() = delete;
 	Alien(Alien &) = delete;
 	Alien(b2World *world);
+	Alien(b2World *world, glm::vec2 pos);
 	virtual ~Alien();
 
 	virtual void update(float dt);

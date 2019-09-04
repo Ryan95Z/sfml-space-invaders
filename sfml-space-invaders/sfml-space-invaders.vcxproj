@@ -133,7 +133,9 @@
     <ClCompile Include="entities\Alien.cpp" />
     <ClCompile Include="entities\Cube.cpp" />
     <ClCompile Include="entities\Floor.cpp" />
+    <ClCompile Include="entities\Player.cpp" />
     <ClCompile Include="entities\primitives\Square.cpp" />
+    <ClCompile Include="entities\Projectile.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="states\ExperimentState.cpp" />
     <ClCompile Include="states\GameState.cpp" />
@@ -157,7 +159,9 @@
     <ClInclude Include="entities\Alien.hpp" />
     <ClInclude Include="entities\Cube.hpp" />
     <ClInclude Include="entities\Floor.hpp" />
+    <ClInclude Include="entities\Player.hpp" />
     <ClInclude Include="entities\primitives\Square.hpp" />
+    <ClInclude Include="entities\Projectile.hpp" />
     <ClInclude Include="states\ExperimentState.hpp" />
     <ClInclude Include="states\GameState.hpp" />
     <ClInclude Include="states\StateInfo.hpp" />
