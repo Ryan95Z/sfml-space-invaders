@@ -6,6 +6,11 @@ Projectile::Projectile(b2World * world) : Sprite(world, b2_dynamicBody, PROJECTI
 {
 }
 
+Projectile::Projectile(b2World * world, glm::vec2 pos) : Projectile(world)
+{
+	this->setPosition(pos);
+}
+
 Projectile::~Projectile()
 {
 }

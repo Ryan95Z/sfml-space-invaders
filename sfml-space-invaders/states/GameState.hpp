@@ -10,6 +10,7 @@
 
 #include "../entities/Alien.hpp"
 #include "../entities/Player.hpp"
+#include "../entities/Projectile.hpp"
 
 
 #define NUM_ALIENS 20
@@ -17,7 +18,11 @@
 using PositionVector = std::vector<glm::vec2>;
 using PositionRemovalVector = std::vector<PositionVector::iterator>;
 
+
 using AlienVector = std::vector<Alien *>;
+using ProjectileVector = std::vector<Projectile *>;
+using ProjectileRemovalVector = std::vector<ProjectileVector::iterator>;
+
 
 class GameState : public BaseState
 {
@@ -48,6 +53,8 @@ private:
 	Player *player;
 	AlienVector aliens;
 	SpriteRender render;
+	ProjectileVector bullets;
+	ProjectileRemovalVector removal;
 
 	/*bool move_left;
 	unsigned int game_count;

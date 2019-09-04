@@ -48,7 +48,7 @@ void GameState::stop() {}
 
 void GameState::init()
 {
-	b2Vec2 gravity = b2Vec2(0.0f, 9.8f);
+	b2Vec2 gravity = b2Vec2(0.0f, -9.8f);
 	world = new b2World(gravity);
 
 	EventManager *event_mgr = context->event_mgr;
@@ -67,12 +67,21 @@ void GameState::init()
 
 void GameState::destroy()
 {
+	// Remove all aliens from memory
 	while (aliens.begin() != aliens.end())
 	{
 		delete *aliens.begin();
 		aliens.erase(aliens.begin());
 	}
 
+	// Remove all the bullets from memory
+	while (bullets.begin() != bullets.end())
+	{
+		delete *bullets.begin();
+		bullets.erase(bullets.begin());
+	}
+
+	// Remove the player from memory
 	if (player != nullptr)
 	{
 		delete player;
@@ -90,18 +99,19 @@ void GameState::update(float dt)
 
 	player->update(dt);
 
-	/*PositionVector::iterator itr = pvec.begin();
-	while (itr != pvec.end())
+	Projectile *p = nullptr;
+	ProjectileVector::iterator bullet_itr = bullets.begin();
+	while (bullet_itr != bullets.end())
 	{
-		if (itr->y < 0.0f) {
-			rvec.push_back(itr);
+		p = *bullet_itr;
+		if (p->getPosition().y < 0.0f)
+		{
+			removal.push_back(bullet_itr);
 		}
-
-		itr->y -= 200.0f * dt;
-		++itr;
+		++bullet_itr;
 	}
 
-	Logger::debug("Projectiles: " + std::to_string(pvec.size()));*/
+	//Logger::debug("Projectiles: " + std::to_string(bullets.size()));
 }
 
 void GameState::draw()
@@ -115,7 +125,14 @@ void GameState::draw()
 	}
 }
 
-void GameState::cleanup() {}
+void GameState::cleanup()
+{
+	for (ProjectileVector::iterator itr : removal)
+	{
+		delete *itr;
+		bullets.erase(itr);
+	}
+}
 
 void GameState::left(EventDetails * details)
 {
@@ -132,4 +149,9 @@ void GameState::stop(EventDetails * details)
 	player->stop();
 }
 
-void GameState::fire(EventDetails * details) {}
+void GameState::fire(EventDetails * details)
+{
+	glm::vec2 pos = player->getPosition();
+	Projectile *p = new Projectile(world, pos);
+	bullets.push_back(p);
+}
