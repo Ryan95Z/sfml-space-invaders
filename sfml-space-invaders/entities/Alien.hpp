@@ -16,9 +16,12 @@ public:
 
 	virtual void beginContact(SpriteType type);
 	virtual void endContact(SpriteType type);
+
+	bool isHidden() const;
 private:
 	int tick_count;
 	bool left;
+	bool is_hidden;
 };
 
 #endif // ENTITES_ALIEN_HPP

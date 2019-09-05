@@ -14,6 +14,10 @@ public:
 
 	virtual void beginContact(SpriteType type);
 	virtual void endContact(SpriteType type);
+
+	bool isHidden() const;
+private:
+	bool is_hidden;
 };
 
 #endif // ENTITIES_PROJECTILE_HPP

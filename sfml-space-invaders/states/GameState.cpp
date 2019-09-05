@@ -93,21 +93,31 @@ void GameState::destroy()
 void GameState::update(float dt)
 {
 	world->Step(dt, 8, 3);
-	for (Alien *alien : aliens)
+	
+	AlienVector::iterator a_itr = aliens.begin();
+	while (a_itr != aliens.end())
 	{
-		alien->update(dt);
+		(*a_itr)->update(dt);
+
+		if ((*a_itr)->isHidden())
+		{
+			graveyard.push_back(*a_itr);
+			a_itr = aliens.erase(a_itr);
+			continue;
+		}
+		++a_itr;
 	}
 
 	player->update(dt);
 
-	Projectile *p = nullptr;
 	ProjectileVector::iterator bullet_itr = bullets.begin();
 	while (bullet_itr != bullets.end())
 	{
-		p = *bullet_itr;
-		if (p->getPosition().y < 0.0f)
+		if ((*bullet_itr)->getPosition().y < 0.0f || (*bullet_itr)->isHidden())
 		{
-			removal.push_back(bullet_itr);
+			removal.push_back(*bullet_itr);
+			bullet_itr = bullets.erase(bullet_itr);
+			continue;
 		}
 		++bullet_itr;
 	}
@@ -126,12 +136,17 @@ void GameState::draw()
 
 void GameState::cleanup()
 {
-	for (ProjectileVector::iterator itr : removal)
+	for (Projectile *b : removal)
 	{
-		delete *itr;
-		bullets.erase(itr);
+		delete b;
 	}
-	bullets.clear();
+	removal.clear();
+
+	for (Alien *alien : graveyard)
+	{
+		delete alien;
+	}
+	graveyard.clear();
 }
 
 void GameState::left(EventDetails * details)

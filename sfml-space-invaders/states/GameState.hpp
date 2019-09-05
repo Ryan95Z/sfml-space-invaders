@@ -16,13 +16,8 @@
 
 #define NUM_ALIENS 20
 
-using PositionVector = std::vector<glm::vec2>;
-using PositionRemovalVector = std::vector<PositionVector::iterator>;
-
-
 using AlienVector = std::vector<Alien *>;
 using ProjectileVector = std::vector<Projectile *>;
-using ProjectileRemovalVector = std::vector<ProjectileVector::iterator>;
 
 
 class GameState : public BaseState
@@ -55,7 +50,8 @@ private:
 	AlienVector aliens;
 	SpriteRender render;
 	ProjectileVector bullets;
-	ProjectileRemovalVector removal;
+	ProjectileVector removal;
+	AlienVector graveyard;
 	GameContactListener listener;
 };
 

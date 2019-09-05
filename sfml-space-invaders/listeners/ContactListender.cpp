@@ -18,6 +18,6 @@ void GameContactListener::EndContact(b2Contact * contact)
 	Sprite *body_a = (Sprite *) contact->GetFixtureA()->GetBody()->GetUserData();
 	Sprite *body_b = (Sprite *) contact->GetFixtureB()->GetBody()->GetUserData();
 
-	body_a->endContact(body_b->getType());
-	body_b->endContact(body_b->getType());
+	//body_a->endContact(body_b->getType());
+	//body_b->endContact(body_a->getType());
 }

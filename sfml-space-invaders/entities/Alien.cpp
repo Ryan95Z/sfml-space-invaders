@@ -1,4 +1,5 @@
 #include "Alien.hpp"
+#include <iostream>
 
 #define SCALE 30.0f
 #define ALIEN_SIZE glm::vec2(50.0f, 50.0f)
@@ -6,7 +7,7 @@
 #define ALINE_MOVE_SPEED 100.0f
 
 Alien::Alien(b2World * world) : Sprite(world, b2_kinematicBody, SpriteType::Alien, ALIEN_SIZE, ALIEN_BODY_DENSITY),
-	left(false), tick_count(0) {}
+	left(false), is_hidden(false), tick_count(0) {}
 
 Alien::Alien(b2World * world, glm::vec2 pos) : Alien(world)
 {
@@ -31,9 +32,15 @@ void Alien::update(float dt)
 
 void Alien::beginContact(SpriteType type)
 {
+	if (type == SpriteType::Projectile)
+	{
+		is_hidden = true;
+	}
 }
 
-void Alien::endContact(SpriteType type)
-{
+void Alien::endContact(SpriteType type) {}
 
+bool Alien::isHidden() const
+{
+	return is_hidden;
 }
