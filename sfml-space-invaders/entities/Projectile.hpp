@@ -11,6 +11,9 @@ public:
 	virtual ~Projectile();
 
 	virtual void update(float dt);
+
+	virtual void beginContact(SpriteType type);
+	virtual void endContact(SpriteType type);
 };
 
 #endif // ENTITIES_PROJECTILE_HPP

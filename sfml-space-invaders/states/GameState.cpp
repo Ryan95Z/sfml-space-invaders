@@ -50,6 +50,7 @@ void GameState::init()
 {
 	b2Vec2 gravity = b2Vec2(0.0f, -9.8f);
 	world = new b2World(gravity);
+	world->SetContactListener(&listener);
 
 	EventManager *event_mgr = context->event_mgr;
 	event_mgr->addBinding(LEFT_EVENT, EventType::KeyPressed, sf::Keyboard::A);
@@ -110,8 +111,6 @@ void GameState::update(float dt)
 		}
 		++bullet_itr;
 	}
-
-	//Logger::debug("Projectiles: " + std::to_string(bullets.size()));
 }
 
 void GameState::draw()
@@ -132,6 +131,7 @@ void GameState::cleanup()
 		delete *itr;
 		bullets.erase(itr);
 	}
+	bullets.clear();
 }
 
 void GameState::left(EventDetails * details)

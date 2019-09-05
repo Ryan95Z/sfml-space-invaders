@@ -13,6 +13,9 @@ public:
 	virtual ~Alien();
 
 	virtual void update(float dt);
+
+	virtual void beginContact(SpriteType type);
+	virtual void endContact(SpriteType type);
 private:
 	int tick_count;
 	bool left;

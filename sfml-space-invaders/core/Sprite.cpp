@@ -2,7 +2,8 @@
 
 #include <iostream>
 
-Sprite::Sprite(b2World * world, b2BodyType type, glm::vec2 size, float density) : world(world), body(nullptr), size(size)
+Sprite::Sprite(b2World * world, b2BodyType type, SpriteType sprite_type, glm::vec2 size, float density) : 
+	world(world), body(nullptr), sprite_type(sprite_type), size(size)
 {
 	b2BodyDef body_def;
 	body_def.type = type;
@@ -26,7 +27,6 @@ Sprite::~Sprite()
 {
 	if ((world != nullptr) && (body != nullptr))
 	{
-		std::cout << "Removing Body\n";
 		world->DestroyBody(body);
 	}
 }
@@ -46,4 +46,9 @@ glm::vec2 Sprite::getPosition() const noexcept
 {
 	b2Vec2 b2_pos = body->GetPosition();
 	return glm::vec2(b2_pos.x * SCALE, b2_pos.y * SCALE);
+}
+
+SpriteType Sprite::getType() const
+{
+	return sprite_type;
 }

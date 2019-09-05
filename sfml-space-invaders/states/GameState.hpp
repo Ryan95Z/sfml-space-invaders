@@ -11,6 +11,7 @@
 #include "../entities/Alien.hpp"
 #include "../entities/Player.hpp"
 #include "../entities/Projectile.hpp"
+#include "../listeners/ContactListender.hpp"
 
 
 #define NUM_ALIENS 20
@@ -55,15 +56,7 @@ private:
 	SpriteRender render;
 	ProjectileVector bullets;
 	ProjectileRemovalVector removal;
-
-	/*bool move_left;
-	unsigned int game_count;
-	glm::vec2 velocity;
-	glm::vec2 pos;
-	glm::vec2 alien_pos[NUM_ALIENS];
-	SpriteRender render;
-	PositionVector pvec;
-	PositionRemovalVector rvec;*/
+	GameContactListener listener;
 };
 
 #endif // STATES_GAME_STATE_HPP

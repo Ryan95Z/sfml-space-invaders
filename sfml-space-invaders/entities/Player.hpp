@@ -12,6 +12,9 @@ public:
 
 	virtual void update(float dt);
 
+	virtual void beginContact(SpriteType type);
+	virtual void endContact(SpriteType type);
+
 	void left();
 	void right();
 	void stop();

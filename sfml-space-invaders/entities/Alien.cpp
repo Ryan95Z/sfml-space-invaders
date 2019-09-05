@@ -5,7 +5,7 @@
 #define ALIEN_BODY_DENSITY 1.0f
 #define ALINE_MOVE_SPEED 100.0f
 
-Alien::Alien(b2World * world) : Sprite(world, b2_kinematicBody, ALIEN_SIZE, ALIEN_BODY_DENSITY), 
+Alien::Alien(b2World * world) : Sprite(world, b2_kinematicBody, SpriteType::Alien, ALIEN_SIZE, ALIEN_BODY_DENSITY),
 	left(false), tick_count(0) {}
 
 Alien::Alien(b2World * world, glm::vec2 pos) : Alien(world)
@@ -27,4 +27,13 @@ void Alien::update(float dt)
 		tick_count = 0;
 		left = !left;
 	}
+}
+
+void Alien::beginContact(SpriteType type)
+{
+}
+
+void Alien::endContact(SpriteType type)
+{
+
 }
