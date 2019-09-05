@@ -47,11 +47,11 @@ protected:
 private:
 	b2World *world;
 	Player *player;
-	AlienVector aliens;
 	SpriteRender render;
+	AlienVector aliens;
+	AlienVector graveyard;
 	ProjectileVector bullets;
 	ProjectileVector removal;
-	AlienVector graveyard;
 	GameContactListener listener;
 };
 

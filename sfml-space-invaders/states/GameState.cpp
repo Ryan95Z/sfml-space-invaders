@@ -167,6 +167,7 @@ void GameState::stop(EventDetails * details)
 void GameState::fire(EventDetails * details)
 {
 	glm::vec2 pos = player->getPosition();
+	pos.y -= 20.0f;
 	Projectile *p = new Projectile(world, pos);
 	bullets.push_back(p);
 }

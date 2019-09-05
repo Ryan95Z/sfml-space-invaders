@@ -1,6 +1,6 @@
 #include "Projectile.hpp"
 
-#define PROJECTILE_SIZE glm::vec2(25.0f, 25.0f)
+#define PROJECTILE_SIZE glm::vec2(15.0f, 15.0f)
 
 Projectile::Projectile(b2World * world) : Sprite(world, b2_dynamicBody, SpriteType::Projectile, PROJECTILE_SIZE, 0.0f),
 	is_hidden(false)
