@@ -51,7 +51,7 @@ private:
 	AlienVector aliens;
 	AlienVector graveyard;
 	ProjectileVector bullets;
-	ProjectileVector removal;
+	ProjectileVector spent_bullets;
 	GameContactListener listener;
 };
 

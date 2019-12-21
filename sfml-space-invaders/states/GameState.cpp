@@ -7,14 +7,14 @@
 #define RIGHT_EVENT "right"
 #define RIGHT_RELEASE_EVENT "right_released" 
 #define SPACE_BAR_EVENT "space_bar"
-
 #define MOVEMENT_STEP 250
-
 #define ALIEN_INITIAL_X 50.0f
 #define ALIEN_INITIAL_Y 100.0f
 #define ALIEN_POS_INCREMENT 100.0f
-
+#define BULLET_INITIAL_POS_PADDING 20.0f
 #define SPRITE_SIZE glm::vec2(50.0f, 50.0f)
+#define WORLD_GRAVITY b2Vec2(0.0f, 0.0f)
+#define PLAYER_START_POS glm::vec2(400.0f, 700.0f)
 
 GameState::GameState(StateID id, SharedContext *context) : BaseState(id, context),
 	world(nullptr), player(nullptr) {}
@@ -30,6 +30,7 @@ void GameState::start()
 	float alien_x = ALIEN_INITIAL_X;
 	float alien_y = ALIEN_INITIAL_Y;
 	
+	// Create the Aliens
 	for (int i = 0; i < NUM_ALIENS; ++i)
 	{
 		aliens.push_back(new Alien(world, glm::vec2(alien_x, alien_y)));
@@ -41,24 +42,28 @@ void GameState::start()
 		}
 	}
 
-	player = new Player(world, glm::vec2(400.0f, 700.0f));
+	// Create the player
+	player = new Player(world, PLAYER_START_POS);
 }
 
 void GameState::stop() {}
 
 void GameState::init()
 {
-	b2Vec2 gravity = b2Vec2(0.0f, 0.0f);
-	world = new b2World(gravity);
+	EventManager *event_mgr = context->event_mgr;
+	
+	// Set up the world for Box2d
+	world = new b2World(WORLD_GRAVITY);
 	world->SetContactListener(&listener);
 
-	EventManager *event_mgr = context->event_mgr;
+	// Set up the event bindings
 	event_mgr->addBinding(LEFT_EVENT, EventType::KeyPressed, sf::Keyboard::A);
 	event_mgr->addBinding(RIGHT_EVENT, EventType::KeyPressed, sf::Keyboard::D);
 	event_mgr->addBinding(LEFT_RELEASE_EVENT, EventType::KeyReleased, sf::Keyboard::A);
 	event_mgr->addBinding(RIGHT_RELEASE_EVENT, EventType::KeyReleased, sf::Keyboard::D);
 	event_mgr->addBinding(SPACE_BAR_EVENT, EventType::KeyPressed, sf::Keyboard::Space);
 
+	// Set up the event callbacks
 	event_mgr->addCallback(LEFT_EVENT, &GameState::left, this);
 	event_mgr->addCallback(RIGHT_EVENT, &GameState::right, this);
 	event_mgr->addCallback(LEFT_RELEASE_EVENT, &GameState::stop, this);
@@ -92,41 +97,48 @@ void GameState::destroy()
 
 void GameState::update(float dt)
 {
+	// Update rate for Box2d
 	world->Step(dt, 8, 3);
 	
-	AlienVector::iterator a_itr = aliens.begin();
-	while (a_itr != aliens.end())
+	// Go through the list of alive Aliens
+	AlienVector::iterator alien_itr = aliens.begin();
+	while (alien_itr != aliens.end())
 	{
-		(*a_itr)->update(dt);
+		(*alien_itr)->update(dt);
 
-		if ((*a_itr)->isHidden())
+		// Determine if the Alien has been hit
+		if ((*alien_itr)->isHidden())
 		{
-			graveyard.push_back(*a_itr);
-			a_itr = aliens.erase(a_itr);
+			// Move to graveyard for removal
+			graveyard.push_back(*alien_itr);
+			alien_itr = aliens.erase(alien_itr);
 			continue;
 		}
-		++a_itr;
+		++alien_itr;
 	}
 
 	player->update(dt);
 
+	// Go through the fire bullets
 	ProjectileVector::iterator bullet_itr = bullets.begin();
 	while (bullet_itr != bullets.end())
 	{
+		(*bullet_itr)->update(dt);
+
+		// If the bullet has gone above the viewable area
 		if ((*bullet_itr)->getPosition().y < 0.0f || (*bullet_itr)->isHidden())
 		{
-			removal.push_back(*bullet_itr);
+			// Move to vector for removal
+			spent_bullets.push_back(*bullet_itr);
 			bullet_itr = bullets.erase(bullet_itr);
 			continue;
 		}
-		(*bullet_itr)->update(dt);
 		++bullet_itr;
 	}
 }
 
 void GameState::draw()
 {
-
 	Sprite *sprite = nullptr;
 	for (b2Body *body_itr = world->GetBodyList(); body_itr != 0; body_itr = body_itr->GetNext())
 	{
@@ -137,12 +149,14 @@ void GameState::draw()
 
 void GameState::cleanup()
 {
-	for (Projectile *b : removal)
+	// Remove the bullets from memory
+	for (Projectile *bullet : spent_bullets)
 	{
-		delete b;
+		delete bullet;
 	}
-	removal.clear();
+	spent_bullets.clear();
 
+	// Remove the "dead" Aliens from memory
 	for (Alien *alien : graveyard)
 	{
 		delete alien;
@@ -167,8 +181,8 @@ void GameState::stop(EventDetails * details)
 
 void GameState::fire(EventDetails * details)
 {
-	glm::vec2 pos = player->getPosition();
-	pos.y -= 20.0f;
-	Projectile *p = new Projectile(world, pos);
-	bullets.push_back(p);
+	glm::vec2 bullet_initial_pos = player->getPosition();
+	bullet_initial_pos.y -= BULLET_INITIAL_POS_PADDING;
+	Projectile *bullet = new Projectile(world, bullet_initial_pos);
+	bullets.push_back(bullet);
 }
