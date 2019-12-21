@@ -48,7 +48,7 @@ void GameState::stop() {}
 
 void GameState::init()
 {
-	b2Vec2 gravity = b2Vec2(0.0f, -9.8f);
+	b2Vec2 gravity = b2Vec2(0.0f, 0.0f);
 	world = new b2World(gravity);
 	world->SetContactListener(&listener);
 
@@ -119,6 +119,7 @@ void GameState::update(float dt)
 			bullet_itr = bullets.erase(bullet_itr);
 			continue;
 		}
+		(*bullet_itr)->update(dt);
 		++bullet_itr;
 	}
 }
