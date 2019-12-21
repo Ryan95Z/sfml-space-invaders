@@ -2,9 +2,10 @@
 #include <iostream>
 
 #define SCALE 30.0f
-#define ALIEN_SIZE glm::vec2(50.0f, 50.0f)
+#define ALIEN_SIZE glm::vec2(35.0f, 35.0f)
 #define ALIEN_BODY_DENSITY 1.0f
 #define ALINE_MOVE_SPEED 100.0f
+#define TICK_COUNT_LIMIT 90
 
 Alien::Alien(b2World * world) : Sprite(world, b2_kinematicBody, SpriteType::Alien, ALIEN_SIZE, ALIEN_BODY_DENSITY),
 	left(false), is_hidden(false), tick_count(0) {}
@@ -20,14 +21,18 @@ void Alien::update(float dt)
 {
 	glm::vec2 pos = this->getPosition();
 	pos.x += (left) ? (-ALINE_MOVE_SPEED * dt) : (ALINE_MOVE_SPEED * dt);
-	this->setPosition(pos);
-
+	
+	// Determine if the Alien should change direction
+	// and move down the screen towards the player
 	++tick_count;
-	if (tick_count > 199)
+	if (tick_count > TICK_COUNT_LIMIT)
 	{
+		pos.y += ALINE_MOVE_SPEED * dt;
 		tick_count = 0;
 		left = !left;
 	}
+
+	this->setPosition(pos);
 }
 
 void Alien::beginContact(SpriteType type)

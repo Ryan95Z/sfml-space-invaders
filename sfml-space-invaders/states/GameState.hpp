@@ -13,9 +13,6 @@
 #include "../entities/Projectile.hpp"
 #include "../listeners/ContactListender.hpp"
 
-
-#define NUM_ALIENS 20
-
 using AlienVector = std::vector<Alien *>;
 using ProjectileVector = std::vector<Projectile *>;
 
