@@ -139,6 +139,7 @@
     <ClCompile Include="listeners\ContactListender.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="states\ExperimentState.cpp" />
+    <ClCompile Include="states\GameOverState.cpp" />
     <ClCompile Include="states\GameState.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -165,6 +166,7 @@
     <ClInclude Include="entities\Projectile.hpp" />
     <ClInclude Include="listeners\ContactListender.hpp" />
     <ClInclude Include="states\ExperimentState.hpp" />
+    <ClInclude Include="states\GameOverState.hpp" />
     <ClInclude Include="states\GameState.hpp" />
     <ClInclude Include="states\StateInfo.hpp" />
   </ItemGroup>

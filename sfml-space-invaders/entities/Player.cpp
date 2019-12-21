@@ -40,3 +40,8 @@ void Player::stop()
 {
 	velocity = 0.0f;
 }
+
+bool Player::isDead() const
+{
+	return is_dead;
+}

@@ -4,8 +4,8 @@
 #define SCALE 30.0f
 #define ALIEN_SIZE glm::vec2(35.0f, 35.0f)
 #define ALIEN_BODY_DENSITY 1.0f
-#define ALINE_MOVE_SPEED 100.0f
-#define TICK_COUNT_LIMIT 90
+#define ALINE_MOVE_SPEED 75.0f
+#define TICK_COUNT_LIMIT 110
 
 Alien::Alien(b2World * world) : Sprite(world, b2_kinematicBody, SpriteType::Alien, ALIEN_SIZE, ALIEN_BODY_DENSITY),
 	left(false), is_hidden(false), tick_count(0) {}

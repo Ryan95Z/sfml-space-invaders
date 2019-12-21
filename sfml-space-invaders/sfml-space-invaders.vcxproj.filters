@@ -78,6 +78,9 @@
     <ClCompile Include="listeners\ContactListender.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="states\GameOverState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\Game.hpp">
@@ -147,6 +150,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="listeners\ContactListender.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="states\GameOverState.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

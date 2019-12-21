@@ -18,7 +18,10 @@ public:
 	void left();
 	void right();
 	void stop();
+
+	bool isDead() const;
 private:
+	bool is_dead;
 	float velocity;
 };
 

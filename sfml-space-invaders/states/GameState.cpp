@@ -140,6 +140,13 @@ void GameState::update(float dt)
 		}
 		++bullet_itr;
 	}
+
+	// Game over conditions
+	if ((aliens.size() == 0) || (player->isDead()))
+	{
+		// TODO: Move to game over state
+		Logger::debug("Game over has been reached");
+	}
 }
 
 void GameState::draw()
