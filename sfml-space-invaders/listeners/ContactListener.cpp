@@ -1,4 +1,4 @@
-#include "ContactListender.hpp"
+#include "ContactListener.hpp"
 
 #include <iostream>
 
@@ -13,11 +13,4 @@ void GameContactListener::BeginContact(b2Contact * contact)
 	body_b->beginContact(body_a->getType());
 }
 
-void GameContactListener::EndContact(b2Contact * contact)
-{
-	Sprite *body_a = (Sprite *) contact->GetFixtureA()->GetBody()->GetUserData();
-	Sprite *body_b = (Sprite *) contact->GetFixtureB()->GetBody()->GetUserData();
-
-	//body_a->endContact(body_b->getType());
-	//body_b->endContact(body_a->getType());
-}
+void GameContactListener::EndContact(b2Contact * contact) {}

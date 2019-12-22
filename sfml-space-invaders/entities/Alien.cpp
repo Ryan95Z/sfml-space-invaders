@@ -43,7 +43,9 @@ void Alien::beginContact(SpriteType type)
 	}
 }
 
-void Alien::endContact(SpriteType type) {}
+void Alien::endContact(SpriteType type)
+{
+}
 
 bool Alien::isHidden() const
 {
