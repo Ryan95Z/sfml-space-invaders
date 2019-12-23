@@ -75,10 +75,10 @@
     <ClCompile Include="entities\Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="listeners\ContactListender.cpp">
+    <ClCompile Include="states\GameOverState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="states\GameOverState.cpp">
+    <ClCompile Include="listeners\ContactListener.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -149,10 +149,10 @@
     <ClInclude Include="entities\Player.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="listeners\ContactListender.hpp">
+    <ClInclude Include="states\GameOverState.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="states\GameOverState.hpp">
+    <ClInclude Include="listeners\ContactListener.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

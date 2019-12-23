@@ -11,7 +11,7 @@
 #include "../entities/Alien.hpp"
 #include "../entities/Player.hpp"
 #include "../entities/Projectile.hpp"
-#include "../listeners/ContactListender.hpp"
+#include "../listeners/ContactListener.hpp"
 
 using AlienVector = std::vector<Alien *>;
 using ProjectileVector = std::vector<Projectile *>;

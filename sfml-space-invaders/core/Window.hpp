@@ -9,7 +9,7 @@
 
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 800
-#define WINDOW_TITLE "Window!"
+#define WINDOW_TITLE "Space Invaders!"
 
 class Window
 {

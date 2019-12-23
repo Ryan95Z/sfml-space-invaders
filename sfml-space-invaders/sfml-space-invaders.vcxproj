@@ -136,7 +136,7 @@
     <ClCompile Include="entities\Player.cpp" />
     <ClCompile Include="entities\primitives\Square.cpp" />
     <ClCompile Include="entities\Projectile.cpp" />
-    <ClCompile Include="listeners\ContactListender.cpp" />
+    <ClCompile Include="listeners\ContactListener.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="states\ExperimentState.cpp" />
     <ClCompile Include="states\GameOverState.cpp" />
@@ -164,7 +164,7 @@
     <ClInclude Include="entities\Player.hpp" />
     <ClInclude Include="entities\primitives\Square.hpp" />
     <ClInclude Include="entities\Projectile.hpp" />
-    <ClInclude Include="listeners\ContactListender.hpp" />
+    <ClInclude Include="listeners\ContactListener.hpp" />
     <ClInclude Include="states\ExperimentState.hpp" />
     <ClInclude Include="states\GameOverState.hpp" />
     <ClInclude Include="states\GameState.hpp" />
