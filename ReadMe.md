@@ -12,4 +12,5 @@ You will need to install the following packages with vcpkng:
 .\vcpkng install box2d
 .\vcpkng install glm
 .\vcpkng install glew
+.\vcpkng install freetype
 ```

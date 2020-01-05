@@ -121,6 +121,7 @@
   <ItemGroup>
     <ClCompile Include="core\Camera.cpp" />
     <ClCompile Include="core\Game.cpp" />
+    <ClCompile Include="core\gui\Font.cpp" />
     <ClCompile Include="core\loaders\TextureLoader.cpp" />
     <ClCompile Include="core\managers\EventManager.cpp" />
     <ClCompile Include="core\managers\StateManager.cpp" />
@@ -145,6 +146,7 @@
   <ItemGroup>
     <ClInclude Include="core\BaseState.hpp" />
     <ClInclude Include="core\Camera.hpp" />
+    <ClInclude Include="core\gui\Font.hpp" />
     <ClInclude Include="core\Sprite.hpp" />
     <ClInclude Include="core\SpriteRender.hpp" />
     <ClInclude Include="core\tools\Logger.hpp">
