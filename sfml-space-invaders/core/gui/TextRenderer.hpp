@@ -26,6 +26,8 @@ public:
 	~TextRenderer();
 
 	void render(TextDetails &details);
+
+	static TextRenderer & getInstance();
 private:
 	GLuint vao;
 	GLuint vbo;

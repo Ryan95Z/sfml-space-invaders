@@ -75,3 +75,9 @@ void TextRenderer::render(TextDetails &details)
 	glBindVertexArray(0);
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
+
+TextRenderer & TextRenderer::getInstance()
+{
+	static TextRenderer t;
+	return t;
+}
