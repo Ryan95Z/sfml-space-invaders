@@ -23,6 +23,11 @@ Text::~Text()
 {
 }
 
+void Text::setScale(float scale)
+{
+	details.scale = scale;
+}
+
 void Text::setFont(Font * f)
 {
 	font = f;

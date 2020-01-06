@@ -12,12 +12,12 @@ public:
 	Text(std::string text, glm::vec3 colour);
 	~Text();
 
+	void setScale(float scale);
 	void setFont(Font *f);
 	void setPosition(float x, float y);
 	void setPosition(glm::fvec2 pos);
 	void setString(std::string text);
 	void setColour(glm::vec3 colour);
-
 	void setProjection(glm::mat4 projection);
 
 	void draw();

@@ -30,17 +30,18 @@ void GameOverState::init()
 
 	// Set up the title
 	title.setFont(&font);
-	title.setPosition(0.0f, 700.0f);
+	title.setPosition(300.0f, 430.0f);
 	title.setString(TITLE);
 	title.setColour(glm::vec3(1.0f, 0.0f, 0.0f));
 	title.setProjection(proj);
 
 	// Set up the message
 	msg.setFont(&font);
-	msg.setPosition(400.0f, 400.0f);
+	msg.setPosition(340.0f, 370.0f);
 	msg.setString(MESSAGE);
 	msg.setColour(glm::vec3(1.0f, 1.0f, 0.0f));
 	msg.setProjection(proj);
+	msg.setScale(0.8f);
 }
 
 void GameOverState::destroy()
