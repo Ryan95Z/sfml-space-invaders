@@ -1,7 +1,15 @@
 #ifndef STATES_GAME_OVER_STATE_HPP
 #define STATES_GAME_OVER_STATE_HPP
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+
 #include "../core/BaseState.hpp"
+
+#include "../core/gui/Font.hpp"
+#include "../core/gui/Text.hpp"
+
+#define FONT_PATH "font/arial.ttf"
 
 class GameOverState : public BaseState
 {
@@ -21,6 +29,10 @@ public:
 	virtual void draw();
 
 	virtual void cleanup();
+private:
+	Font font;
+	Text text;
+	glm::mat4 proj;
 };
 
 #endif // STATES_GAME_OVER_STATE_HPP

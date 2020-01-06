@@ -25,7 +25,7 @@ public:
 	TextRenderer();
 	~TextRenderer();
 
-	void render(TextDetails &details);
+	void render(TextDetails details);
 
 	static TextRenderer & getInstance();
 private:

@@ -5,8 +5,17 @@
 #define NUM_VAO 1
 #define NUM_VBO 1
 
+#define VERTEX_SHADER_PATH "shaders/text.vert"
+#define FRAG_SHADEER_PATH "shaders/text.frag"
+
 TextRenderer::TextRenderer() : font_shader(nullptr)
 {
+	font_shader = new Shader(VERTEX_SHADER_PATH, FRAG_SHADEER_PATH);
+
+	glEnable(GL_CULL_FACE);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	glGenVertexArrays(1, &vao);
 	glGenBuffers(1, &vbo);
 	glBindVertexArray(vao);
@@ -27,13 +36,14 @@ TextRenderer::~TextRenderer()
 	}
 }
 
-void TextRenderer::render(TextDetails &details)
+void TextRenderer::render(TextDetails details)
 {
+	glUseProgram(font_shader->id());
+
 	glm::vec3 colour = details.colour;
 	GLuint projLoc = glGetUniformLocation(font_shader->id(), "projection");
 	GLuint colourLoc = glGetUniformLocation(font_shader->id(), "textColor");
 
-	glUseProgram(font_shader->id());
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(details.projection));
 	glUniform3f(colourLoc, colour.x, colour.y, colour.z);
 
@@ -63,7 +73,7 @@ void TextRenderer::render(TextDetails &details)
 		glBindTexture(GL_TEXTURE_2D, ch.texture_id);
 
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
-		glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices); // Be sure to use glBufferSubData and not glBufferData
+		glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
 
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 

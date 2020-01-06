@@ -122,6 +122,7 @@
     <ClCompile Include="core\Camera.cpp" />
     <ClCompile Include="core\Game.cpp" />
     <ClCompile Include="core\gui\Font.cpp" />
+    <ClCompile Include="core\gui\Text.cpp" />
     <ClCompile Include="core\gui\TextRenderer.cpp" />
     <ClCompile Include="core\loaders\TextureLoader.cpp" />
     <ClCompile Include="core\managers\EventManager.cpp" />
@@ -180,6 +181,8 @@
     <None Include="shaders\cube_vertex.glsl" />
     <None Include="shaders\frag.glsl" />
     <None Include="shaders\square_vertex.glsl" />
+    <None Include="shaders\text.frag" />
+    <None Include="shaders\text.vert" />
     <None Include="shaders\vertex.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

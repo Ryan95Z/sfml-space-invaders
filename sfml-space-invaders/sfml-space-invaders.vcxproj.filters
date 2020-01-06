@@ -87,6 +87,9 @@
     <ClCompile Include="core\gui\TextRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="core\gui\Text.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\Game.hpp">
@@ -177,5 +180,7 @@
     <None Include="shaders\cube_vertex.glsl" />
     <None Include="shaders\cube_frag.glsl" />
     <None Include="shaders\square_vertex.glsl" />
+    <None Include="shaders\text.vert" />
+    <None Include="shaders\text.frag" />
   </ItemGroup>
 </Project>

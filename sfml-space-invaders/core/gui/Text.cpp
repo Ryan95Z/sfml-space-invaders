@@ -1,6 +1,7 @@
 #include "Text.hpp"
 
 #define DEFAULT_SCALE 1.0f
+#define DEFAULT_POSITION glm::fvec2(0.0f, 0.0f);
 #define DEFAULT_COLOUR glm::vec3(1.0f, 1.0f, 1.0f)
 
 Text::Text()
@@ -25,6 +26,7 @@ Text::~Text()
 void Text::setFont(Font * f)
 {
 	font = f;
+	details.char_set = f->getCharacters();
 }
 
 void Text::setPosition(float x, float y)
@@ -62,4 +64,5 @@ void Text::setUp(std::string text, glm::vec3 colour)
 	details.text = text;
 	details.colour = colour;
 	details.scale = DEFAULT_SCALE;
+	details.pos = DEFAULT_POSITION;
 }

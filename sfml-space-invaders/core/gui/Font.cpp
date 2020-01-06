@@ -77,8 +77,9 @@ bool Font::loadFromFile(std::string path)
 	}
 
 	glBindTexture(GL_TEXTURE_2D, 0);
-	FT_Done_FreeType(ft);
 	FT_Done_Face(face);
+	FT_Done_FreeType(ft);
+	
 	has_font = true;
 	return true;
 }
@@ -94,5 +95,5 @@ Characters Font::getCharacters() const
 	{
 		throw new NoFontException("A font file was not provided!");
 	}
-	return Characters();
+	return char_set;
 }
