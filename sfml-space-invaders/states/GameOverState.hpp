@@ -32,6 +32,7 @@ public:
 private:
 	Font font;
 	Text text;
+	Text msg;
 	glm::mat4 proj;
 };
 
