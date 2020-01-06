@@ -24,6 +24,8 @@ public:
 	void beginDrawing();
 	void endDrawing();
 
+	glm::ivec2 getSize() const;
+
 	const sf::Window * getWindow() const;
 	bool isOpen() const;
 

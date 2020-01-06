@@ -1,5 +1,10 @@
 #include "GameOverState.hpp"
 
+#include "../core/Window.hpp"
+
+#define TITLE "Game Over"
+#define MESSAGE "Try Again!"
+
 GameOverState::GameOverState(StateID id, SharedContext * context) : BaseState(id, context)
 {
 }
@@ -18,18 +23,22 @@ void GameOverState::stop()
 
 void GameOverState::init()
 {
-	proj = glm::ortho(0.0f, static_cast<GLfloat>(800), 0.0f, static_cast<GLfloat>(800));
+	Window *window = context->window;
+	glm::ivec2 window_size = window->getSize();
+	proj = glm::ortho(0.0f, static_cast<GLfloat>(window_size.x), 0.0f, static_cast<GLfloat>(window_size.y));
 	font.loadFromFile(FONT_PATH);
-	text.setFont(&font);
+
+	// Set up the title
+	title.setFont(&font);
+	title.setPosition(0.0f, 700.0f);
+	title.setString(TITLE);
+	title.setColour(glm::vec3(1.0f, 0.0f, 0.0f));
+	title.setProjection(proj);
+
+	// Set up the message
 	msg.setFont(&font);
-
-	text.setPosition(0.0f, 700.0f);
-	text.setString("Hello World");
-	text.setColour(glm::vec3(1.0f, 0.0f, 0.0f));
-	text.setProjection(proj);
-
 	msg.setPosition(400.0f, 400.0f);
-	msg.setString("Game Over");
+	msg.setString(MESSAGE);
 	msg.setColour(glm::vec3(1.0f, 1.0f, 0.0f));
 	msg.setProjection(proj);
 }
@@ -44,12 +53,10 @@ void GameOverState::update(float dt)
 
 void GameOverState::draw()
 {
-	text.draw();
+	title.draw();
 	msg.draw();
 }
 
 void GameOverState::cleanup()
 {
 }
-
-

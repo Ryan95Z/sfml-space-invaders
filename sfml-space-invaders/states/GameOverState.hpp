@@ -31,7 +31,7 @@ public:
 	virtual void cleanup();
 private:
 	Font font;
-	Text text;
+	Text title;
 	Text msg;
 	glm::mat4 proj;
 };

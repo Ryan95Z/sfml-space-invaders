@@ -47,6 +47,12 @@ void Window::endDrawing()
 	window->display();
 }
 
+glm::ivec2 Window::getSize() const
+{
+	sf::Vector2u size = window->getSize();
+	return glm::ivec2(size.x, size.y);
+}
+
 const sf::Window * Window::getWindow() const
 {
 	return window;
