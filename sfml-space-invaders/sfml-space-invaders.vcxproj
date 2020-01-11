@@ -134,6 +134,7 @@
     <ClCompile Include="core\Triangle.cpp" />
     <ClCompile Include="core\Window.cpp" />
     <ClCompile Include="entities\Alien.cpp" />
+    <ClCompile Include="entities\AlienProjectile.cpp" />
     <ClCompile Include="entities\Cube.cpp" />
     <ClCompile Include="entities\Floor.cpp" />
     <ClCompile Include="entities\Player.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="core\Triangle.hpp" />
     <ClInclude Include="core\Window.hpp" />
     <ClInclude Include="entities\Alien.hpp" />
+    <ClInclude Include="entities\AlienProjectile.hpp" />
     <ClInclude Include="entities\Cube.hpp" />
     <ClInclude Include="entities\Floor.hpp" />
     <ClInclude Include="entities\Player.hpp" />

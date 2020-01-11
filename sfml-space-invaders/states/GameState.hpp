@@ -3,6 +3,7 @@
 
 #include <Box2D/Box2D.h>
 #include <vector>
+#include <random>
 
 #include "../core/BaseState.hpp"
 #include "../core/SpriteRender.hpp"
@@ -46,6 +47,7 @@ protected:
 	void fire(EventDetails *details);
 
 private:
+	void enemyFire(Alien *alien);
 	void setScreenText();
 
 	unsigned int lives;
@@ -59,8 +61,11 @@ private:
 	AlienVector aliens;
 	AlienVector graveyard;
 	ProjectileVector bullets;
+	ProjectileVector alien_bullets;
 	ProjectileVector spent_bullets;
 	GameContactListener listener;
+	std::default_random_engine generator;
+	std::uniform_int_distribution<int> *dist;
 };
 
 #endif // STATES_GAME_STATE_HPP

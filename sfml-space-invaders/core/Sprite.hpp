@@ -10,7 +10,8 @@ enum class SpriteType
 {
 	Alien = 1,
 	Player,
-	Projectile
+	Projectile,
+	AlienProjectile
 };
 
 class Sprite

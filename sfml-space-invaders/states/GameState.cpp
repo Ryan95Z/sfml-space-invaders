@@ -2,6 +2,7 @@
 
 #include "../core/tools/Logger.hpp"
 #include "../core/Window.hpp"
+#include "../entities/AlienProjectile.hpp"
 
 #define LEFT_EVENT "left"
 #define LEFT_RELEASE_EVENT "left_released"
@@ -27,7 +28,7 @@
 #define LIVES_TXT_TEMPLATE "Lives: "
 
 GameState::GameState(StateID id, SharedContext *context) : BaseState(id, context),
-	world(nullptr), player(nullptr) {}
+	world(nullptr), player(nullptr), dist(nullptr) {}
 
 GameState::~GameState()
 {
@@ -70,6 +71,8 @@ void GameState::init()
 	glm::ivec2 window_size = window->getSize();
 	glm::mat4 proj = glm::ortho(0.0f, static_cast<GLfloat>(window_size.x), 0.0f, static_cast<GLfloat>(window_size.y));
 	
+	dist = new std::uniform_int_distribution<int>(0, 2000);
+
 	// Set up the world for Box2d
 	world = new b2World(WORLD_GRAVITY);
 	world->SetContactListener(&listener);
@@ -120,11 +123,25 @@ void GameState::destroy()
 		bullets.erase(bullets.begin());
 	}
 
+	// Remove all the enemy bullets from memory
+	while (alien_bullets.begin() != alien_bullets.end())
+	{
+		delete *alien_bullets.begin();
+		alien_bullets.erase(alien_bullets.begin());
+	}
+
 	// Remove the player from memory
 	if (player != nullptr)
 	{
 		delete player;
 		player = nullptr;
+	}
+
+	// Remove the random number distributor
+	if (dist != nullptr)
+	{
+		delete dist;
+		dist = nullptr;
 	}
 }
 
@@ -138,6 +155,7 @@ void GameState::update(float dt)
 	while (alien_itr != aliens.end())
 	{
 		(*alien_itr)->update(dt);
+		enemyFire(*alien_itr);
 
 		// Determine if the Alien has been hit
 		if ((*alien_itr)->isHidden())
@@ -170,11 +188,18 @@ void GameState::update(float dt)
 		++bullet_itr;
 	}
 
+	bullet_itr = alien_bullets.begin();
+	while (bullet_itr != alien_bullets.end())
+	{
+		(*bullet_itr)->update(dt);
+		++bullet_itr;
+	}
+
 	// Update the labels on the screen
 	setScreenText();
 
 	// Game over conditions
-	if ((aliens.size() == 0) || (player->isDead()))
+	if ((aliens.size() == 0) || (lives == 0))
 	{
 		// TODO: Move to game over state
 		Logger::debug("Game over has been reached");
@@ -231,6 +256,19 @@ void GameState::fire(EventDetails * details)
 	bullet_initial_pos.y -= BULLET_INITIAL_POS_PADDING;
 	Projectile *bullet = new Projectile(world, bullet_initial_pos);
 	bullets.push_back(bullet);
+}
+
+void GameState::enemyFire(Alien * alien)
+{
+	int fire_number = (*dist)(generator);
+	glm::vec2 bullet_pos = alien->getPosition();
+	Projectile *bullet = nullptr;
+
+	if (fire_number == 101)
+	{
+		bullet = new AlienProjectile(world, bullet_pos);
+		alien_bullets.push_back(bullet);
+	}
 }
 
 void GameState::setScreenText()
