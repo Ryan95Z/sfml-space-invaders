@@ -1,6 +1,7 @@
 #include "GameState.hpp"
 
 #include "../core/tools/Logger.hpp"
+#include "../core/Window.hpp"
 
 #define LEFT_EVENT "left"
 #define LEFT_RELEASE_EVENT "left_released"
@@ -14,10 +15,14 @@
 #define ALIEN_POS_INCREMENT 60.0f
 #define ALIENS_PER_ROW 11
 #define ALIEN_COUNT (ALIENS_PER_ROW * ALIEN_ROW_COUNT)
+#define SCORE_INCREMENT 10
 #define BULLET_INITIAL_POS_PADDING 20.0f
 #define SPRITE_SIZE glm::vec2(50.0f, 50.0f)
 #define WORLD_GRAVITY b2Vec2(0.0f, 0.0f)
 #define PLAYER_START_POS glm::vec2(350.0f, 700.0f)
+#define SCORE_TEXT_POS glm::vec2(0.0f, 0.0f)
+#define ARIAL_FONT_PATH "font/arial.ttf"
+#define SCORE_TXT_TEMPLATE "Score: "
 
 GameState::GameState(StateID id, SharedContext *context) : BaseState(id, context),
 	world(nullptr), player(nullptr) {}
@@ -33,6 +38,8 @@ void GameState::start()
 	float alien_x = ALIEN_INITIAL_X;
 	float alien_y = ALIEN_INITIAL_Y;
 	
+	score = 0;
+
 	// Create the Aliens and set the initial positions
 	for (int i = 0; i < ALIEN_COUNT; ++i)
 	{
@@ -55,7 +62,10 @@ void GameState::stop() {}
 
 void GameState::init()
 {
+	Window *window = context->window;
 	EventManager *event_mgr = context->event_mgr;
+	glm::ivec2 window_size = window->getSize();
+	glm::mat4 proj = glm::ortho(0.0f, static_cast<GLfloat>(window_size.x), 0.0f, static_cast<GLfloat>(window_size.y));
 	
 	// Set up the world for Box2d
 	world = new b2World(WORLD_GRAVITY);
@@ -74,6 +84,15 @@ void GameState::init()
 	event_mgr->addCallback(LEFT_RELEASE_EVENT, &GameState::stop, this);
 	event_mgr->addCallback(RIGHT_RELEASE_EVENT, &GameState::stop, this);
 	event_mgr->addCallback(SPACE_BAR_EVENT, &GameState::fire, this);
+
+	// Load in the font file
+	font.loadFromFile(ARIAL_FONT_PATH);
+
+	// Set up the score text
+	score_txt.setFont(&font);
+	score_txt.setProjection(proj);
+	score_txt.setPosition(SCORE_TEXT_POS);
+	setScoreText();
 }
 
 void GameState::destroy()
@@ -115,6 +134,7 @@ void GameState::update(float dt)
 		if ((*alien_itr)->isHidden())
 		{
 			// Move to graveyard for removal
+			score += SCORE_INCREMENT;
 			graveyard.push_back(*alien_itr);
 			alien_itr = aliens.erase(alien_itr);
 			continue;
@@ -141,6 +161,8 @@ void GameState::update(float dt)
 		++bullet_itr;
 	}
 
+	setScoreText();
+
 	// Game over conditions
 	if ((aliens.size() == 0) || (player->isDead()))
 	{
@@ -157,6 +179,7 @@ void GameState::draw()
 		sprite = (Sprite *)body_itr->GetUserData();
 		render.drawSprite(sprite);
 	}
+	score_txt.draw();
 }
 
 void GameState::cleanup()
@@ -197,4 +220,9 @@ void GameState::fire(EventDetails * details)
 	bullet_initial_pos.y -= BULLET_INITIAL_POS_PADDING;
 	Projectile *bullet = new Projectile(world, bullet_initial_pos);
 	bullets.push_back(bullet);
+}
+
+void GameState::setScoreText()
+{
+	score_txt.setString((SCORE_TXT_TEMPLATE + std::to_string(score)));
 }

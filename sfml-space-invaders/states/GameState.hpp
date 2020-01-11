@@ -8,6 +8,9 @@
 #include "../core/SpriteRender.hpp"
 #include "../core/managers/EventManager.hpp"
 
+#include "../core/gui/Font.hpp"
+#include "../core/gui/Text.hpp"
+
 #include "../entities/Alien.hpp"
 #include "../entities/Player.hpp"
 #include "../entities/Projectile.hpp"
@@ -43,8 +46,13 @@ protected:
 	void fire(EventDetails *details);
 
 private:
+	void setScoreText();
+
+	unsigned int score;
 	b2World *world;
 	Player *player;
+	Font font;
+	Text score_txt;
 	SpriteRender render;
 	AlienVector aliens;
 	AlienVector graveyard;
