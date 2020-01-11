@@ -70,7 +70,7 @@ EventManager * Window::getEventManager()
 
 void Window::setUp(const int width, const int height)
 {
-	window = new sf::Window(sf::VideoMode(width, height), WINDOW_TITLE, sf::Style::Default, Window::getSettings());
+	window = new sf::Window(sf::VideoMode(width, height), WINDOW_TITLE, sf::Style::Close, Window::getSettings());
 	glViewport(0, 0, width, height);
 	window->setVerticalSyncEnabled(true);
 	if (glewInit() != GLEW_OK)

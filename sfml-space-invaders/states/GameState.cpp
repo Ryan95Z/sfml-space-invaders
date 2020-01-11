@@ -20,9 +20,11 @@
 #define SPRITE_SIZE glm::vec2(50.0f, 50.0f)
 #define WORLD_GRAVITY b2Vec2(0.0f, 0.0f)
 #define PLAYER_START_POS glm::vec2(350.0f, 700.0f)
-#define SCORE_TEXT_POS glm::vec2(0.0f, 0.0f)
+#define SCORE_TEXT_POS glm::vec2(20.0f, 0.0f)
+#define LIVES_TEXT_POS glm::vec2(600.0f, 0.0f)
 #define ARIAL_FONT_PATH "font/arial.ttf"
 #define SCORE_TXT_TEMPLATE "Score: "
+#define LIVES_TXT_TEMPLATE "Lives: "
 
 GameState::GameState(StateID id, SharedContext *context) : BaseState(id, context),
 	world(nullptr), player(nullptr) {}
@@ -39,6 +41,7 @@ void GameState::start()
 	float alien_y = ALIEN_INITIAL_Y;
 	
 	score = 0;
+	lives = 3;
 
 	// Create the Aliens and set the initial positions
 	for (int i = 0; i < ALIEN_COUNT; ++i)
@@ -92,7 +95,13 @@ void GameState::init()
 	score_txt.setFont(&font);
 	score_txt.setProjection(proj);
 	score_txt.setPosition(SCORE_TEXT_POS);
-	setScoreText();
+
+	// Set up the lives text
+	lives_txt.setFont(&font);
+	lives_txt.setProjection(proj);
+	lives_txt.setPosition(LIVES_TEXT_POS);
+
+	setScreenText();
 }
 
 void GameState::destroy()
@@ -161,7 +170,8 @@ void GameState::update(float dt)
 		++bullet_itr;
 	}
 
-	setScoreText();
+	// Update the labels on the screen
+	setScreenText();
 
 	// Game over conditions
 	if ((aliens.size() == 0) || (player->isDead()))
@@ -180,6 +190,7 @@ void GameState::draw()
 		render.drawSprite(sprite);
 	}
 	score_txt.draw();
+	lives_txt.draw();
 }
 
 void GameState::cleanup()
@@ -222,7 +233,8 @@ void GameState::fire(EventDetails * details)
 	bullets.push_back(bullet);
 }
 
-void GameState::setScoreText()
+void GameState::setScreenText()
 {
-	score_txt.setString((SCORE_TXT_TEMPLATE + std::to_string(score)));
+	score_txt.setString(SCORE_TXT_TEMPLATE + std::to_string(score));
+	lives_txt.setString(LIVES_TXT_TEMPLATE + std::to_string(lives));
 }

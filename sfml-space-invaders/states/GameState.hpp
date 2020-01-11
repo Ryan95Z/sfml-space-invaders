@@ -46,13 +46,15 @@ protected:
 	void fire(EventDetails *details);
 
 private:
-	void setScoreText();
+	void setScreenText();
 
+	unsigned int lives;
 	unsigned int score;
 	b2World *world;
 	Player *player;
 	Font font;
 	Text score_txt;
+	Text lives_txt;
 	SpriteRender render;
 	AlienVector aliens;
 	AlienVector graveyard;
