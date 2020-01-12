@@ -1,8 +1,10 @@
 #include "Player.hpp"
 
 #define PLAYER_SIZE glm::vec2(50.0f, 50.0f)
+#define PLAYER_LIVES 3
 
-Player::Player(b2World * world) : Sprite(world, b2_staticBody, SpriteType::Player, PLAYER_SIZE, 0.0f)
+Player::Player(b2World * world) : Sprite(world, b2_staticBody, SpriteType::Player, PLAYER_SIZE, 0.0f),
+	lives(PLAYER_LIVES)
 {
 	setUpCollision();
 }
@@ -24,6 +26,10 @@ void Player::update(float dt)
 
 void Player::beginContact(SpriteType type)
 {
+	if ((type == SpriteType::AlienProjectile) && (lives > 0))
+	{
+		--lives;
+	}
 }
 
 void Player::endContact(SpriteType type)
@@ -50,11 +56,16 @@ bool Player::isDead() const
 	return is_dead;
 }
 
+const unsigned int Player::getLives() const
+{
+	return lives;
+}
+
 void Player::setUpCollision()
 {
 	b2Filter filter = fixture->GetFilterData();
-	filter.categoryBits = 0x002;
-	filter.maskBits = 0x001;
+	filter.categoryBits = PLAYER;
+	filter.maskBits = ALIEN_PROJECTILE;
 
 	fixture->SetFilterData(filter);
 }

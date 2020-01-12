@@ -50,7 +50,7 @@ private:
 	void enemyFire(Alien *alien);
 	void setScreenText();
 
-	unsigned int lives;
+	bool is_game_over;
 	unsigned int score;
 	b2World *world;
 	Player *player;

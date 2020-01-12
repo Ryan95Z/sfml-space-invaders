@@ -14,6 +14,14 @@ enum class SpriteType
 	AlienProjectile
 };
 
+enum SpriteCategory
+{
+	ALIEN = 0x001,
+	PLAYER = 0x002,
+	PROJECTILE = 0x003,
+	ALIEN_PROJECTILE = 0x004
+};
+
 class Sprite
 {
 public:

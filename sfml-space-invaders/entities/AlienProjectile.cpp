@@ -31,8 +31,8 @@ void AlienProjectile::setCollisionDetails()
 	b2Filter filter = fixture->GetFilterData();
 
 	// Stop the object from colliding with anything
-	filter.categoryBits = 0x001;
-	filter.maskBits = 0x002;
+	filter.categoryBits = ALIEN_PROJECTILE;
+	filter.maskBits = PLAYER;
 
 	// Update the filter
 	fixture->SetFilterData(filter);

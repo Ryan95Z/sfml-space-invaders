@@ -42,7 +42,6 @@ void GameState::start()
 	float alien_y = ALIEN_INITIAL_Y;
 	
 	score = 0;
-	lives = 3;
 
 	// Create the Aliens and set the initial positions
 	for (int i = 0; i < ALIEN_COUNT; ++i)
@@ -60,6 +59,7 @@ void GameState::start()
 
 	// Create the player
 	player = new Player(world, PLAYER_START_POS);
+	setScreenText();
 }
 
 void GameState::stop() {}
@@ -70,7 +70,8 @@ void GameState::init()
 	EventManager *event_mgr = context->event_mgr;
 	glm::ivec2 window_size = window->getSize();
 	glm::mat4 proj = glm::ortho(0.0f, static_cast<GLfloat>(window_size.x), 0.0f, static_cast<GLfloat>(window_size.y));
-	
+
+	is_game_over = false;
 	dist = new std::uniform_int_distribution<int>(0, 2000);
 
 	// Set up the world for Box2d
@@ -103,8 +104,6 @@ void GameState::init()
 	lives_txt.setFont(&font);
 	lives_txt.setProjection(proj);
 	lives_txt.setPosition(LIVES_TEXT_POS);
-
-	setScreenText();
 }
 
 void GameState::destroy()
@@ -206,9 +205,10 @@ void GameState::update(float dt)
 	setScreenText();
 
 	// Game over conditions
-	if ((aliens.size() == 0) || (lives == 0))
+	if ((aliens.size() == 0) || (player->getLives() == 0) && !is_game_over)
 	{
 		// TODO: Move to game over state
+		is_game_over = true;
 		Logger::debug("Game over has been reached");
 	}
 }
@@ -244,16 +244,19 @@ void GameState::cleanup()
 
 void GameState::left(EventDetails * details)
 {
+	if (is_game_over) { return; }
 	player->left();
 }
 
 void GameState::right(EventDetails * details)
 {
+	if (is_game_over) { return; }
 	player->right();
 }
 
 void GameState::stop(EventDetails * details)
 {
+	if (is_game_over) { return;  }
 	player->stop();
 }
 
@@ -271,6 +274,8 @@ void GameState::enemyFire(Alien * alien)
 	glm::vec2 bullet_pos = alien->getPosition();
 	Projectile *bullet = nullptr;
 
+	if (is_game_over) { return;  }
+
 	if (fire_number == 101)
 	{
 		bullet = new AlienProjectile(world, bullet_pos);
@@ -281,5 +286,5 @@ void GameState::enemyFire(Alien * alien)
 void GameState::setScreenText()
 {
 	score_txt.setString(SCORE_TXT_TEMPLATE + std::to_string(score));
-	lives_txt.setString(LIVES_TXT_TEMPLATE + std::to_string(lives));
+	lives_txt.setString(LIVES_TXT_TEMPLATE + std::to_string(player->getLives()));
 }
