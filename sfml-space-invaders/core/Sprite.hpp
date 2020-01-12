@@ -34,6 +34,7 @@ public:
 protected:
 	b2World *world;
 	b2Body *body;
+	b2Fixture *fixture;
 	glm::vec2 size;
 
 private:

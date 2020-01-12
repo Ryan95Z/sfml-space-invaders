@@ -3,9 +3,15 @@
 
 #define PROJECTILE_VELOCITY b2Vec2(0.0f, 5.0f)
 
-AlienProjectile::AlienProjectile(b2World * world) : Projectile(world, glm::vec2(0.0f, 0.0f), SpriteType::AlienProjectile) {}
+AlienProjectile::AlienProjectile(b2World * world) : Projectile(world, glm::vec2(0.0f, 0.0f), SpriteType::AlienProjectile)
+{
+	setCollisionDetails();
+}
 
-AlienProjectile::AlienProjectile(b2World * world, glm::vec2 pos) : Projectile(world, pos, SpriteType::AlienProjectile) {}
+AlienProjectile::AlienProjectile(b2World * world, glm::vec2 pos) : Projectile(world, pos, SpriteType::AlienProjectile)
+{
+	setCollisionDetails();
+}
 
 void AlienProjectile::update(float dt)
 {
@@ -18,4 +24,16 @@ void AlienProjectile::beginContact(SpriteType type)
 	{
 		is_hidden = true;
 	}
+}
+
+void AlienProjectile::setCollisionDetails()
+{
+	b2Filter filter = fixture->GetFilterData();
+
+	// Stop the object from colliding with anything
+	filter.categoryBits = 0x001;
+	filter.maskBits = 0x002;
+
+	// Update the filter
+	fixture->SetFilterData(filter);
 }

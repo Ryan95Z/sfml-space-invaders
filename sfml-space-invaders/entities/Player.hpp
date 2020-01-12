@@ -21,6 +21,8 @@ public:
 
 	bool isDead() const;
 private:
+	void setUpCollision();
+
 	bool is_dead;
 	float velocity;
 };

@@ -192,6 +192,13 @@ void GameState::update(float dt)
 	while (bullet_itr != alien_bullets.end())
 	{
 		(*bullet_itr)->update(dt);
+		if ((*bullet_itr)->getPosition().y > 800.0f || (*bullet_itr)->isHidden())
+		{
+			// Move to vector for removal
+			spent_bullets.push_back(*bullet_itr);
+			bullet_itr = alien_bullets.erase(bullet_itr);
+			continue;
+		}
 		++bullet_itr;
 	}
 

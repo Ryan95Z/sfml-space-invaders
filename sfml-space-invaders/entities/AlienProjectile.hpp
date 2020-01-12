@@ -12,6 +12,9 @@ public:
 	virtual void update(float dt);
 
 	virtual void beginContact(SpriteType type);
+
+private:
+	void setCollisionDetails();
 };
 
 #endif // !ENTITIES_ALIEN_PROJECTILE_HPP
