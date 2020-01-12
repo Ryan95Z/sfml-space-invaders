@@ -10,11 +10,12 @@
 #define RIGHT_RELEASE_EVENT "right_released" 
 #define SPACE_BAR_EVENT "space_bar"
 #define MOVEMENT_STEP 250
-#define ALIEN_ROW_COUNT 7
 #define ALIEN_INITIAL_X 25.0f
 #define ALIEN_INITIAL_Y 50.0f
 #define ALIEN_POS_INCREMENT 60.0f
+#define ALINE_FIRE_VAL 101
 #define ALIENS_PER_ROW 11
+#define ALIEN_ROW_COUNT 7
 #define ALIEN_COUNT (ALIENS_PER_ROW * ALIEN_ROW_COUNT)
 #define SCORE_INCREMENT 10
 #define BULLET_INITIAL_POS_PADDING 20.0f
@@ -40,7 +41,7 @@ void GameState::start()
 {
 	float alien_x = ALIEN_INITIAL_X;
 	float alien_y = ALIEN_INITIAL_Y;
-	
+
 	score = 0;
 
 	// Create the Aliens and set the initial positions
@@ -68,11 +69,12 @@ void GameState::init()
 {
 	Window *window = context->window;
 	EventManager *event_mgr = context->event_mgr;
-	glm::ivec2 window_size = window->getSize();
+	const glm::ivec2 rand_dist_range = glm::ivec2(0, 2000);
+	window_size = window->getSize();
 	glm::mat4 proj = glm::ortho(0.0f, static_cast<GLfloat>(window_size.x), 0.0f, static_cast<GLfloat>(window_size.y));
 
 	is_game_over = false;
-	dist = new std::uniform_int_distribution<int>(0, 2000);
+	dist = new std::uniform_int_distribution<int>(rand_dist_range.x, rand_dist_range.y);
 
 	// Set up the world for Box2d
 	world = new b2World(WORLD_GRAVITY);
@@ -187,11 +189,12 @@ void GameState::update(float dt)
 		++bullet_itr;
 	}
 
+	// Go through the fired alien bullets
 	bullet_itr = alien_bullets.begin();
 	while (bullet_itr != alien_bullets.end())
 	{
 		(*bullet_itr)->update(dt);
-		if ((*bullet_itr)->getPosition().y > 800.0f || (*bullet_itr)->isHidden())
+		if ((*bullet_itr)->getPosition().y > window_size.y || (*bullet_itr)->isHidden())
 		{
 			// Move to vector for removal
 			spent_bullets.push_back(*bullet_itr);
@@ -209,18 +212,24 @@ void GameState::update(float dt)
 	{
 		// TODO: Move to game over state
 		is_game_over = true;
+		
+		// Stop the player if still moving
+		stop();
 		Logger::debug("Game over has been reached");
 	}
 }
 
 void GameState::draw()
 {
+	// Render the sprites
 	Sprite *sprite = nullptr;
 	for (b2Body *body_itr = world->GetBodyList(); body_itr != 0; body_itr = body_itr->GetNext())
 	{
 		sprite = (Sprite *)body_itr->GetUserData();
 		render.drawSprite(sprite);
 	}
+
+	// Render the text
 	score_txt.draw();
 	lives_txt.draw();
 }
@@ -274,9 +283,9 @@ void GameState::enemyFire(Alien * alien)
 	glm::vec2 bullet_pos = alien->getPosition();
 	Projectile *bullet = nullptr;
 
-	if (is_game_over) { return;  }
+	if (is_game_over) { return; }
 
-	if (fire_number == 101)
+	if (fire_number == ALINE_FIRE_VAL)
 	{
 		bullet = new AlienProjectile(world, bullet_pos);
 		alien_bullets.push_back(bullet);

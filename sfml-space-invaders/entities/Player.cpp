@@ -64,7 +64,11 @@ const unsigned int Player::getLives() const
 void Player::setUpCollision()
 {
 	b2Filter filter = fixture->GetFilterData();
+
+	// Set that the current object is the player
 	filter.categoryBits = PLAYER;
+
+	// State that it only collides with the Alien projectile
 	filter.maskBits = ALIEN_PROJECTILE;
 
 	fixture->SetFilterData(filter);

@@ -52,6 +52,7 @@ private:
 
 	bool is_game_over;
 	unsigned int score;
+	glm::ivec2 window_size;
 	b2World *world;
 	Player *player;
 	Font font;
