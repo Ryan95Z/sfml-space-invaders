@@ -29,6 +29,7 @@ public:
 	virtual void draw();
 
 	virtual void cleanup();
+	virtual void reset();
 private:
 	Font font;
 	Text title;

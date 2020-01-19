@@ -59,3 +59,7 @@ void ExperimentState::draw()
 }
 
 void ExperimentState::cleanup() {}
+
+void ExperimentState::reset()
+{
+}

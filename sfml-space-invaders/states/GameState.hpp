@@ -39,6 +39,7 @@ public:
 	virtual void draw();
 
 	virtual void cleanup();
+	virtual void reset();
 
 protected:
 	void left(EventDetails *details);

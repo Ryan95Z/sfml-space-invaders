@@ -217,7 +217,6 @@ void GameState::update(float dt)
 		stop();
 		Logger::debug("Game over has been reached");
 		state_mgr->registerNextState(3);
-
 	}
 }
 
@@ -251,6 +250,10 @@ void GameState::cleanup()
 		delete alien;
 	}
 	graveyard.clear();
+}
+
+void GameState::reset()
+{
 }
 
 void GameState::left(EventDetails * details)

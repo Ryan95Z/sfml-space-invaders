@@ -9,6 +9,7 @@ Game::Game() : state_mgr(&context), delta_time(0.0f), last_frame(0.0f), current_
 	context.window = &window;
 	context.event_mgr = window.getEventManager();
 
+	// Push the initial game state
 	state_mgr.registerNextState(1);	
 }
 
@@ -38,7 +39,10 @@ void Game::update()
 
 void Game::handleEvents()
 {
-	state_mgr.checkNextStates();
+	// Check that there are new states to add
+	state_mgr.checkNextState();
+
+	// Handle incoming events
 	window.handleEvents();
 }
 
@@ -46,4 +50,7 @@ void Game::restartClock()
 {
 	state_mgr.cleanup();
 	elapsed_time += clock.restart();
+
+	// Check that there are states to remove
+	state_mgr.checkStateRemoval();
 }

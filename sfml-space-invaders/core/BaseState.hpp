@@ -24,6 +24,7 @@ public:
 	virtual void draw() = 0;
 
 	virtual void cleanup() = 0;
+	virtual void reset() = 0;
 
 	StateID getId() const
 	{

@@ -61,3 +61,8 @@ void GameOverState::draw()
 void GameOverState::cleanup()
 {
 }
+
+void GameOverState::reset()
+{
+
+}

@@ -26,6 +26,7 @@ public:
 	virtual void draw();
 
 	virtual void cleanup();
+	virtual void reset();
 private:
 	b2Vec2 gravity;
 	b2World *world;

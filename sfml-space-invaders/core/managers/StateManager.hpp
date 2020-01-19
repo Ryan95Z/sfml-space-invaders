@@ -26,8 +26,6 @@ public:
 	void render();
 	void cleanup();
 
-	bool pushState(StateID state_id);
-	StateID popState();
 	StateID top() const;
 
 	template <class T>
@@ -40,9 +38,18 @@ public:
 		return true;
 	}
 
-	void checkNextStates();
+	void checkNextState();
+	void checkStateRemoval();
+
 	void registerNextState(StateID state_id);
+	void reigsterStateRemoval();
+
+protected:
+	bool pushState(StateID state_id);
+	StateID popState();
+
 private:
+	bool has_pop_request;
 	StateID current_state;
 	SharedContext *context;
 	std::vector<StateID> next_states;
