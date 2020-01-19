@@ -45,10 +45,11 @@ struct EventBinding
 	sf::Keyboard::Key key;
 };
 
-
+using StateID = unsigned int;
 using Bindings = std::unordered_map<std::string, EventBinding *>;
 using Callbacks = std::unordered_map<std::string, std::function<void(EventDetails *)>>;
 using EventQueue = std::vector<EventDetails>;
+using StateCallbacks = std::unordered_map<StateID, Callbacks *>;
 
 class EventManager
 {
@@ -59,12 +60,14 @@ public:
 
 	void handleEvents(sf::Event evnt);
 	bool addBinding(std::string name, EventType type, sf::Keyboard::Key key);
+
+	void setCurrentState(StateID state_id);
 	
 	template <class T>
 	bool addCallback(std::string name, void(T::*func)(EventDetails *), T *instance)
 	{
 		Bindings::iterator b_itr = bindings.find(name);
-		Callbacks::iterator c_itr = callbacks.find(name);
+		Callbacks::iterator c_itr = current_state_callbacks->find(name);
 
 		if (b_itr == bindings.end())
 		{
@@ -72,21 +75,26 @@ public:
 			return false;
 		}
 
-		if (c_itr != callbacks.end())
+		if (c_itr != current_state_callbacks->end())
 		{
 			std::cout << name << " has already been registered as a callback\n";
 			return false;
 		}
 		auto callback = std::bind(func, instance, std::placeholders::_1);
-		callbacks.emplace(name, callback);
+		current_state_callbacks->emplace(name, callback);
 		return true;
 	}
+
 private:
 	void processCallbacks();
 
+	StateID current_state;
+
 	Bindings bindings;
-	Callbacks callbacks;
 	EventQueue event_queue;
+
+	Callbacks *current_state_callbacks;
+	StateCallbacks state_callbacks;
 };
 
 #endif // CORE_MANAGERS_EVENT_MANAGER

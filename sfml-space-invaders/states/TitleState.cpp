@@ -37,6 +37,7 @@ void TitleState::init()
 	title.setColour(glm::vec3(0.0f, 1.0f, 0.0f));
 	title.setProjection(proj);
 
+	// Set up the instructions
 	instructions.setFont(&arial);
 	instructions.setPosition(190.0f, 300.0f);
 	instructions.setString(INSTRUCTIONS);
@@ -65,7 +66,3 @@ void TitleState::cleanup()
 void TitleState::reset()
 {
 }
-
-
-
-

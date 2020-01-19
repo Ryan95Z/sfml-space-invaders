@@ -49,8 +49,9 @@ protected:
 	StateID popState();
 
 private:
+	void updateEventManager();
+
 	bool has_pop_request;
-	StateID current_state;
 	SharedContext *context;
 	std::vector<StateID> next_states;
 	StateFactory factory;

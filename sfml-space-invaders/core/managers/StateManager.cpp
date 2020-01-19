@@ -7,7 +7,7 @@
 #include "../../states/TitleState.hpp"
 #include "../../states/StateInfo.hpp"
 
-StateManager::StateManager(SharedContext *context) : context(context), current_state(0), has_pop_request(false)
+StateManager::StateManager(SharedContext *context) : context(context), has_pop_request(false)
 {
 	registerState<GameState>(GAME_STATE_ID);
 	registerState<ExperimentState>(EXPERIMENT_STATE_ID);
@@ -83,6 +83,7 @@ void StateManager::reigsterStateRemoval()
 bool StateManager::pushState(StateID state_id)
 {
 	BaseState *state = factory[state_id]();
+	context->event_mgr->setCurrentState(state->getId());
 	state->init();
 	state->start();
 	active_states.push(state);
@@ -92,11 +93,28 @@ bool StateManager::pushState(StateID state_id)
 StateID StateManager::popState()
 {
 	BaseState *state = active_states.top();
+	active_states.pop();
+
+	// Check that stack will be empty
+	// If this is happens then stop the state being popped
+	if (active_states.empty()) {
+		std::cout << "Cannot pop last state!" << std::endl;
+		active_states.push(state);
+		return -1;
+	}
+
 	StateID id = state->getId();
 	state->stop();
 	state->destroy();
 	delete state;
 	state = nullptr;
-	active_states.pop();
+	updateEventManager();
 	return id;
+}
+
+void StateManager::updateEventManager()
+{
+	EventManager *event_mgr = context->event_mgr;
+	BaseState *state = active_states.top();
+	event_mgr->setCurrentState(state->getId());
 }
