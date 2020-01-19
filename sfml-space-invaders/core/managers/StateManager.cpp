@@ -6,7 +6,7 @@
 #include "../../states/GameOverState.hpp"
 #include "../../states/StateInfo.hpp"
 
-StateManager::StateManager(SharedContext *context) : context(context)
+StateManager::StateManager(SharedContext *context) : context(context), current_state(0)
 {
 	registerState<GameState>(GAME_STATE_ID);
 	registerState<ExperimentState>(EXPERIMENT_STATE_ID);
@@ -75,4 +75,16 @@ StateID StateManager::popState()
 StateID StateManager::top() const
 {
 	return (*active_states.begin())->getId();
+}
+
+void StateManager::checkNextStates()
+{
+	if (next_states.size() < 1) { return;  }
+	pushState(*next_states.begin());
+	next_states.erase(next_states.begin());
+}
+
+void StateManager::registerNextState(StateID state_id)
+{
+	next_states.push_back(state_id);
 }

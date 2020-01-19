@@ -38,8 +38,13 @@ public:
 		};
 		return true;
 	}
+
+	void checkNextStates();
+	void registerNextState(StateID state_id);
 private:
+	StateID current_state;
 	SharedContext *context;
+	std::vector<StateID> next_states;
 	StateFactory factory;
 	StateVector active_states;
 };
