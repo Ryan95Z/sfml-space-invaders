@@ -1,7 +1,14 @@
 #ifndef STATES_TITLE_STATE_HPP
 #define STATES_TITLE_STATE_HPP
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+
 #include "../core/BaseState.hpp"
+#include "../core/gui/Font.hpp"
+#include "../core/gui/Text.hpp"
+
+#define FONT_PATH "font/arial.ttf"
 
 class TitleState : public BaseState
 {
@@ -20,7 +27,11 @@ public:
 
 	virtual void cleanup();
 	virtual void reset();
-
+private:
+	glm::mat4 proj;
+	Font arial;
+	Text title;
+	Text instructions;
 };
 
 #endif // !STATES_TITLE_STATE_HPP

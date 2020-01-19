@@ -4,6 +4,7 @@
 #include "../../states/GameState.hpp"
 #include "../../states/ExperimentState.hpp"
 #include "../../states/GameOverState.hpp"
+#include "../../states/TitleState.hpp"
 #include "../../states/StateInfo.hpp"
 
 StateManager::StateManager(SharedContext *context) : context(context), current_state(0), has_pop_request(false)
@@ -11,6 +12,7 @@ StateManager::StateManager(SharedContext *context) : context(context), current_s
 	registerState<GameState>(GAME_STATE_ID);
 	registerState<ExperimentState>(EXPERIMENT_STATE_ID);
 	registerState<GameOverState>(GAME_OVER_STATE_ID);
+	registerState<TitleState>(TITLE_STATE_ID);
 }
 
 StateManager::~StateManager()

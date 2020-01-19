@@ -1,8 +1,11 @@
 #include "GameState.hpp"
 
+#include "StateInfo.hpp"
+
 #include "../core/tools/Logger.hpp"
 #include "../core/Window.hpp"
 #include "../entities/AlienProjectile.hpp"
+
 
 #define LEFT_EVENT "left"
 #define LEFT_RELEASE_EVENT "left_released"
@@ -216,7 +219,7 @@ void GameState::update(float dt)
 		// Stop the player if still moving
 		stop();
 		Logger::debug("Game over has been reached");
-		state_mgr->registerNextState(3);
+		state_mgr->registerNextState(GAME_OVER_STATE_ID);
 	}
 }
 

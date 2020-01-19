@@ -4,5 +4,6 @@
 #define GAME_STATE_ID 1
 #define EXPERIMENT_STATE_ID 2
 #define GAME_OVER_STATE_ID 3
+#define TITLE_STATE_ID 4
 
 #endif // STATES_STATE_INFO_HPP

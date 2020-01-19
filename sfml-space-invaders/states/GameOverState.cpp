@@ -11,6 +11,7 @@ GameOverState::GameOverState(StateID id, StateManager *state_mgr, SharedContext 
 
 GameOverState::~GameOverState()
 {
+	destroy();
 }
 
 void GameOverState::start()

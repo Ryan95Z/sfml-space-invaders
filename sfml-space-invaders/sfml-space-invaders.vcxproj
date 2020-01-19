@@ -145,6 +145,7 @@
     <ClCompile Include="states\ExperimentState.cpp" />
     <ClCompile Include="states\GameOverState.cpp" />
     <ClCompile Include="states\GameState.cpp" />
+    <ClCompile Include="states\TitleState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\BaseState.hpp" />
@@ -177,6 +178,7 @@
     <ClInclude Include="states\GameOverState.hpp" />
     <ClInclude Include="states\GameState.hpp" />
     <ClInclude Include="states\StateInfo.hpp" />
+    <ClInclude Include="states\TitleState.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\cube_frag.glsl" />
