@@ -20,7 +20,12 @@ public:
 	void stop();
 
 	bool isDead() const;
+
+	const unsigned int getLives() const;
 private:
+	void setUpCollision();
+
+	unsigned int lives;
 	bool is_dead;
 	float velocity;
 };

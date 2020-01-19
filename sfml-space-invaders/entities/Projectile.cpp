@@ -5,18 +5,19 @@
 #define PROJECTILE_VELOCITY b2Vec2(0.0f, -5.0f)
 
 Projectile::Projectile(b2World * world) : Sprite(world, b2_dynamicBody, SpriteType::Projectile, PROJECTILE_SIZE, 0.0f),
-	is_hidden(false)
-{
-}
+	is_hidden(false) {}
 
 Projectile::Projectile(b2World * world, glm::vec2 pos) : Projectile(world)
 {
 	this->setPosition(pos);
 }
 
-Projectile::~Projectile()
+Projectile::Projectile(b2World * world, glm::vec2 pos, SpriteType type) : Sprite(world, b2_dynamicBody, type, PROJECTILE_SIZE, 0.0f)
 {
+	this->setPosition(pos);
 }
+
+Projectile::~Projectile() {}
 
 void Projectile::update(float dt)
 {

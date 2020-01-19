@@ -10,7 +10,16 @@ enum class SpriteType
 {
 	Alien = 1,
 	Player,
-	Projectile
+	Projectile,
+	AlienProjectile
+};
+
+enum SpriteCategory
+{
+	ALIEN = 0x001,
+	PLAYER = 0x002,
+	PROJECTILE = 0x003,
+	ALIEN_PROJECTILE = 0x004
 };
 
 class Sprite
@@ -33,6 +42,7 @@ public:
 protected:
 	b2World *world;
 	b2Body *body;
+	b2Fixture *fixture;
 	glm::vec2 size;
 
 private:

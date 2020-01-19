@@ -121,6 +121,9 @@
   <ItemGroup>
     <ClCompile Include="core\Camera.cpp" />
     <ClCompile Include="core\Game.cpp" />
+    <ClCompile Include="core\gui\Font.cpp" />
+    <ClCompile Include="core\gui\Text.cpp" />
+    <ClCompile Include="core\gui\TextRenderer.cpp" />
     <ClCompile Include="core\loaders\TextureLoader.cpp" />
     <ClCompile Include="core\managers\EventManager.cpp" />
     <ClCompile Include="core\managers\StateManager.cpp" />
@@ -131,6 +134,7 @@
     <ClCompile Include="core\Triangle.cpp" />
     <ClCompile Include="core\Window.cpp" />
     <ClCompile Include="entities\Alien.cpp" />
+    <ClCompile Include="entities\AlienProjectile.cpp" />
     <ClCompile Include="entities\Cube.cpp" />
     <ClCompile Include="entities\Floor.cpp" />
     <ClCompile Include="entities\Player.cpp" />
@@ -145,6 +149,9 @@
   <ItemGroup>
     <ClInclude Include="core\BaseState.hpp" />
     <ClInclude Include="core\Camera.hpp" />
+    <ClInclude Include="core\gui\Font.hpp" />
+    <ClInclude Include="core\gui\Text.hpp" />
+    <ClInclude Include="core\gui\TextRenderer.hpp" />
     <ClInclude Include="core\Sprite.hpp" />
     <ClInclude Include="core\SpriteRender.hpp" />
     <ClInclude Include="core\tools\Logger.hpp">
@@ -159,6 +166,7 @@
     <ClInclude Include="core\Triangle.hpp" />
     <ClInclude Include="core\Window.hpp" />
     <ClInclude Include="entities\Alien.hpp" />
+    <ClInclude Include="entities\AlienProjectile.hpp" />
     <ClInclude Include="entities\Cube.hpp" />
     <ClInclude Include="entities\Floor.hpp" />
     <ClInclude Include="entities\Player.hpp" />
@@ -175,6 +183,8 @@
     <None Include="shaders\cube_vertex.glsl" />
     <None Include="shaders\frag.glsl" />
     <None Include="shaders\square_vertex.glsl" />
+    <None Include="shaders\text.frag" />
+    <None Include="shaders\text.vert" />
     <None Include="shaders\vertex.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

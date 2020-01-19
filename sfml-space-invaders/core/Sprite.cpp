@@ -3,7 +3,7 @@
 #include <iostream>
 
 Sprite::Sprite(b2World * world, b2BodyType type, SpriteType sprite_type, glm::vec2 size, float density) : 
-	world(world), body(nullptr), sprite_type(sprite_type), size(size)
+	world(world), body(nullptr), fixture(nullptr), sprite_type(sprite_type), size(size)
 {
 	b2BodyDef body_def;
 	body_def.type = type;
@@ -18,13 +18,18 @@ Sprite::Sprite(b2World * world, b2BodyType type, SpriteType sprite_type, glm::ve
 	fixture_def.density = density;
 	fixture_def.shape = &shape;
 
-	body->CreateFixture(&fixture_def);
+	fixture = body->CreateFixture(&fixture_def);
 
 	body->SetUserData((void *) this);
 }
 
 Sprite::~Sprite()
 {
+	if ((fixture != nullptr) && (body != nullptr))
+	{
+		body->DestroyFixture(fixture);
+	}
+
 	if ((world != nullptr) && (body != nullptr))
 	{
 		world->DestroyBody(body);

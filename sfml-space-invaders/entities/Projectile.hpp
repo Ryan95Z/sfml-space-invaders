@@ -16,7 +16,10 @@ public:
 	virtual void endContact(SpriteType type);
 
 	bool isHidden() const;
-private:
+
+protected:
+	Projectile(b2World *world, glm::vec2 pos, SpriteType type);
+
 	bool is_hidden;
 };
 
