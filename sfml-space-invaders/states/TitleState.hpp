@@ -8,6 +8,8 @@
 #include "../core/gui/Font.hpp"
 #include "../core/gui/Text.hpp"
 
+#include "../core/managers/EventManager.hpp"
+
 #define FONT_PATH "font/arial.ttf"
 
 class TitleState : public BaseState
@@ -28,6 +30,8 @@ public:
 	virtual void cleanup();
 	virtual void reset();
 private:
+	void startGame(EventDetails *details);
+
 	glm::mat4 proj;
 	Font arial;
 	Text title;

@@ -6,7 +6,6 @@
 #include "../core/Window.hpp"
 #include "../entities/AlienProjectile.hpp"
 
-
 #define LEFT_EVENT "left"
 #define LEFT_RELEASE_EVENT "left_released"
 #define RIGHT_EVENT "right"
@@ -83,7 +82,6 @@ void GameState::init()
 	world = new b2World(WORLD_GRAVITY);
 	world->SetContactListener(&listener);
 
-	// Set up the event bindings
 	event_mgr->addBinding(LEFT_EVENT, EventType::KeyPressed, sf::Keyboard::A);
 	event_mgr->addBinding(RIGHT_EVENT, EventType::KeyPressed, sf::Keyboard::D);
 	event_mgr->addBinding(LEFT_RELEASE_EVENT, EventType::KeyReleased, sf::Keyboard::A);

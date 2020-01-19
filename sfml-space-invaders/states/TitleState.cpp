@@ -43,6 +43,9 @@ void TitleState::init()
 	instructions.setString(INSTRUCTIONS);
 	instructions.setColour(glm::vec3(0.0f, 1.0f, 0.0f));
 	instructions.setProjection(proj);
+
+	EventManager *event_mgr = context->event_mgr;
+
 }
 
 void TitleState::destroy()
@@ -64,5 +67,9 @@ void TitleState::cleanup()
 }
 
 void TitleState::reset()
+{
+}
+
+void TitleState::startGame(EventDetails * details)
 {
 }
