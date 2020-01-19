@@ -9,7 +9,7 @@
 
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 800
-#define WINDOW_TITLE "Window!"
+#define WINDOW_TITLE "Space Invaders!"
 
 class Window
 {
@@ -23,6 +23,8 @@ public:
 	void handleEvents();
 	void beginDrawing();
 	void endDrawing();
+
+	glm::ivec2 getSize() const;
 
 	const sf::Window * getWindow() const;
 	bool isOpen() const;

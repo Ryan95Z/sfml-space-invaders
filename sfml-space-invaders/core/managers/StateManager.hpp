@@ -23,6 +23,7 @@ public:
 
 	void update(float dt);
 	void render();
+	void cleanup();
 
 	bool pushState(StateID state_id);
 	StateID popState();

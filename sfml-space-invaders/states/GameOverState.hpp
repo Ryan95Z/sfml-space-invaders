@@ -1,0 +1,39 @@
+#ifndef STATES_GAME_OVER_STATE_HPP
+#define STATES_GAME_OVER_STATE_HPP
+
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+
+#include "../core/BaseState.hpp"
+
+#include "../core/gui/Font.hpp"
+#include "../core/gui/Text.hpp"
+
+#define FONT_PATH "font/arial.ttf"
+
+class GameOverState : public BaseState
+{
+public:
+	GameOverState() = delete;
+	GameOverState(GameOverState &) = delete;
+	GameOverState(StateID id, SharedContext *context);
+	virtual ~GameOverState();
+
+	virtual void start();
+	virtual void stop();
+
+	virtual void init();
+	virtual void destroy();
+
+	virtual void update(float dt);
+	virtual void draw();
+
+	virtual void cleanup();
+private:
+	Font font;
+	Text title;
+	Text msg;
+	glm::mat4 proj;
+};
+
+#endif // STATES_GAME_OVER_STATE_HPP

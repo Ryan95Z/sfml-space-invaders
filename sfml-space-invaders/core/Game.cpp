@@ -5,10 +5,11 @@
 
 Game::Game() : state_mgr(&context), delta_time(0.0f), last_frame(0.0f), current_frame(0.0f)
 {
+	// Set up the shared context
+	context.window = &window;
 	context.event_mgr = window.getEventManager();
 
-	state_mgr.pushState(2);
-	
+	state_mgr.pushState(1);	
 }
 
 Game::~Game()
@@ -42,5 +43,6 @@ void Game::handleEvents()
 
 void Game::restartClock()
 {
+	state_mgr.cleanup();
 	elapsed_time += clock.restart();
 }

@@ -53,7 +53,12 @@ public:
 			std::cout << "\n" << std::endl;
 		}
 	}
-	
+
+	static void info(std::string msg) noexcept
+	{
+		std::cout << "[INFO]: " << msg << std::endl;
+	}
+
 	static void error(std::string msg) noexcept
 	{
 		std::cout << "[ERROR]: " << msg << std::endl;

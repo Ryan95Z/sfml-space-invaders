@@ -3,12 +3,14 @@
 #include "../BaseState.hpp"
 #include "../../states/GameState.hpp"
 #include "../../states/ExperimentState.hpp"
+#include "../../states/GameOverState.hpp"
 #include "../../states/StateInfo.hpp"
 
 StateManager::StateManager(SharedContext *context) : context(context)
 {
 	registerState<GameState>(GAME_STATE_ID);
 	registerState<ExperimentState>(EXPERIMENT_STATE_ID);
+	registerState<GameOverState>(GAME_OVER_STATE_ID);
 }
 
 StateManager::~StateManager()
@@ -42,6 +44,11 @@ void StateManager::update(float dt)
 void StateManager::render()
 {
 	(*active_states.begin())->draw();
+}
+
+void StateManager::cleanup()
+{
+	(*active_states.begin())->cleanup();
 }
 
 bool StateManager::pushState(StateID state_id)
