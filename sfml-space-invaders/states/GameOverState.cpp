@@ -5,7 +5,7 @@
 #define TITLE "Game Over"
 #define MESSAGE "Try Again!"
 
-GameOverState::GameOverState(StateID id, SharedContext * context) : BaseState(id, context)
+GameOverState::GameOverState(StateID id, StateManager *state_mgr, SharedContext * context) : BaseState(id, state_mgr, context)
 {
 }
 

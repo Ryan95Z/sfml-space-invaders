@@ -9,7 +9,8 @@ class BaseState
 public:
 	BaseState() = delete;
 	BaseState(BaseState &) = delete;
-	BaseState(StateID state_id, SharedContext *context) : id(state_id), context(context) {}
+	BaseState(StateID state_id, StateManager *state_mgr, SharedContext *context) : id(state_id), context(context),
+		state_mgr(state_mgr) {}
 
 	virtual ~BaseState() {}
 
@@ -29,6 +30,7 @@ public:
 		return id;
 	}
 protected:
+	StateManager *state_mgr;
 	SharedContext *context;
 
 private:

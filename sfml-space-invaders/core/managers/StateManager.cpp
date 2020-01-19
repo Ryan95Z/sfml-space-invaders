@@ -17,38 +17,36 @@ StateManager::~StateManager()
 {
 	BaseState *state = nullptr;
 
-	// Remove any active states
-	while (active_states.begin() != active_states.end())
+	// Go through the stack until all states are deleted
+	while (!active_states.empty())
 	{
-		state = *active_states.begin();
-
-		// Clean up the memory used by the state
+		state = active_states.top();
+		active_states.pop();
+	
+		// Stop the state
 		state->stop();
 		state->destroy();
-		
-		// Deallocate the state from memory
+
 		delete state;
 		state = nullptr;
-		active_states.erase(active_states.begin());
 	}
 
-	active_states.clear();
 	factory.clear();
 }
 
 void StateManager::update(float dt)
 {
-	(*active_states.begin())->update(dt);
+	active_states.top()->update(dt);
 }
 
 void StateManager::render()
 {
-	(*active_states.begin())->draw();
+	active_states.top()->draw();
 }
 
 void StateManager::cleanup()
 {
-	(*active_states.begin())->cleanup();
+	active_states.top()->cleanup();
 }
 
 bool StateManager::pushState(StateID state_id)
@@ -56,25 +54,25 @@ bool StateManager::pushState(StateID state_id)
 	BaseState *state = factory[state_id]();
 	state->init();
 	state->start();
-	active_states.push_back(state);
+	active_states.push(state);
 	return true;
 }
 
 StateID StateManager::popState()
 {
-	BaseState *state = *active_states.begin();
+	BaseState *state = active_states.top();
 	StateID id = state->getId();
 	state->stop();
 	state->destroy();
 	delete state;
 	state = nullptr;
-	active_states.erase(active_states.begin());
+	active_states.pop();
 	return id;
 }
 
 StateID StateManager::top() const
 {
-	return (*active_states.begin())->getId();
+	return active_states.top()->getId();
 }
 
 void StateManager::checkNextStates()

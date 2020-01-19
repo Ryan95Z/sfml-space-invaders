@@ -13,7 +13,7 @@
 class ExperimentState : public BaseState
 {
 public:
-	ExperimentState(StateID id, SharedContext *context);
+	ExperimentState(StateID id, StateManager *state_mgr, SharedContext *context);
 	virtual ~ExperimentState();
 
 	virtual void start();

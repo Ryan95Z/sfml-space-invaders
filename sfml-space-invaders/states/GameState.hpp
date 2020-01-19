@@ -26,7 +26,7 @@ class GameState : public BaseState
 public:
 	GameState() = delete;
 	GameState(GameState &) = delete;
-	GameState(StateID id, SharedContext *context);
+	GameState(StateID id, StateManager *state_mgr, SharedContext *context);
 	virtual ~GameState();
 
 	virtual void start();

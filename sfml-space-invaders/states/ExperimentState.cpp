@@ -5,7 +5,7 @@
 
 #define SCALE 30.0f
 
-ExperimentState::ExperimentState(StateID id, SharedContext *context) : BaseState(id, context), a1(nullptr)
+ExperimentState::ExperimentState(StateID id, StateManager *state_mgr, SharedContext *context) : BaseState(id, state_mgr, context), a1(nullptr)
 {
 }
 

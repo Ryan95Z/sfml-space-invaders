@@ -16,7 +16,7 @@ class GameOverState : public BaseState
 public:
 	GameOverState() = delete;
 	GameOverState(GameOverState &) = delete;
-	GameOverState(StateID id, SharedContext *context);
+	GameOverState(StateID id, StateManager *state_mgr, SharedContext *context);
 	virtual ~GameOverState();
 
 	virtual void start();

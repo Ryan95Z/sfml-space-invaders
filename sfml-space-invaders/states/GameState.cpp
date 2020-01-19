@@ -28,7 +28,7 @@
 #define SCORE_TXT_TEMPLATE "Score: "
 #define LIVES_TXT_TEMPLATE "Lives: "
 
-GameState::GameState(StateID id, SharedContext *context) : BaseState(id, context),
+GameState::GameState(StateID id, StateManager *state_mgr, SharedContext *context) : BaseState(id, state_mgr, context),
 	world(nullptr), player(nullptr), dist(nullptr) {}
 
 GameState::~GameState()
@@ -216,6 +216,8 @@ void GameState::update(float dt)
 		// Stop the player if still moving
 		stop();
 		Logger::debug("Game over has been reached");
+		state_mgr->registerNextState(3);
+
 	}
 }
 
