@@ -1,5 +1,6 @@
 #include "TitleState.hpp"
 
+#include "StateInfo.hpp"
 #include "../core/Window.hpp"
 
 #define TITLE "Space Invaders!"
@@ -45,6 +46,7 @@ void TitleState::init()
 	instructions.setProjection(proj);
 
 	EventManager *event_mgr = context->event_mgr;
+	event_mgr->addCallback(SPACE_BAR_EVENT, &TitleState::startGame, this);
 
 }
 
@@ -72,4 +74,5 @@ void TitleState::reset()
 
 void TitleState::startGame(EventDetails * details)
 {
+	state_mgr->registerNextState(GAME_STATE_ID);
 }

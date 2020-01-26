@@ -7,7 +7,7 @@
 #include "../../states/TitleState.hpp"
 #include "../../states/StateInfo.hpp"
 
-StateManager::StateManager(SharedContext *context) : context(context), has_pop_request(false)
+StateManager::StateManager(SharedContext *context) : context(context), num_to_pop(0), has_pop_request(false)
 {
 	registerState<GameState>(GAME_STATE_ID);
 	registerState<ExperimentState>(EXPERIMENT_STATE_ID);
@@ -66,7 +66,11 @@ void StateManager::checkNextState()
 void StateManager::checkStateRemoval()
 {
 	if (!has_pop_request) { return; }
-	popState();
+	for (int i = 0; i < num_to_pop; ++i)
+	{
+		popState();
+	}
+	num_to_pop = 0;
 	has_pop_request = false;
 }
 
@@ -78,6 +82,7 @@ void StateManager::registerNextState(StateID state_id)
 void StateManager::reigsterStateRemoval()
 {
 	has_pop_request = true;
+	++num_to_pop;
 }
 
 bool StateManager::pushState(StateID state_id)

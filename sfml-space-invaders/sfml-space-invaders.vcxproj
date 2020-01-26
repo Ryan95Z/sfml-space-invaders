@@ -153,6 +153,7 @@
     <ClInclude Include="core\gui\Font.hpp" />
     <ClInclude Include="core\gui\Text.hpp" />
     <ClInclude Include="core\gui\TextRenderer.hpp" />
+    <ClInclude Include="core\managers\EventInfo.hpp" />
     <ClInclude Include="core\Sprite.hpp" />
     <ClInclude Include="core\SpriteRender.hpp" />
     <ClInclude Include="core\tools\Logger.hpp">

@@ -1,16 +1,12 @@
 #include "GameState.hpp"
-
 #include "StateInfo.hpp"
+#include "../core/managers/EventInfo.hpp"
 
 #include "../core/tools/Logger.hpp"
 #include "../core/Window.hpp"
 #include "../entities/AlienProjectile.hpp"
 
-#define LEFT_EVENT "left"
-#define LEFT_RELEASE_EVENT "left_released"
-#define RIGHT_EVENT "right"
-#define RIGHT_RELEASE_EVENT "right_released" 
-#define SPACE_BAR_EVENT "space_bar"
+
 #define MOVEMENT_STEP 250
 #define ALIEN_INITIAL_X 25.0f
 #define ALIEN_INITIAL_Y 50.0f
@@ -82,12 +78,6 @@ void GameState::init()
 	world = new b2World(WORLD_GRAVITY);
 	world->SetContactListener(&listener);
 
-	event_mgr->addBinding(LEFT_EVENT, EventType::KeyPressed, sf::Keyboard::A);
-	event_mgr->addBinding(RIGHT_EVENT, EventType::KeyPressed, sf::Keyboard::D);
-	event_mgr->addBinding(LEFT_RELEASE_EVENT, EventType::KeyReleased, sf::Keyboard::A);
-	event_mgr->addBinding(RIGHT_RELEASE_EVENT, EventType::KeyReleased, sf::Keyboard::D);
-	event_mgr->addBinding(SPACE_BAR_EVENT, EventType::KeyPressed, sf::Keyboard::Space);
-
 	// Set up the event callbacks
 	event_mgr->addCallback(LEFT_EVENT, &GameState::left, this);
 	event_mgr->addCallback(RIGHT_EVENT, &GameState::right, this);
@@ -111,6 +101,13 @@ void GameState::init()
 
 void GameState::destroy()
 {
+	EventManager *event_mgr = context->event_mgr;
+	event_mgr->removeCallback(LEFT_EVENT);
+	event_mgr->removeCallback(RIGHT_EVENT);
+	event_mgr->removeCallback(LEFT_RELEASE_EVENT);
+	event_mgr->removeCallback(RIGHT_RELEASE_EVENT);
+	event_mgr->removeCallback(SPACE_BAR_EVENT);
+
 	// Remove all aliens from memory
 	while (aliens.begin() != aliens.end())
 	{
@@ -211,7 +208,6 @@ void GameState::update(float dt)
 	// Game over conditions
 	if ((aliens.size() == 0) || (player->getLives() == 0) && !is_game_over)
 	{
-		// TODO: Move to game over state
 		is_game_over = true;
 		
 		// Stop the player if still moving

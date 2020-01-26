@@ -11,6 +11,7 @@
 #include <functional>
 #include <unordered_map>
 
+#include "EventInfo.hpp"
 #include "../tools/Logger.hpp"
 
 // Define the Events that will be supported based on SFML's existing events
@@ -85,6 +86,7 @@ public:
 		return true;
 	}
 
+	bool removeCallback(std::string name);
 private:
 	void processCallbacks();
 

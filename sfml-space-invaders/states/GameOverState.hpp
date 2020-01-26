@@ -5,6 +5,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "../core/BaseState.hpp"
+#include "../core/managers/EventManager.hpp"
 
 #include "../core/gui/Font.hpp"
 #include "../core/gui/Text.hpp"
@@ -30,6 +31,8 @@ public:
 
 	virtual void cleanup();
 	virtual void reset();
+protected:
+	void backToMenu(EventDetails *details);
 private:
 	Font font;
 	Text title;

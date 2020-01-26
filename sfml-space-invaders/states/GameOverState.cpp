@@ -43,10 +43,15 @@ void GameOverState::init()
 	msg.setColour(glm::vec3(1.0f, 1.0f, 0.0f));
 	msg.setProjection(proj);
 	msg.setScale(0.8f);
+
+	EventManager *event_mgr = context->event_mgr;
+	event_mgr->addCallback(SPACE_BAR_EVENT, &GameOverState::backToMenu, this);
 }
 
 void GameOverState::destroy()
 {
+	EventManager *event_mgr = context->event_mgr;
+	event_mgr->removeCallback(SPACE_BAR_EVENT);
 }
 
 void GameOverState::update(float dt)
@@ -66,4 +71,10 @@ void GameOverState::cleanup()
 void GameOverState::reset()
 {
 
+}
+
+void GameOverState::backToMenu(EventDetails * details)
+{
+	state_mgr->reigsterStateRemoval();
+	state_mgr->reigsterStateRemoval();
 }

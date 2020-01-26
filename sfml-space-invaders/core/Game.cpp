@@ -11,7 +11,7 @@ Game::Game() : state_mgr(&context), delta_time(0.0f), last_frame(0.0f), current_
 	context.event_mgr = window.getEventManager();
 
 	// Push the initial game state
-	state_mgr.registerNextState(GAME_STATE_ID);
+	state_mgr.registerNextState(TITLE_STATE_ID);
 }
 
 Game::~Game()

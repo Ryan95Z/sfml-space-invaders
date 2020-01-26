@@ -1,6 +1,13 @@
 #include "EventManager.hpp"
 
-EventManager::EventManager() {}
+EventManager::EventManager()
+{
+	addBinding(LEFT_EVENT, EventType::KeyPressed, sf::Keyboard::A);
+	addBinding(RIGHT_EVENT, EventType::KeyPressed, sf::Keyboard::D);
+	addBinding(LEFT_RELEASE_EVENT, EventType::KeyReleased, sf::Keyboard::A);
+	addBinding(RIGHT_RELEASE_EVENT, EventType::KeyReleased, sf::Keyboard::D);
+	addBinding(SPACE_BAR_EVENT, EventType::KeyPressed, sf::Keyboard::Space);
+}
 
 EventManager::~EventManager()
 {
@@ -82,6 +89,15 @@ void EventManager::setCurrentState(StateID state_id)
 		state_callbacks[state_id] = new Callbacks();
 	}
 	current_state_callbacks = state_callbacks[state_id];
+}
+
+bool EventManager::removeCallback(std::string name)
+{
+	Callbacks::iterator c_itr = current_state_callbacks->find(name);
+	if (c_itr == current_state_callbacks->end()) {
+		return true;
+	}
+	current_state_callbacks->erase(c_itr);
 }
 
 void EventManager::processCallbacks()

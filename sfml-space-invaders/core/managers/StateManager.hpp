@@ -51,6 +51,7 @@ protected:
 private:
 	void updateEventManager();
 
+	int num_to_pop;
 	bool has_pop_request;
 	SharedContext *context;
 	std::vector<StateID> next_states;
