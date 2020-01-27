@@ -7,6 +7,8 @@
 #include "../../states/TitleState.hpp"
 #include "../../states/StateInfo.hpp"
 
+#include "../../core/tools/Logger.hpp"
+
 StateManager::StateManager(SharedContext *context) : context(context), num_to_pop(0), has_pop_request(false)
 {
 	registerState<GameState>(GAME_STATE_ID);
@@ -103,7 +105,7 @@ StateID StateManager::popState()
 	// Check that stack will be empty
 	// If this is happens then stop the state being popped
 	if (active_states.empty()) {
-		std::cout << "Cannot pop last state!" << std::endl;
+		Logger::debug("Cannot pop last state!");
 		active_states.push(state);
 		return -1;
 	}

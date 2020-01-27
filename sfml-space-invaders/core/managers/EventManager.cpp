@@ -70,7 +70,7 @@ bool EventManager::addBinding(std::string name, EventType type, sf::Keyboard::Ke
 	Bindings::iterator b_itr = bindings.find(name);
 	if (b_itr != bindings.end())
 	{
-		Logger::error(name + " is already in use as a binding");
+		Logger::debug(name + " is already in use as a binding");
 		return false;
 	}
 	binding = new EventBinding;
@@ -98,6 +98,7 @@ bool EventManager::removeCallback(std::string name)
 		return true;
 	}
 	current_state_callbacks->erase(c_itr);
+	return true;
 }
 
 void EventManager::processCallbacks()
@@ -110,7 +111,7 @@ void EventManager::processCallbacks()
 		// Check that the callback exists
 		if (c_itr == current_state_callbacks->end())
 		{
-			Logger::error("Missing callback: " + details.name);
+			Logger::debug("Missing callback: " + details.name);
 			continue;
 		}
 

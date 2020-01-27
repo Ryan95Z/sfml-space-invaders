@@ -72,13 +72,13 @@ public:
 
 		if (b_itr == bindings.end())
 		{
-			std::cout << "No binding assigned to " << name << std::endl;
+			Logger::debug("No binding assigned to " + name);
 			return false;
 		}
 
 		if (c_itr != current_state_callbacks->end())
 		{
-			std::cout << name << " has already been registered as a callback\n";
+			Logger::debug(name + " has already been registered as a callback");
 			return false;
 		}
 		auto callback = std::bind(func, instance, std::placeholders::_1);
