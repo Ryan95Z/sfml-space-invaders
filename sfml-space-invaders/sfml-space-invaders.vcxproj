@@ -150,6 +150,7 @@
   <ItemGroup>
     <ClInclude Include="core\BaseState.hpp" />
     <ClInclude Include="core\Camera.hpp" />
+    <ClInclude Include="core\common.hpp" />
     <ClInclude Include="core\gui\Font.hpp" />
     <ClInclude Include="core\gui\Text.hpp" />
     <ClInclude Include="core\gui\TextRenderer.hpp" />

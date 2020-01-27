@@ -41,6 +41,10 @@ void GameState::start()
 	float alien_y = ALIEN_INITIAL_Y;
 
 	score = 0;
+	
+	// Set the context data
+	context->data.has_player_won = false;
+	context->data.score = score;
 
 	// Create the Aliens and set the initial positions
 	for (int i = 0; i < ALIEN_COUNT; ++i)
@@ -209,7 +213,9 @@ void GameState::update(float dt)
 	if ((aliens.size() == 0) || (player->getLives() == 0) && !is_game_over)
 	{
 		is_game_over = true;
-		
+		context->data.score = score;
+		context->data.has_player_won = (player->getLives() != 0);
+
 		// Stop the player if still moving
 		stop();
 		Logger::debug("Game over has been reached");
