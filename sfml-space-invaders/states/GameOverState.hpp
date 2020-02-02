@@ -36,7 +36,7 @@ protected:
 private:
 	Font font;
 	Text title;
-	Text msg;
+	Text score;
 	glm::mat4 proj;
 };
 

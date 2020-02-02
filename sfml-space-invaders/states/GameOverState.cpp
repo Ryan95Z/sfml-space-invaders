@@ -3,8 +3,7 @@
 #include "../core/Window.hpp"
 
 #define TITLE "Game Over"
-#define MESSAGE "Try Again!"
-#define WON_MESSAGE "You Won!"
+#define SCORE "Score: "
 
 GameOverState::GameOverState(StateID id, StateManager *state_mgr, SharedContext * context) : BaseState(id, state_mgr, context)
 {
@@ -25,37 +24,27 @@ void GameOverState::stop()
 
 void GameOverState::init()
 {
-	bool had_player_one = context->data.has_player_won;
 	Window *window = context->window;
 	glm::ivec2 window_size = window->getSize();
+	std::string score_str = SCORE + std::to_string(context->data.score);
 	proj = glm::ortho(0.0f, static_cast<GLfloat>(window_size.x), 0.0f, static_cast<GLfloat>(window_size.y));
 	font.loadFromFile(FONT_PATH);
 
 	// Set up the title
 	title.setFont(&font);
-	title.setPosition(300.0f, 430.0f);
+	title.setPosition(250.0f, 448.0f);
+	title.setScale(1.5f);
 	title.setString(TITLE);
 	title.setColour(glm::vec3(1.0f, 0.0f, 0.0f));
 	title.setProjection(proj);
 
-	// Set up the message
-	msg.setFont(&font);
-	msg.setPosition(340.0f, 370.0f);
-	msg.setProjection(proj);
-	msg.setScale(0.8f);
-
-	if (had_player_one)
-	{
-		msg.setString(WON_MESSAGE);
-		msg.setColour(glm::vec3(1.0f, 1.0f, 0.0f));
-	}
-	else
-	{
-		msg.setString(MESSAGE);
-		msg.setColour(glm::vec3(0.0f, 1.0f, 0.0f));
-	}
+	// Set the score message
+	score.setFont(&font);
+	score.setPosition(330.0f, 370.0f);
+	score.setString(score_str);
+	score.setColour(glm::vec3(0.0f, 1.0f, 0.0f));
+	score.setProjection(proj);
 	
-
 	EventManager *event_mgr = context->event_mgr;
 	event_mgr->addCallback(SPACE_BAR_EVENT, &GameOverState::backToMenu, this);
 }
@@ -73,7 +62,7 @@ void GameOverState::update(float dt)
 void GameOverState::draw()
 {
 	title.draw();
-	msg.draw();
+	score.draw();
 }
 
 void GameOverState::cleanup()
