@@ -5,7 +5,7 @@
 #define DEFAULT_SPRITE_COLOUR glm::vec3(1.0f, 0.0f, 1.0f)
 
 Sprite::Sprite(b2World * world, b2BodyType type, SpriteType sprite_type, glm::vec2 size, float density) : 
-	world(world), body(nullptr), fixture(nullptr), sprite_type(sprite_type), size(size)
+	world(world), body(nullptr), fixture(nullptr), sprite_type(sprite_type), size(size), texture(nullptr)
 {
 	b2BodyDef body_def;
 	body_def.type = type;
@@ -66,6 +66,21 @@ void Sprite::setColour(glm::vec3 colour) noexcept
 glm::vec3 Sprite::getColour() const noexcept
 {
 	return sprite_colour;
+}
+
+void Sprite::setTexture(Texture * texture)
+{
+	this->texture = texture;
+}
+
+Texture * Sprite::getTexture()
+{
+	return texture;
+}
+
+bool Sprite::hasTexture() const noexcept
+{
+	return (texture != nullptr);
 }
 
 SpriteType Sprite::getType() const

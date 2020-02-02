@@ -5,7 +5,7 @@
 
 #include <iostream>
 
-SpriteRender::SpriteRender() : model(1.0f), proj(1.0f), shader(nullptr)
+SpriteRender::SpriteRender() : model(1.0f), proj(1.0f), shader(nullptr), texture_shader(nullptr)
 {
 	initSpriteRender();
 }
@@ -42,9 +42,44 @@ void SpriteRender::drawSprite(glm::vec2 position, glm::vec2 size, glm::vec3 colo
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
+void SpriteRender::drawSprite(glm::vec2 position, glm::vec2 size, glm::vec3 colour, Texture * texture)
+{
+	model = glm::translate(glm::mat4(1.0f), glm::vec3(position, 0.0f));
+
+	// Set the origin to be the middle of the object
+	model = glm::translate(model, glm::vec3(-0.5f * size.x, -0.5f * size.y, 0.0f));
+	model = glm::scale(model, glm::vec3(size, 0.0f));
+
+	proj = glm::ortho(0.0f, 800.0f, 800.0f, 0.0f, -1.0f, 1.0f);
+
+	// Activate the sprite shader
+	glUseProgram(shader->id());
+
+	// Get the shader variable locations
+	modelLoc = glGetUniformLocation(shader->id(), "model");
+	projLoc = glGetUniformLocation(shader->id(), "proj");
+	colourLoc = glGetUniformLocation(shader->id(), "spriteColour");
+
+	// Set the shader data
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(proj));
+	glUniform3f(colourLoc, colour.x, colour.y, colour.z);
+
+	glBindVertexArray(vao[0]);
+	glDrawArrays(GL_TRIANGLES, 0, 6);
+}
+
 void SpriteRender::drawSprite(Sprite * sprite)
 {
-	drawSprite(sprite->getPosition(), sprite->getSize(), sprite->getColour());
+	if (sprite->hasTexture())
+	{
+		drawSprite(sprite->getPosition(), sprite->getSize(), sprite->getColour(), sprite->getTexture());;
+	}
+	else
+	{
+		drawSprite(sprite->getPosition(), sprite->getSize(), sprite->getColour());
+	}
+	
 }
 
 void SpriteRender::initSpriteRender()
@@ -74,5 +109,11 @@ void SpriteRender::destroySpriteRender()
 	{
 		delete shader;
 		shader = nullptr;
+	}
+
+	if (texture_shader != nullptr)
+	{
+		delete texture_shader;
+		texture_shader = nullptr;
 	}
 }

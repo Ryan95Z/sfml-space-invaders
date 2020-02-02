@@ -8,6 +8,7 @@
 
 #include "../core/Shader.hpp"
 #include "../core/Sprite.hpp"
+#include "../core/Texture.hpp"
 
 #define NUM_VAO 1
 #define NUM_VBO 1
@@ -21,10 +22,12 @@ public:
 	~SpriteRender();
 
 	void drawSprite(glm::vec2 position, glm::vec2 size, glm::vec3 colour);
+	void drawSprite(glm::vec2 position, glm::vec2 size, glm::vec3 colour, Texture *texture);
 	void drawSprite(Sprite *sprite);
 
 private:
 	Shader *shader;
+	Shader *texture_shader;
 
 	void initSpriteRender();
 	void destroySpriteRender();

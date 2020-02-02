@@ -96,6 +96,9 @@
     <ClCompile Include="states\TitleState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="core\Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\Game.hpp">
@@ -191,6 +194,9 @@
     <ClInclude Include="core\common.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="core\Texture.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\vertex.glsl" />
@@ -201,5 +207,7 @@
     <None Include="shaders\text.vert" />
     <None Include="shaders\text.frag" />
     <None Include="shaders\square.frag" />
+    <None Include="shaders\sprite.vert" />
+    <None Include="shaders\sprite.frag" />
   </ItemGroup>
 </Project>

@@ -131,6 +131,7 @@
     <ClCompile Include="core\Shader.cpp" />
     <ClCompile Include="core\Sprite.cpp" />
     <ClCompile Include="core\SpriteRender.cpp" />
+    <ClCompile Include="core\Texture.cpp" />
     <ClCompile Include="core\Triangle.cpp" />
     <ClCompile Include="core\Window.cpp" />
     <ClCompile Include="entities\Alien.cpp" />
@@ -157,6 +158,7 @@
     <ClInclude Include="core\managers\EventInfo.hpp" />
     <ClInclude Include="core\Sprite.hpp" />
     <ClInclude Include="core\SpriteRender.hpp" />
+    <ClInclude Include="core\Texture.hpp" />
     <ClInclude Include="core\tools\Logger.hpp">
       <DeploymentContent>false</DeploymentContent>
     </ClInclude>
@@ -186,6 +188,8 @@
     <None Include="shaders\cube_frag.glsl" />
     <None Include="shaders\cube_vertex.glsl" />
     <None Include="shaders\frag.glsl" />
+    <None Include="shaders\sprite.frag" />
+    <None Include="shaders\sprite.vert" />
     <None Include="shaders\square.frag" />
     <None Include="shaders\square_vertex.glsl" />
     <None Include="shaders\text.frag" />

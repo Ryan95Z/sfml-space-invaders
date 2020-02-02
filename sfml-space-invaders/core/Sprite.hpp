@@ -4,6 +4,8 @@
 #include <Box2D/Box2D.h>
 #include <glm/glm.hpp>
 
+#include "Texture.hpp"
+
 #define SCALE 30.0f
 
 enum class SpriteType
@@ -38,6 +40,10 @@ public:
 	virtual void setColour(glm::vec3 colour) noexcept;
 	virtual glm::vec3 getColour() const noexcept;
 
+	virtual void setTexture(Texture * texture);
+	virtual Texture * getTexture();
+	bool hasTexture() const noexcept;
+
 	virtual void beginContact(SpriteType type) = 0;
 	virtual void endContact(SpriteType type) = 0;
 
@@ -50,6 +56,7 @@ protected:
 	glm::vec3 sprite_colour;
 
 private:
+	Texture *texture;
 	SpriteType sprite_type;
 };
 
