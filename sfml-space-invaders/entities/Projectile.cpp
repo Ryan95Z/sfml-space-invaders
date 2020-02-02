@@ -4,8 +4,13 @@
 #define PROJECTILE_SIZE glm::vec2(15.0f, 15.0f)
 #define PROJECTILE_VELOCITY b2Vec2(0.0f, -5.0f)
 
+#define PROJECTILE_COLOUR glm::vec3(1.0f, 0.0f, 0.0f)
+
 Projectile::Projectile(b2World * world) : Sprite(world, b2_dynamicBody, SpriteType::Projectile, PROJECTILE_SIZE, 0.0f),
-	is_hidden(false) {}
+	is_hidden(false)
+{
+	setColour(PROJECTILE_COLOUR);
+}
 
 Projectile::Projectile(b2World * world, glm::vec2 pos) : Projectile(world)
 {

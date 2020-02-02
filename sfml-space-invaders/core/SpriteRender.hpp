@@ -20,7 +20,7 @@ public:
 	SpriteRender();
 	~SpriteRender();
 
-	void drawSprite(glm::vec2 position, glm::vec2 size);
+	void drawSprite(glm::vec2 position, glm::vec2 size, glm::vec3 colour);
 	void drawSprite(Sprite *sprite);
 
 private:
@@ -32,6 +32,7 @@ private:
 	glm::mat4 proj;
 	GLuint modelLoc;
 	GLuint projLoc;
+	GLuint colourLoc;
 	GLuint vao[NUM_VAO];
 	GLuint vbo[NUM_VBO];
 

@@ -1,11 +1,14 @@
 #include "Player.hpp"
 
+#define PLAYER_COLOUR glm::vec3(0.0f, 0.0f, 1.0f)
 #define PLAYER_SIZE glm::vec2(50.0f, 50.0f)
 #define PLAYER_LIVES 3
+
 
 Player::Player(b2World * world) : Sprite(world, b2_staticBody, SpriteType::Player, PLAYER_SIZE, 0.0f),
 	lives(PLAYER_LIVES)
 {
+	setColour(PLAYER_COLOUR);
 	setUpCollision();
 }
 

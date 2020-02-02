@@ -35,6 +35,9 @@ public:
 	virtual void setPosition(glm::vec2 pos) const noexcept;
 	virtual glm::vec2 getPosition() const noexcept;
 
+	virtual void setColour(glm::vec3 colour) noexcept;
+	virtual glm::vec3 getColour() const noexcept;
+
 	virtual void beginContact(SpriteType type) = 0;
 	virtual void endContact(SpriteType type) = 0;
 
@@ -44,6 +47,7 @@ protected:
 	b2Body *body;
 	b2Fixture *fixture;
 	glm::vec2 size;
+	glm::vec3 sprite_colour;
 
 private:
 	SpriteType sprite_type;

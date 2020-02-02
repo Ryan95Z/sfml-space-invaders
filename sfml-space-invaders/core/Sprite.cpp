@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#define DEFAULT_SPRITE_COLOUR glm::vec3(1.0f, 0.0f, 1.0f)
+
 Sprite::Sprite(b2World * world, b2BodyType type, SpriteType sprite_type, glm::vec2 size, float density) : 
 	world(world), body(nullptr), fixture(nullptr), sprite_type(sprite_type), size(size)
 {
@@ -21,6 +23,9 @@ Sprite::Sprite(b2World * world, b2BodyType type, SpriteType sprite_type, glm::ve
 	fixture = body->CreateFixture(&fixture_def);
 
 	body->SetUserData((void *) this);
+
+	// Set the sprite's default colour
+	sprite_colour = DEFAULT_SPRITE_COLOUR;
 }
 
 Sprite::~Sprite()
@@ -51,6 +56,16 @@ glm::vec2 Sprite::getPosition() const noexcept
 {
 	b2Vec2 b2_pos = body->GetPosition();
 	return glm::vec2(b2_pos.x * SCALE, b2_pos.y * SCALE);
+}
+
+void Sprite::setColour(glm::vec3 colour) noexcept
+{
+	sprite_colour = colour ;
+}
+
+glm::vec3 Sprite::getColour() const noexcept
+{
+	return sprite_colour;
 }
 
 SpriteType Sprite::getType() const

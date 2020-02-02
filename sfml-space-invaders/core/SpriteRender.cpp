@@ -1,7 +1,9 @@
 #include "SpriteRender.hpp"
 
 #define VERTEX_SHADER "shaders/square_vertex.glsl"
-#define FRAG_SHADER "shaders/frag.glsl"
+#define FRAG_SHADER "shaders/square.frag"
+
+#include <iostream>
 
 SpriteRender::SpriteRender() : model(1.0f), proj(1.0f), shader(nullptr)
 {
@@ -13,7 +15,7 @@ SpriteRender::~SpriteRender()
 	destroySpriteRender();
 }
 
-void SpriteRender::drawSprite(glm::vec2 position, glm::vec2 size)
+void SpriteRender::drawSprite(glm::vec2 position, glm::vec2 size, glm::vec3 colour)
 {
 	model = glm::translate(glm::mat4(1.0f), glm::vec3(position, 0.0f));
 	
@@ -23,13 +25,18 @@ void SpriteRender::drawSprite(glm::vec2 position, glm::vec2 size)
 
 	proj = glm::ortho(0.0f, 800.0f, 800.0f, 0.0f, -1.0f, 1.0f);
 
+	// Activate the sprite shader
 	glUseProgram(shader->id());
 
+	// Get the shader variable locations
 	modelLoc = glGetUniformLocation(shader->id(), "model");
 	projLoc = glGetUniformLocation(shader->id(), "proj");
+	colourLoc = glGetUniformLocation(shader->id(), "spriteColour");
 
+	// Set the shader data
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(proj));
+	glUniform3f(colourLoc, colour.x, colour.y, colour.z);
 
 	glBindVertexArray(vao[0]);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
@@ -37,7 +44,7 @@ void SpriteRender::drawSprite(glm::vec2 position, glm::vec2 size)
 
 void SpriteRender::drawSprite(Sprite * sprite)
 {
-	drawSprite(sprite->getPosition(), sprite->getSize());
+	drawSprite(sprite->getPosition(), sprite->getSize(), sprite->getColour());
 }
 
 void SpriteRender::initSpriteRender()

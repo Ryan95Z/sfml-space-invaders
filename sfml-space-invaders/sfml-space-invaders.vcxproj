@@ -186,6 +186,7 @@
     <None Include="shaders\cube_frag.glsl" />
     <None Include="shaders\cube_vertex.glsl" />
     <None Include="shaders\frag.glsl" />
+    <None Include="shaders\square.frag" />
     <None Include="shaders\square_vertex.glsl" />
     <None Include="shaders\text.frag" />
     <None Include="shaders\text.vert" />

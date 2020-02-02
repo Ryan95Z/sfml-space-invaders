@@ -200,5 +200,6 @@
     <None Include="shaders\square_vertex.glsl" />
     <None Include="shaders\text.vert" />
     <None Include="shaders\text.frag" />
+    <None Include="shaders\square.frag" />
   </ItemGroup>
 </Project>
