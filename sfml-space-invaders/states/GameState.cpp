@@ -6,7 +6,6 @@
 #include "../core/Window.hpp"
 #include "../entities/AlienProjectile.hpp"
 
-
 #define MOVEMENT_STEP 250
 #define ALIEN_INITIAL_X 25.0f
 #define ALIEN_INITIAL_Y 50.0f
@@ -26,8 +25,10 @@
 #define SCORE_TXT_TEMPLATE "Score: "
 #define LIVES_TXT_TEMPLATE "Lives: "
 
+#define ALIEN_TEXTURE_PATH "textures/alien.png"
+
 GameState::GameState(StateID id, StateManager *state_mgr, SharedContext *context) : BaseState(id, state_mgr, context),
-	world(nullptr), player(nullptr), dist(nullptr) {}
+	world(nullptr), player(nullptr), dist(nullptr), alien_texture(nullptr) {}
 
 GameState::~GameState()
 {
@@ -37,6 +38,7 @@ GameState::~GameState()
 
 void GameState::start()
 {
+	Alien *s = nullptr;
 	float alien_x = ALIEN_INITIAL_X;
 	float alien_y = ALIEN_INITIAL_Y;
 
@@ -49,7 +51,8 @@ void GameState::start()
 	// Create the Aliens and set the initial positions
 	for (int i = 0; i < ALIEN_COUNT; ++i)
 	{
-		aliens.push_back(new Alien(world, glm::vec2(alien_x, alien_y)));
+		s = new Alien(world, glm::vec2(alien_x, alien_y));
+		aliens.push_back(s);
 		alien_x += ALIEN_POS_INCREMENT;
 
 		// Move the Alien to the row underneath the current one.
@@ -58,6 +61,8 @@ void GameState::start()
 			alien_x = ALIEN_INITIAL_X;
 			alien_y += ALIEN_POS_INCREMENT;
 		}
+
+		s->setTexture(alien_texture);
 	}
 
 	// Create the player
@@ -101,6 +106,9 @@ void GameState::init()
 	lives_txt.setFont(&font);
 	lives_txt.setProjection(proj);
 	lives_txt.setPosition(LIVES_TEXT_POS);
+
+	alien_texture = new Texture();
+	alien_texture->loadFromFile(ALIEN_TEXTURE_PATH);
 }
 
 void GameState::destroy()

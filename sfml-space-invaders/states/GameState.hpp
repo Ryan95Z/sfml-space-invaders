@@ -8,6 +8,7 @@
 #include "../core/BaseState.hpp"
 #include "../core/SpriteRender.hpp"
 #include "../core/managers/EventManager.hpp"
+#include "../core/Texture.hpp"
 
 #include "../core/gui/Font.hpp"
 #include "../core/gui/Text.hpp"
@@ -68,6 +69,7 @@ private:
 	GameContactListener listener;
 	std::default_random_engine generator;
 	std::uniform_int_distribution<int> *dist;
+	Texture *alien_texture;
 };
 
 #endif // STATES_GAME_STATE_HPP

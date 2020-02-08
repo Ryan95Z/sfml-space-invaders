@@ -3,7 +3,9 @@
 #define VERTEX_SHADER "shaders/square_vertex.glsl"
 #define FRAG_SHADER "shaders/square.frag"
 
-#include <iostream>
+#define TEX_VERTEX_SHADER "shaders/sprite.vert"
+#define TEX_FRAG_SHADER "shaders/sprite.frag"
+
 
 SpriteRender::SpriteRender() : model(1.0f), proj(1.0f), shader(nullptr), texture_shader(nullptr)
 {
@@ -42,7 +44,7 @@ void SpriteRender::drawSprite(glm::vec2 position, glm::vec2 size, glm::vec3 colo
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
-void SpriteRender::drawSprite(glm::vec2 position, glm::vec2 size, glm::vec3 colour, Texture * texture)
+void SpriteRender::drawSprite(glm::vec2 position, glm::vec2 size, Texture * texture)
 {
 	model = glm::translate(glm::mat4(1.0f), glm::vec3(position, 0.0f));
 
@@ -53,27 +55,34 @@ void SpriteRender::drawSprite(glm::vec2 position, glm::vec2 size, glm::vec3 colo
 	proj = glm::ortho(0.0f, 800.0f, 800.0f, 0.0f, -1.0f, 1.0f);
 
 	// Activate the sprite shader
-	glUseProgram(shader->id());
+	glUseProgram(texture_shader->id());
 
 	// Get the shader variable locations
 	modelLoc = glGetUniformLocation(shader->id(), "model");
 	projLoc = glGetUniformLocation(shader->id(), "proj");
-	colourLoc = glGetUniformLocation(shader->id(), "spriteColour");
+
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL);
 
 	// Set the shader data
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(proj));
-	glUniform3f(colourLoc, colour.x, colour.y, colour.z);
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texture->getTextureLoc());
 
 	glBindVertexArray(vao[0]);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
+
+	// Reset as texture is no longer needed
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void SpriteRender::drawSprite(Sprite * sprite)
 {
 	if (sprite->hasTexture())
 	{
-		drawSprite(sprite->getPosition(), sprite->getSize(), sprite->getColour(), sprite->getTexture());;
+		drawSprite(sprite->getPosition(), sprite->getSize(), sprite->getTexture());;
 	}
 	else
 	{
@@ -98,6 +107,7 @@ void SpriteRender::initSpriteRender()
 	glEnableVertexAttribArray(1);
 
 	shader = new Shader(VERTEX_SHADER, FRAG_SHADER);
+	texture_shader = new Shader(TEX_VERTEX_SHADER, TEX_FRAG_SHADER);
 }
 
 void SpriteRender::destroySpriteRender()

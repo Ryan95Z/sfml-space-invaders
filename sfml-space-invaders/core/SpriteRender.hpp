@@ -22,7 +22,7 @@ public:
 	~SpriteRender();
 
 	void drawSprite(glm::vec2 position, glm::vec2 size, glm::vec3 colour);
-	void drawSprite(glm::vec2 position, glm::vec2 size, glm::vec3 colour, Texture *texture);
+	void drawSprite(glm::vec2 position, glm::vec2 size, Texture *texture);
 	void drawSprite(Sprite *sprite);
 
 private:

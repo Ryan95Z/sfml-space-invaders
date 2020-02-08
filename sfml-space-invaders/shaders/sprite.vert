@@ -10,6 +10,6 @@ out vec2 texCoord;
 
 void main()
 {
-	gl_Position = proj * matrix * vec4(inPos, 1.0);
+	gl_Position = proj * model * vec4(inPos, 1.0);
 	texCoord = inTexCoord;
 }
