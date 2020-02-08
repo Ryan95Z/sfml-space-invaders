@@ -9,6 +9,7 @@ Texture::Texture() : has_loaded(false), texture_loc(0)
 
 Texture::~Texture()
 {
+
 }
 
 bool Texture::loadFromFile(std::string path)

@@ -26,9 +26,12 @@
 #define LIVES_TXT_TEMPLATE "Lives: "
 
 #define ALIEN_TEXTURE_PATH "textures/alien.png"
+#define PLAYER_BULLET_TEXTURE_PATH "textures/Bullet.png"
+#define ALIEN_BULLET_TEXTURE_PATH "textures/alien_orb.png"
 
 GameState::GameState(StateID id, StateManager *state_mgr, SharedContext *context) : BaseState(id, state_mgr, context),
-	world(nullptr), player(nullptr), dist(nullptr), alien_texture(nullptr) {}
+	world(nullptr), player(nullptr), dist(nullptr), alien_texture(nullptr),
+	bullet_texture(nullptr), alien_bull_texture(nullptr) {}
 
 GameState::~GameState()
 {
@@ -109,6 +112,12 @@ void GameState::init()
 
 	alien_texture = new Texture();
 	alien_texture->loadFromFile(ALIEN_TEXTURE_PATH);
+
+	bullet_texture = new Texture();
+	bullet_texture->loadFromFile(PLAYER_BULLET_TEXTURE_PATH);
+
+	alien_bull_texture = new Texture();
+	alien_bull_texture->loadFromFile(ALIEN_BULLET_TEXTURE_PATH);
 }
 
 void GameState::destroy()
@@ -153,6 +162,24 @@ void GameState::destroy()
 	{
 		delete dist;
 		dist = nullptr;
+	}
+
+	if (alien_texture != nullptr)
+	{
+		delete alien_texture;
+		alien_texture = nullptr;
+	}
+
+	if (bullet_texture != nullptr)
+	{
+		delete bullet_texture;
+		bullet_texture = nullptr;
+	}
+
+	if (alien_bull_texture != nullptr)
+	{
+		delete alien_bull_texture;
+		alien_bull_texture = nullptr;
 	}
 }
 
@@ -290,6 +317,7 @@ void GameState::fire(EventDetails * details)
 	glm::vec2 bullet_initial_pos = player->getPosition();
 	bullet_initial_pos.y -= BULLET_INITIAL_POS_PADDING;
 	Projectile *bullet = new Projectile(world, bullet_initial_pos);
+	bullet->setTexture(bullet_texture);
 	bullets.push_back(bullet);
 }
 
@@ -304,6 +332,7 @@ void GameState::enemyFire(Alien * alien)
 	if (fire_number == ALINE_FIRE_VAL)
 	{
 		bullet = new AlienProjectile(world, bullet_pos);
+		bullet->setTexture(alien_bull_texture);
 		alien_bullets.push_back(bullet);
 	}
 }

@@ -70,6 +70,8 @@ private:
 	std::default_random_engine generator;
 	std::uniform_int_distribution<int> *dist;
 	Texture *alien_texture;
+	Texture *bullet_texture;
+	Texture *alien_bull_texture;
 };
 
 #endif // STATES_GAME_STATE_HPP
