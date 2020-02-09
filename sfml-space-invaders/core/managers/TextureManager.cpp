@@ -40,6 +40,7 @@ Texture * TextureManager::getTexture(const std::string key) const
 
 bool TextureManager::removeTexture(const std::string key)
 {
+	if (size() == 0) { return true;  }
 	TextureMapItr itr = textures.find(key);
 	if (itr == textures.end()) { return true; }
 	delete itr->second;
