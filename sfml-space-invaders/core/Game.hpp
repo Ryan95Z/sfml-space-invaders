@@ -25,6 +25,7 @@ private:
 	Window window;
 	SharedContext context;
 	StateManager state_mgr;
+	TextureManager texture_mgr;
 
 	sf::Time elapsed_time;
 	sf::Clock clock;

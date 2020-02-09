@@ -9,6 +9,7 @@ Game::Game() : state_mgr(&context), delta_time(0.0f), last_frame(0.0f), current_
 	// Set up the shared context
 	context.window = &window;
 	context.event_mgr = window.getEventManager();
+	context.texture_mgr = &texture_mgr;
 
 	// Push the initial game state
 	state_mgr.registerNextState(TITLE_STATE_ID);

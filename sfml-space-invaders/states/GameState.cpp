@@ -25,14 +25,9 @@
 #define SCORE_TXT_TEMPLATE "Score: "
 #define LIVES_TXT_TEMPLATE "Lives: "
 
-#define ALIEN_TEXTURE_PATH "textures/alien.png"
-#define PLAYER_BULLET_TEXTURE_PATH "textures/Bullet.png"
-#define ALIEN_BULLET_TEXTURE_PATH "textures/alien_orb.png"
-#define CANNON_TEXTURE_PATH "textures/cannon_tank.png"
 
 GameState::GameState(StateID id, StateManager *state_mgr, SharedContext *context) : BaseState(id, state_mgr, context),
-	world(nullptr), player(nullptr), dist(nullptr), alien_texture(nullptr),
-	bullet_texture(nullptr), alien_bull_texture(nullptr), cannon_texture(nullptr) {}
+	world(nullptr), player(nullptr), dist(nullptr) {}
 
 GameState::~GameState()
 {
@@ -66,12 +61,12 @@ void GameState::start()
 			alien_y += ALIEN_POS_INCREMENT;
 		}
 
-		s->setTexture(alien_texture);
+		s->setTexture(texture_mgr->getTexture(ALIEN_TEXTURE));
 	}
 
 	// Create the player
 	player = new Player(world, PLAYER_START_POS);
-	player->setTexture(cannon_texture);
+	player->setTexture(texture_mgr->getTexture(CANNON_TEXTURE));
 	setScreenText();
 }
 
@@ -112,27 +107,28 @@ void GameState::init()
 	lives_txt.setProjection(proj);
 	lives_txt.setPosition(LIVES_TEXT_POS);
 
-	alien_texture = new Texture();
-	alien_texture->loadFromFile(ALIEN_TEXTURE_PATH);
-
-	bullet_texture = new Texture();
-	bullet_texture->loadFromFile(PLAYER_BULLET_TEXTURE_PATH);
-
-	alien_bull_texture = new Texture();
-	alien_bull_texture->loadFromFile(ALIEN_BULLET_TEXTURE_PATH);
-
-	cannon_texture = new Texture();
-	cannon_texture->loadFromFile(CANNON_TEXTURE_PATH);
+	texture_mgr = context->texture_mgr;
+	texture_mgr->loadTexture(ALIEN_TEXTURE, ALIEN_TEXTURE_PATH);
+	texture_mgr->loadTexture(BULLET_TEXTURE, PLAYER_BULLET_TEXTURE_PATH);
+	texture_mgr->loadTexture(ORB_TEXTURE, ALIEN_BULLET_TEXTURE_PATH);
+	texture_mgr->loadTexture(CANNON_TEXTURE, CANNON_TEXTURE_PATH);
 }
 
 void GameState::destroy()
 {
+	// Remove the callback functions
 	EventManager *event_mgr = context->event_mgr;
 	event_mgr->removeCallback(LEFT_EVENT);
 	event_mgr->removeCallback(RIGHT_EVENT);
 	event_mgr->removeCallback(LEFT_RELEASE_EVENT);
 	event_mgr->removeCallback(RIGHT_RELEASE_EVENT);
 	event_mgr->removeCallback(SPACE_BAR_EVENT);
+
+	// Remove the textures from the manager
+	texture_mgr->removeTexture(ALIEN_TEXTURE);
+	texture_mgr->removeTexture(BULLET_TEXTURE);
+	texture_mgr->removeTexture(ORB_TEXTURE);
+	texture_mgr->removeTexture(CANNON_TEXTURE);
 
 	// Remove all aliens from memory
 	while (aliens.begin() != aliens.end())
@@ -167,30 +163,6 @@ void GameState::destroy()
 	{
 		delete dist;
 		dist = nullptr;
-	}
-
-	if (alien_texture != nullptr)
-	{
-		delete alien_texture;
-		alien_texture = nullptr;
-	}
-
-	if (bullet_texture != nullptr)
-	{
-		delete bullet_texture;
-		bullet_texture = nullptr;
-	}
-
-	if (alien_bull_texture != nullptr)
-	{
-		delete alien_bull_texture;
-		alien_bull_texture = nullptr;
-	}
-
-	if (cannon_texture != nullptr)
-	{
-		delete cannon_texture;
-		cannon_texture = nullptr;
 	}
 }
 
@@ -328,7 +300,7 @@ void GameState::fire(EventDetails * details)
 	glm::vec2 bullet_initial_pos = player->getPosition();
 	bullet_initial_pos.y -= BULLET_INITIAL_POS_PADDING;
 	Projectile *bullet = new Projectile(world, bullet_initial_pos);
-	bullet->setTexture(bullet_texture);
+	bullet->setTexture(texture_mgr->getTexture(BULLET_TEXTURE));
 	bullets.push_back(bullet);
 }
 
@@ -343,7 +315,7 @@ void GameState::enemyFire(Alien * alien)
 	if (fire_number == ALINE_FIRE_VAL)
 	{
 		bullet = new AlienProjectile(world, bullet_pos);
-		bullet->setTexture(alien_bull_texture);
+		bullet->setTexture(texture_mgr->getTexture(ORB_TEXTURE));
 		alien_bullets.push_back(bullet);
 	}
 }
