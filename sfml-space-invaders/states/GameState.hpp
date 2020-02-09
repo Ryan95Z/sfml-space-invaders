@@ -15,6 +15,7 @@
 #include "../entities/Alien.hpp"
 #include "../entities/Player.hpp"
 #include "../entities/Projectile.hpp"
+#include "../entities/Background.hpp"
 #include "../listeners/ContactListener.hpp"
 
 using AlienVector = std::vector<Alien *>;
@@ -55,6 +56,7 @@ private:
 	unsigned int score;
 	glm::ivec2 window_size;
 	b2World *world;
+	Background *b;
 	Player *player;
 	Font font;
 	Text score_txt;

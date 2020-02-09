@@ -17,15 +17,16 @@ SpriteRender::~SpriteRender()
 	destroySpriteRender();
 }
 
-void SpriteRender::drawSprite(glm::vec2 position, glm::vec2 size, glm::vec3 colour)
+void SpriteRender::drawSprite(glm::vec3 position, glm::vec2 size, glm::vec3 colour)
 {
-	model = glm::translate(glm::mat4(1.0f), glm::vec3(position, 0.0f));
+	model = glm::translate(glm::mat4(1.0f), position);
 	
 	// Set the origin to be the middle of the object
 	model = glm::translate(model, glm::vec3(-0.5f * size.x, -0.5f * size.y, 0.0f));
 	model = glm::scale(model, glm::vec3(size, 0.0f));
 
 	proj = glm::ortho(0.0f, 800.0f, 800.0f, 0.0f, -1.0f, 1.0f);
+
 
 	// Activate the sprite shader
 	glUseProgram(shader->id());
@@ -40,16 +41,19 @@ void SpriteRender::drawSprite(glm::vec2 position, glm::vec2 size, glm::vec3 colo
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(proj));
 	glUniform3f(colourLoc, colour.x, colour.y, colour.z);
 
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL);
+
 	glBindVertexArray(vao[0]);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
-void SpriteRender::drawSprite(glm::vec2 position, glm::vec2 size, Texture * texture)
+void SpriteRender::drawSprite(glm::vec3 position, glm::vec2 size, Texture * texture)
 {
-	model = glm::translate(glm::mat4(1.0f), glm::vec3(position, 0.0f));
+	model = glm::translate(glm::mat4(1.0f), position);
 
 	// Set the origin to be the middle of the object
-	model = glm::translate(model, glm::vec3(-0.5f * size.x, -0.5f * size.y, 0.0f));
+	model = glm::translate(model, glm::vec3(-0.5f * size.x, -0.5f * size.y, -1.0f));
 	model = glm::scale(model, glm::vec3(size, 0.0f));
 
 	proj = glm::ortho(0.0f, 800.0f, 800.0f, 0.0f, -1.0f, 1.0f);
@@ -78,17 +82,16 @@ void SpriteRender::drawSprite(glm::vec2 position, glm::vec2 size, Texture * text
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void SpriteRender::drawSprite(Sprite * sprite)
+void SpriteRender::drawSprite(StaticSprite * sprite)
 {
 	if (sprite->hasTexture())
 	{
-		drawSprite(sprite->getPosition(), sprite->getSize(), sprite->getTexture());;
+		drawSprite(sprite->get3DPosition(), sprite->getSize(), sprite->getTexture());;
 	}
 	else
 	{
-		drawSprite(sprite->getPosition(), sprite->getSize(), sprite->getColour());
+		drawSprite(sprite->get3DPosition(), sprite->getSize(), sprite->getColour());
 	}
-	
 }
 
 void SpriteRender::initSpriteRender()

@@ -21,9 +21,9 @@ public:
 	SpriteRender();
 	~SpriteRender();
 
-	void drawSprite(glm::vec2 position, glm::vec2 size, glm::vec3 colour);
-	void drawSprite(glm::vec2 position, glm::vec2 size, Texture *texture);
-	void drawSprite(Sprite *sprite);
+	void drawSprite(glm::vec3 position, glm::vec2 size, glm::vec3 colour);
+	void drawSprite(glm::vec3 position, glm::vec2 size, Texture *texture);
+	void drawSprite(StaticSprite *sprite);
 
 private:
 	Shader *shader;

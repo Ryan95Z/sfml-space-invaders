@@ -27,7 +27,7 @@
 
 
 GameState::GameState(StateID id, StateManager *state_mgr, SharedContext *context) : BaseState(id, state_mgr, context),
-	world(nullptr), player(nullptr), dist(nullptr) {}
+	world(nullptr), player(nullptr), dist(nullptr), b(nullptr)  {}
 
 GameState::~GameState()
 {
@@ -64,10 +64,15 @@ void GameState::start()
 		s->setTexture(texture_mgr->getTexture(ALIEN_TEXTURE));
 	}
 
+	b = new Background(world);
+	b->setPosition(glm::vec2(WINDOW_WIDTH / 2.0f, WINDOW_HEIGHT / 2.0f));
+
 	// Create the player
 	player = new Player(world, PLAYER_START_POS);
 	player->setTexture(texture_mgr->getTexture(CANNON_TEXTURE));
 	setScreenText();
+
+	
 }
 
 void GameState::stop() {}
@@ -164,6 +169,12 @@ void GameState::destroy()
 		delete dist;
 		dist = nullptr;
 	}
+
+	if (b != nullptr)
+	{
+		delete b;
+		b = nullptr;
+	}
 }
 
 void GameState::update(float dt)
@@ -243,6 +254,8 @@ void GameState::update(float dt)
 
 void GameState::draw()
 {
+	render.drawSprite(b);
+
 	// Render the sprites
 	Sprite *sprite = nullptr;
 	for (b2Body *body_itr = world->GetBodyList(); body_itr != 0; body_itr = body_itr->GetNext())
@@ -254,6 +267,8 @@ void GameState::draw()
 	// Render the text
 	score_txt.draw();
 	lives_txt.draw();
+
+	
 }
 
 void GameState::cleanup()
