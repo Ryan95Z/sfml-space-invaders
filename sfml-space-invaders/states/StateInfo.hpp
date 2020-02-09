@@ -12,11 +12,13 @@
 #define ORB_TEXTURE "orb"
 #define CANNON_TEXTURE "cannon"
 #define BULLET_TEXTURE "bullet"
+#define BACKGROUND_TEXTURE "background"
 
 // Texture paths
 #define ALIEN_TEXTURE_PATH "textures/alien.png"
 #define PLAYER_BULLET_TEXTURE_PATH "textures/Bullet.png"
 #define ALIEN_BULLET_TEXTURE_PATH "textures/alien_orb.png"
 #define CANNON_TEXTURE_PATH "textures/cannon_tank.png"
+#define BACKGROUND_TEXTURE_PATH "textures/si_background.png"
 
 #endif // STATES_STATE_INFO_HPP

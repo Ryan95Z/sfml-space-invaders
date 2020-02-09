@@ -27,7 +27,6 @@ void SpriteRender::drawSprite(glm::vec3 position, glm::vec2 size, glm::vec3 colo
 
 	proj = glm::ortho(0.0f, 800.0f, 800.0f, 0.0f, -1.0f, 1.0f);
 
-
 	// Activate the sprite shader
 	glUseProgram(shader->id());
 
@@ -86,7 +85,7 @@ void SpriteRender::drawSprite(StaticSprite * sprite)
 {
 	if (sprite->hasTexture())
 	{
-		drawSprite(sprite->get3DPosition(), sprite->getSize(), sprite->getTexture());;
+		drawSprite(sprite->get3DPosition(), sprite->getSize(), sprite->getTexture());
 	}
 	else
 	{

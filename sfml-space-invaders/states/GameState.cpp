@@ -66,13 +66,12 @@ void GameState::start()
 
 	b = new Background(world);
 	b->setPosition(glm::vec2(WINDOW_WIDTH / 2.0f, WINDOW_HEIGHT / 2.0f));
+	b->setTexture(texture_mgr->getTexture(BACKGROUND_TEXTURE));
 
 	// Create the player
 	player = new Player(world, PLAYER_START_POS);
 	player->setTexture(texture_mgr->getTexture(CANNON_TEXTURE));
 	setScreenText();
-
-	
 }
 
 void GameState::stop() {}
@@ -117,6 +116,7 @@ void GameState::init()
 	texture_mgr->loadTexture(BULLET_TEXTURE, PLAYER_BULLET_TEXTURE_PATH);
 	texture_mgr->loadTexture(ORB_TEXTURE, ALIEN_BULLET_TEXTURE_PATH);
 	texture_mgr->loadTexture(CANNON_TEXTURE, CANNON_TEXTURE_PATH);
+	texture_mgr->loadTexture(BACKGROUND_TEXTURE, BACKGROUND_TEXTURE_PATH);
 }
 
 void GameState::destroy()
@@ -134,6 +134,7 @@ void GameState::destroy()
 	texture_mgr->removeTexture(BULLET_TEXTURE);
 	texture_mgr->removeTexture(ORB_TEXTURE);
 	texture_mgr->removeTexture(CANNON_TEXTURE);
+	texture_mgr->removeTexture(BACKGROUND_TEXTURE);
 
 	// Remove all aliens from memory
 	while (aliens.begin() != aliens.end())

@@ -14,7 +14,7 @@ Background::~Background()
 
 glm::vec3 Background::get3DPosition() const noexcept
 {
-	return glm::vec3(pos.x, pos.y, -1.0f);
+	return glm::vec3(pos.x, pos.y, 0.0f);
 }
 
 void Background::update(float dt)

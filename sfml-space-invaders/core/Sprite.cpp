@@ -20,7 +20,7 @@ glm::vec2 StaticSprite::getSize() const noexcept
 
 void StaticSprite::setPosition(glm::vec2 pos) noexcept
 {
-	this->pos = glm::vec3(pos, 0.0f);
+	this->pos = glm::vec3(pos, 1.0f);
 }
 
 glm::vec2 StaticSprite::getPosition() const noexcept
