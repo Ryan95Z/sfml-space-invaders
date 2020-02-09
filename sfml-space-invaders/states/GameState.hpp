@@ -72,6 +72,7 @@ private:
 	Texture *alien_texture;
 	Texture *bullet_texture;
 	Texture *alien_bull_texture;
+	Texture *cannon_texture;
 };
 
 #endif // STATES_GAME_STATE_HPP

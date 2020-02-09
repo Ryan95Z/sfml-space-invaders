@@ -28,10 +28,11 @@
 #define ALIEN_TEXTURE_PATH "textures/alien.png"
 #define PLAYER_BULLET_TEXTURE_PATH "textures/Bullet.png"
 #define ALIEN_BULLET_TEXTURE_PATH "textures/alien_orb.png"
+#define CANNON_TEXTURE_PATH "textures/cannon_tank.png"
 
 GameState::GameState(StateID id, StateManager *state_mgr, SharedContext *context) : BaseState(id, state_mgr, context),
 	world(nullptr), player(nullptr), dist(nullptr), alien_texture(nullptr),
-	bullet_texture(nullptr), alien_bull_texture(nullptr) {}
+	bullet_texture(nullptr), alien_bull_texture(nullptr), cannon_texture(nullptr) {}
 
 GameState::~GameState()
 {
@@ -70,6 +71,7 @@ void GameState::start()
 
 	// Create the player
 	player = new Player(world, PLAYER_START_POS);
+	player->setTexture(cannon_texture);
 	setScreenText();
 }
 
@@ -118,6 +120,9 @@ void GameState::init()
 
 	alien_bull_texture = new Texture();
 	alien_bull_texture->loadFromFile(ALIEN_BULLET_TEXTURE_PATH);
+
+	cannon_texture = new Texture();
+	cannon_texture->loadFromFile(CANNON_TEXTURE_PATH);
 }
 
 void GameState::destroy()
@@ -180,6 +185,12 @@ void GameState::destroy()
 	{
 		delete alien_bull_texture;
 		alien_bull_texture = nullptr;
+	}
+
+	if (cannon_texture != nullptr)
+	{
+		delete cannon_texture;
+		cannon_texture = nullptr;
 	}
 }
 

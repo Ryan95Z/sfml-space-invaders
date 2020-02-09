@@ -127,6 +127,7 @@
     <ClCompile Include="core\loaders\TextureLoader.cpp" />
     <ClCompile Include="core\managers\EventManager.cpp" />
     <ClCompile Include="core\managers\StateManager.cpp" />
+    <ClCompile Include="core\managers\TextureManager.cpp" />
     <ClCompile Include="core\objects\GObject.hpp" />
     <ClCompile Include="core\Shader.cpp" />
     <ClCompile Include="core\Sprite.cpp" />
@@ -156,6 +157,7 @@
     <ClInclude Include="core\gui\Text.hpp" />
     <ClInclude Include="core\gui\TextRenderer.hpp" />
     <ClInclude Include="core\managers\EventInfo.hpp" />
+    <ClInclude Include="core\managers\TextureManager.hpp" />
     <ClInclude Include="core\Sprite.hpp" />
     <ClInclude Include="core\SpriteRender.hpp" />
     <ClInclude Include="core\Texture.hpp" />
