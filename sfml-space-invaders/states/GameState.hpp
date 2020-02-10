@@ -47,11 +47,13 @@ protected:
 	void right(EventDetails *details);
 	void stop(EventDetails *details);
 	void fire(EventDetails *details);
+	void reload(EventDetails *details);
 
 private:
 	void enemyFire(Alien *alien);
 	void setScreenText();
 
+	unsigned int bullet_rounds;
 	bool is_game_over;
 	unsigned int score;
 	glm::ivec2 window_size;

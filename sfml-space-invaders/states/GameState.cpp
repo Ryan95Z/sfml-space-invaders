@@ -25,6 +25,7 @@
 #define ARIAL_FONT_PATH "font/arial.ttf"
 #define SCORE_TXT_TEMPLATE "Score: "
 #define LIVES_TXT_TEMPLATE "Lives: "
+#define BULLET_MAGAZINE 7
 
 
 GameState::GameState(StateID id, StateManager *state_mgr, SharedContext *context) : BaseState(id, state_mgr, context),
@@ -43,6 +44,7 @@ void GameState::start()
 	float alien_y = ALIEN_INITIAL_Y;
 
 	score = 0;
+	bullet_rounds = BULLET_MAGAZINE;
 	
 	// Set the context data
 	context->data.has_player_won = false;
@@ -98,6 +100,7 @@ void GameState::init()
 	event_mgr->addCallback(LEFT_RELEASE_EVENT, &GameState::stop, this);
 	event_mgr->addCallback(RIGHT_RELEASE_EVENT, &GameState::stop, this);
 	event_mgr->addCallback(SPACE_BAR_EVENT, &GameState::fire, this);
+	event_mgr->addCallback(R_BUTTON_RELEASE_EVENT, &GameState::reload, this);
 
 	// Load in the font file
 	font.loadFromFile(ARIAL_FONT_PATH);
@@ -128,6 +131,7 @@ void GameState::destroy()
 	event_mgr->removeCallback(LEFT_RELEASE_EVENT);
 	event_mgr->removeCallback(RIGHT_RELEASE_EVENT);
 	event_mgr->removeCallback(SPACE_BAR_EVENT);
+	event_mgr->removeCallback(R_BUTTON_RELEASE_EVENT);
 
 	// Remove the textures from the manager
 	texture_mgr->removeTexture(ALIEN_TEXTURE);
@@ -309,11 +313,23 @@ void GameState::stop(EventDetails * details)
 
 void GameState::fire(EventDetails * details)
 {
+	if (bullet_rounds == 0)
+	{
+		Logger::debug("RELOAD");
+		return;
+	}
+
 	glm::vec2 bullet_initial_pos = player->getPosition();
 	bullet_initial_pos.y -= BULLET_INITIAL_POS_PADDING;
 	Projectile *bullet = new Projectile(world, bullet_initial_pos);
 	bullet->setTexture(texture_mgr->getTexture(BULLET_TEXTURE));
 	bullets.push_back(bullet);
+	--bullet_rounds;
+}
+
+void GameState::reload(EventDetails * details)
+{
+	bullet_rounds = BULLET_MAGAZINE;
 }
 
 void GameState::enemyFire(Alien * alien)

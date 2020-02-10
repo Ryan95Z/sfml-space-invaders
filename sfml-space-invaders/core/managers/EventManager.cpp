@@ -7,6 +7,7 @@ EventManager::EventManager()
 	addBinding(LEFT_RELEASE_EVENT, EventType::KeyReleased, sf::Keyboard::A);
 	addBinding(RIGHT_RELEASE_EVENT, EventType::KeyReleased, sf::Keyboard::D);
 	addBinding(SPACE_BAR_EVENT, EventType::KeyPressed, sf::Keyboard::Space);
+	addBinding(R_BUTTON_RELEASE_EVENT, EventType::KeyReleased, sf::Keyboard::R);
 }
 
 EventManager::~EventManager()
