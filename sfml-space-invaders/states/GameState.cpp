@@ -25,8 +25,6 @@
 #define ARIAL_FONT_PATH "font/arial.ttf"
 #define SCORE_TXT_TEMPLATE "Score: "
 #define LIVES_TXT_TEMPLATE "Lives: "
-#define BULLET_MAGAZINE 7
-
 
 GameState::GameState(StateID id, StateManager *state_mgr, SharedContext *context) : BaseState(id, state_mgr, context),
 	world(nullptr), player(nullptr), dist(nullptr), background(nullptr)  {}

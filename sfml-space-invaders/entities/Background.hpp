@@ -15,8 +15,6 @@ public:
 
 	virtual void beginContact(SpriteType type);
 	virtual void endContact(SpriteType type);
-private:
-
 };
 
 #endif // ENTITIES_BACKGROUND_HPP

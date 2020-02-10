@@ -16,11 +16,14 @@
 #include "../entities/Player.hpp"
 #include "../entities/Projectile.hpp"
 #include "../entities/Background.hpp"
+#include "../entities/DisplayBullet.hpp"
+
 #include "../listeners/ContactListener.hpp"
+
+#define BULLET_MAGAZINE 7
 
 using AlienVector = std::vector<Alien *>;
 using ProjectileVector = std::vector<Projectile *>;
-
 
 class GameState : public BaseState
 {
