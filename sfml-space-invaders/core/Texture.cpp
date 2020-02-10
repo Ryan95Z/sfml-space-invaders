@@ -3,13 +3,14 @@
 #include <iostream>
 #include <SOIL2/SOIL2.h>
 
+#include "../core/tools/Logger.hpp"
+
 Texture::Texture() : has_loaded(false), texture_loc(0)
 {
 }
 
 Texture::~Texture()
 {
-
 }
 
 bool Texture::loadFromFile(std::string path)
@@ -22,8 +23,12 @@ bool Texture::loadFromFile(std::string path)
 		SOIL_LOAD_RGB
 	);
 
-	std::cout << SOIL_last_result() << std::endl;
-
+	if (texture_loc == 0)
+	{
+		Logger::error("Cannot load file: " + path);
+		return 0;
+	}
+		
 	has_loaded = true;
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texture_loc);

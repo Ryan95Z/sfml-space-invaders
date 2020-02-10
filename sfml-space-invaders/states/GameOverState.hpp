@@ -5,12 +5,15 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "../core/BaseState.hpp"
+#include "../core/SpriteRender.hpp"
 #include "../core/managers/EventManager.hpp"
 
 #include "../core/gui/Font.hpp"
 #include "../core/gui/Text.hpp"
 
 #define FONT_PATH "font/arial.ttf"
+
+#include "../entities/Background.hpp"
 
 class GameOverState : public BaseState
 {
@@ -22,7 +25,7 @@ public:
 
 	virtual void start();
 	virtual void stop();
-
+	 
 	virtual void init();
 	virtual void destroy();
 
@@ -38,6 +41,8 @@ private:
 	Text title;
 	Text score;
 	glm::mat4 proj;
+	Background *background;
+	SpriteRender render;
 };
 
 #endif // STATES_GAME_OVER_STATE_HPP

@@ -4,11 +4,13 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+#include "../core/SpriteRender.hpp"
 #include "../core/BaseState.hpp"
 #include "../core/gui/Font.hpp"
 #include "../core/gui/Text.hpp"
-
 #include "../core/managers/EventManager.hpp"
+
+#include "../entities/Background.hpp"
 
 #define FONT_PATH "font/arial.ttf"
 
@@ -36,6 +38,8 @@ private:
 	Font arial;
 	Text title;
 	Text instructions;
+	Background *background;
+	SpriteRender render;
 };
 
 #endif // !STATES_TITLE_STATE_HPP

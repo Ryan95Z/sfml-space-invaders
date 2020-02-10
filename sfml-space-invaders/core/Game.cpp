@@ -13,6 +13,8 @@ Game::Game() : state_mgr(&context), delta_time(0.0f), last_frame(0.0f), current_
 
 	// Push the initial game state
 	state_mgr.registerNextState(TITLE_STATE_ID);
+
+	texture_mgr.loadTexture(BACKGROUND_TEXTURE, BACKGROUND_TEXTURE_PATH);
 }
 
 Game::~Game()

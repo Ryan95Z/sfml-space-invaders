@@ -56,7 +56,7 @@ private:
 	unsigned int score;
 	glm::ivec2 window_size;
 	b2World *world;
-	Background *b;
+	Background *background;
 	Player *player;
 	Font font;
 	Text score_txt;
@@ -68,9 +68,9 @@ private:
 	ProjectileVector alien_bullets;
 	ProjectileVector spent_bullets;
 	GameContactListener listener;
+	TextureManager *texture_mgr;
 	std::default_random_engine generator;
 	std::uniform_int_distribution<int> *dist;
-	TextureManager *texture_mgr;
 };
 
 #endif // STATES_GAME_STATE_HPP

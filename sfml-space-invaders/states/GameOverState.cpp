@@ -2,10 +2,13 @@
 
 #include "../core/Window.hpp"
 
+#include "StateInfo.hpp"
+
 #define TITLE "Game Over"
 #define SCORE "Score: "
 
-GameOverState::GameOverState(StateID id, StateManager *state_mgr, SharedContext * context) : BaseState(id, state_mgr, context)
+GameOverState::GameOverState(StateID id, StateManager *state_mgr, SharedContext * context) : BaseState(id, state_mgr, context),
+	background(nullptr)
 {
 }
 
@@ -25,6 +28,7 @@ void GameOverState::stop()
 void GameOverState::init()
 {
 	Window *window = context->window;
+	TextureManager *texture_mgr = context->texture_mgr;
 	glm::ivec2 window_size = window->getSize();
 	std::string score_str = SCORE + std::to_string(context->data.score);
 	proj = glm::ortho(0.0f, static_cast<GLfloat>(window_size.x), 0.0f, static_cast<GLfloat>(window_size.y));
@@ -47,12 +51,22 @@ void GameOverState::init()
 	
 	EventManager *event_mgr = context->event_mgr;
 	event_mgr->addCallback(SPACE_BAR_EVENT, &GameOverState::backToMenu, this);
+
+	background = new Background(nullptr);
+	background->setPosition(glm::vec2(window_size.x / 2.0f, window_size.y / 2.0f));
+	background->setTexture(texture_mgr->getTexture(BACKGROUND_TEXTURE));
 }
 
 void GameOverState::destroy()
 {
 	EventManager *event_mgr = context->event_mgr;
 	event_mgr->removeCallback(SPACE_BAR_EVENT);
+
+	if (background != nullptr)
+	{
+		delete background;
+		background = nullptr;
+	}
 }
 
 void GameOverState::update(float dt)
@@ -61,6 +75,7 @@ void GameOverState::update(float dt)
 
 void GameOverState::draw()
 {
+	render.drawSprite(background);
 	title.draw();
 	score.draw();
 }

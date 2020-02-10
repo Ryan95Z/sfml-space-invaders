@@ -1,4 +1,5 @@
 #include "TextureManager.hpp"
+#include "../tools/Logger.hpp"
 
 TextureManager::TextureManager() {}
 
@@ -21,6 +22,7 @@ std::size_t TextureManager::size() const noexcept
 bool TextureManager::loadTexture(const std::string key, std::string path)
 {
 	Texture *t = new Texture();
+	Logger::debug("Attempting to load texture " + key);
 	if (!t->loadFromFile(path)) { return false; }
 	textures.emplace(key, t);
 	return true;

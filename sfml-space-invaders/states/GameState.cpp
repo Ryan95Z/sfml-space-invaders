@@ -19,15 +19,15 @@
 #define SPRITE_SIZE glm::vec2(50.0f, 50.0f)
 #define WORLD_GRAVITY b2Vec2(0.0f, 0.0f)
 #define PLAYER_START_POS glm::vec2(350.0f, 700.0f)
-#define SCORE_TEXT_POS glm::vec2(20.0f, 0.0f)
-#define LIVES_TEXT_POS glm::vec2(600.0f, 0.0f)
+#define SCORE_TEXT_POS glm::vec2(20.0f, 10.0f)
+#define LIVES_TEXT_POS glm::vec2(600.0f, 10.0f)
 #define ARIAL_FONT_PATH "font/arial.ttf"
 #define SCORE_TXT_TEMPLATE "Score: "
 #define LIVES_TXT_TEMPLATE "Lives: "
 
 
 GameState::GameState(StateID id, StateManager *state_mgr, SharedContext *context) : BaseState(id, state_mgr, context),
-	world(nullptr), player(nullptr), dist(nullptr), b(nullptr)  {}
+	world(nullptr), player(nullptr), dist(nullptr), background(nullptr)  {}
 
 GameState::~GameState()
 {
@@ -64,9 +64,9 @@ void GameState::start()
 		s->setTexture(texture_mgr->getTexture(ALIEN_TEXTURE));
 	}
 
-	b = new Background(world);
-	b->setPosition(glm::vec2(WINDOW_WIDTH / 2.0f, WINDOW_HEIGHT / 2.0f));
-	b->setTexture(texture_mgr->getTexture(BACKGROUND_TEXTURE));
+	background = new Background(world);
+	background->setPosition(glm::vec2(window_size.x / 2.0f, window_size.y / 2.0f));
+	background->setTexture(texture_mgr->getTexture(BACKGROUND_TEXTURE));
 
 	// Create the player
 	player = new Player(world, PLAYER_START_POS);
@@ -116,7 +116,6 @@ void GameState::init()
 	texture_mgr->loadTexture(BULLET_TEXTURE, PLAYER_BULLET_TEXTURE_PATH);
 	texture_mgr->loadTexture(ORB_TEXTURE, ALIEN_BULLET_TEXTURE_PATH);
 	texture_mgr->loadTexture(CANNON_TEXTURE, CANNON_TEXTURE_PATH);
-	texture_mgr->loadTexture(BACKGROUND_TEXTURE, BACKGROUND_TEXTURE_PATH);
 }
 
 void GameState::destroy()
@@ -134,7 +133,6 @@ void GameState::destroy()
 	texture_mgr->removeTexture(BULLET_TEXTURE);
 	texture_mgr->removeTexture(ORB_TEXTURE);
 	texture_mgr->removeTexture(CANNON_TEXTURE);
-	texture_mgr->removeTexture(BACKGROUND_TEXTURE);
 
 	// Remove all aliens from memory
 	while (aliens.begin() != aliens.end())
@@ -171,10 +169,10 @@ void GameState::destroy()
 		dist = nullptr;
 	}
 
-	if (b != nullptr)
+	if (background != nullptr)
 	{
-		delete b;
-		b = nullptr;
+		delete background;
+		background = nullptr;
 	}
 }
 
@@ -255,7 +253,7 @@ void GameState::update(float dt)
 
 void GameState::draw()
 {
-	render.drawSprite(b);
+	render.drawSprite(background);
 
 	// Render the sprites
 	Sprite *sprite = nullptr;
