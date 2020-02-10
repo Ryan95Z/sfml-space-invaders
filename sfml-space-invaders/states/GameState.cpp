@@ -10,7 +10,8 @@
 #define ALIEN_INITIAL_X 25.0f
 #define ALIEN_INITIAL_Y 50.0f
 #define ALIEN_POS_INCREMENT 60.0f
-#define ALINE_FIRE_VAL 101
+#define ALIEN_FIRE_VAL 101
+#define ALIEN_FIRE_VAL_2 11
 #define ALIENS_PER_ROW 11
 #define ALIEN_ROW_COUNT 7
 #define ALIEN_COUNT (ALIENS_PER_ROW * ALIEN_ROW_COUNT)
@@ -246,7 +247,6 @@ void GameState::update(float dt)
 
 		// Stop the player if still moving
 		stop();
-		Logger::debug("Game over has been reached");
 		state_mgr->registerNextState(GAME_OVER_STATE_ID);
 	}
 }
@@ -266,8 +266,6 @@ void GameState::draw()
 	// Render the text
 	score_txt.draw();
 	lives_txt.draw();
-
-	
 }
 
 void GameState::cleanup()
@@ -326,7 +324,7 @@ void GameState::enemyFire(Alien * alien)
 
 	if (is_game_over) { return; }
 
-	if (fire_number == ALINE_FIRE_VAL)
+	if (fire_number == ALIEN_FIRE_VAL || fire_number == ALIEN_FIRE_VAL_2)
 	{
 		bullet = new AlienProjectile(world, bullet_pos);
 		bullet->setTexture(texture_mgr->getTexture(ORB_TEXTURE));
