@@ -8,6 +8,7 @@
 
 #include "../core/Shader.hpp"
 #include "../core/Sprite.hpp"
+#include "../core/Texture.hpp"
 
 #define NUM_VAO 1
 #define NUM_VBO 1
@@ -20,11 +21,13 @@ public:
 	SpriteRender();
 	~SpriteRender();
 
-	void drawSprite(glm::vec2 position, glm::vec2 size);
-	void drawSprite(Sprite *sprite);
+	void drawSprite(glm::vec3 position, glm::vec2 size, glm::vec3 colour);
+	void drawSprite(glm::vec3 position, glm::vec2 size, Texture *texture);
+	void drawSprite(StaticSprite *sprite);
 
 private:
 	Shader *shader;
+	Shader *texture_shader;
 
 	void initSpriteRender();
 	void destroySpriteRender();
@@ -32,6 +35,7 @@ private:
 	glm::mat4 proj;
 	GLuint modelLoc;
 	GLuint projLoc;
+	GLuint colourLoc;
 	GLuint vao[NUM_VAO];
 	GLuint vbo[NUM_VBO];
 

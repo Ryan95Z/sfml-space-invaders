@@ -127,14 +127,17 @@
     <ClCompile Include="core\loaders\TextureLoader.cpp" />
     <ClCompile Include="core\managers\EventManager.cpp" />
     <ClCompile Include="core\managers\StateManager.cpp" />
+    <ClCompile Include="core\managers\TextureManager.cpp" />
     <ClCompile Include="core\objects\GObject.hpp" />
     <ClCompile Include="core\Shader.cpp" />
     <ClCompile Include="core\Sprite.cpp" />
     <ClCompile Include="core\SpriteRender.cpp" />
+    <ClCompile Include="core\Texture.cpp" />
     <ClCompile Include="core\Triangle.cpp" />
     <ClCompile Include="core\Window.cpp" />
     <ClCompile Include="entities\Alien.cpp" />
     <ClCompile Include="entities\AlienProjectile.cpp" />
+    <ClCompile Include="entities\Background.cpp" />
     <ClCompile Include="entities\Cube.cpp" />
     <ClCompile Include="entities\Floor.cpp" />
     <ClCompile Include="entities\Player.cpp" />
@@ -145,15 +148,20 @@
     <ClCompile Include="states\ExperimentState.cpp" />
     <ClCompile Include="states\GameOverState.cpp" />
     <ClCompile Include="states\GameState.cpp" />
+    <ClCompile Include="states\TitleState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\BaseState.hpp" />
     <ClInclude Include="core\Camera.hpp" />
+    <ClInclude Include="core\common.hpp" />
     <ClInclude Include="core\gui\Font.hpp" />
     <ClInclude Include="core\gui\Text.hpp" />
     <ClInclude Include="core\gui\TextRenderer.hpp" />
+    <ClInclude Include="core\managers\EventInfo.hpp" />
+    <ClInclude Include="core\managers\TextureManager.hpp" />
     <ClInclude Include="core\Sprite.hpp" />
     <ClInclude Include="core\SpriteRender.hpp" />
+    <ClInclude Include="core\Texture.hpp" />
     <ClInclude Include="core\tools\Logger.hpp">
       <DeploymentContent>false</DeploymentContent>
     </ClInclude>
@@ -167,6 +175,7 @@
     <ClInclude Include="core\Window.hpp" />
     <ClInclude Include="entities\Alien.hpp" />
     <ClInclude Include="entities\AlienProjectile.hpp" />
+    <ClInclude Include="entities\Background.hpp" />
     <ClInclude Include="entities\Cube.hpp" />
     <ClInclude Include="entities\Floor.hpp" />
     <ClInclude Include="entities\Player.hpp" />
@@ -177,11 +186,15 @@
     <ClInclude Include="states\GameOverState.hpp" />
     <ClInclude Include="states\GameState.hpp" />
     <ClInclude Include="states\StateInfo.hpp" />
+    <ClInclude Include="states\TitleState.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\cube_frag.glsl" />
     <None Include="shaders\cube_vertex.glsl" />
     <None Include="shaders\frag.glsl" />
+    <None Include="shaders\sprite.frag" />
+    <None Include="shaders\sprite.vert" />
+    <None Include="shaders\square.frag" />
     <None Include="shaders\square_vertex.glsl" />
     <None Include="shaders\text.frag" />
     <None Include="shaders\text.vert" />

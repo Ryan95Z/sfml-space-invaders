@@ -15,6 +15,7 @@
 #include "../entities/Alien.hpp"
 #include "../entities/Player.hpp"
 #include "../entities/Projectile.hpp"
+#include "../entities/Background.hpp"
 #include "../listeners/ContactListener.hpp"
 
 using AlienVector = std::vector<Alien *>;
@@ -26,7 +27,7 @@ class GameState : public BaseState
 public:
 	GameState() = delete;
 	GameState(GameState &) = delete;
-	GameState(StateID id, SharedContext *context);
+	GameState(StateID id, StateManager *state_mgr, SharedContext *context);
 	virtual ~GameState();
 
 	virtual void start();
@@ -39,6 +40,7 @@ public:
 	virtual void draw();
 
 	virtual void cleanup();
+	virtual void reset();
 
 protected:
 	void left(EventDetails *details);
@@ -54,6 +56,7 @@ private:
 	unsigned int score;
 	glm::ivec2 window_size;
 	b2World *world;
+	Background *background;
 	Player *player;
 	Font font;
 	Text score_txt;
@@ -65,6 +68,7 @@ private:
 	ProjectileVector alien_bullets;
 	ProjectileVector spent_bullets;
 	GameContactListener listener;
+	TextureManager *texture_mgr;
 	std::default_random_engine generator;
 	std::uniform_int_distribution<int> *dist;
 };

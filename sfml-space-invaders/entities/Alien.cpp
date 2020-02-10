@@ -6,9 +6,13 @@
 #define ALIEN_BODY_DENSITY 1.0f
 #define ALINE_MOVE_SPEED 75.0f
 #define TICK_COUNT_LIMIT 110
+#define ALIEN_COLOUR glm::vec3(1.0f, 0.0f, 0.0f)
 
 Alien::Alien(b2World * world) : Sprite(world, b2_kinematicBody, SpriteType::Alien, ALIEN_SIZE, ALIEN_BODY_DENSITY),
-	left(false), is_hidden(false), tick_count(0) {}
+	left(false), is_hidden(false), tick_count(0)
+{
+	setColour(ALIEN_COLOUR);
+}
 
 Alien::Alien(b2World * world, glm::vec2 pos) : Alien(world)
 {

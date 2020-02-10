@@ -1,10 +1,12 @@
 #include <iostream>
 #include "AlienProjectile.hpp"
 
+#define ALIEN_PROJECTILE_COLOUR glm::vec3(0.0f, 1.0f, 0.0f)
 #define PROJECTILE_VELOCITY b2Vec2(0.0f, 5.0f)
 
 AlienProjectile::AlienProjectile(b2World * world) : Projectile(world, glm::vec2(0.0f, 0.0f), SpriteType::AlienProjectile)
 {
+	setColour(ALIEN_PROJECTILE_COLOUR);
 	setCollisionDetails();
 }
 
