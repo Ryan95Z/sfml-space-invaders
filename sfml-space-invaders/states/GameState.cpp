@@ -67,6 +67,7 @@ void GameState::start()
 		s->setTexture(texture_mgr->getTexture(ALIEN_TEXTURE));
 	}
 
+	// Set the background
 	background = new Background(world);
 	background->setPosition(glm::vec2(window_size.x / 2.0f, window_size.y / 2.0f));
 	background->setTexture(texture_mgr->getTexture(BACKGROUND_TEXTURE));
@@ -115,12 +116,14 @@ void GameState::init()
 	lives_txt.setProjection(proj);
 	lives_txt.setPosition(LIVES_TEXT_POS);
 
+	// Load in the relevant textures
 	texture_mgr = context->texture_mgr;
 	texture_mgr->loadTexture(ALIEN_TEXTURE, ALIEN_TEXTURE_PATH);
 	texture_mgr->loadTexture(BULLET_TEXTURE, PLAYER_BULLET_TEXTURE_PATH);
 	texture_mgr->loadTexture(ORB_TEXTURE, ALIEN_BULLET_TEXTURE_PATH);
 	texture_mgr->loadTexture(CANNON_TEXTURE, CANNON_TEXTURE_PATH);
 
+	// Define the initial position of the player's magazine
 	glm::vec2 display_bullet_pos = DISPLAY_ROUNDS_POS;
 	for (int i = 0; i < BULLET_MAGAZINE; ++i)
 	{
@@ -183,12 +186,14 @@ void GameState::destroy()
 		dist = nullptr;
 	}
 
+	// Remove the background
 	if (background != nullptr)
 	{
 		delete background;
 		background = nullptr;
 	}
 
+	// Remove the players magazine
 	for (int i = 0; i < BULLET_MAGAZINE; ++i)
 	{
 		delete cannon_magazine[i];

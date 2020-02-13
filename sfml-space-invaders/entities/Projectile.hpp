@@ -19,6 +19,7 @@ public:
 
 protected:
 	Projectile(b2World *world, glm::vec2 pos, SpriteType type);
+	Projectile(b2World *world, glm::vec2 pos, SpriteType type, glm::vec2 size);
 
 	bool is_hidden;
 };

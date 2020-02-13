@@ -1,7 +1,7 @@
 #include "Projectile.hpp"
 #include <iostream>
 
-#define PROJECTILE_SIZE glm::vec2(15.0f, 15.0f)
+#define PROJECTILE_SIZE glm::vec2(15.0f, 25.0f)
 #define PROJECTILE_VELOCITY b2Vec2(0.0f, -5.0f)
 
 #define PROJECTILE_COLOUR glm::vec3(1.0f, 0.0f, 0.0f)
@@ -18,6 +18,11 @@ Projectile::Projectile(b2World * world, glm::vec2 pos) : Projectile(world)
 }
 
 Projectile::Projectile(b2World * world, glm::vec2 pos, SpriteType type) : Sprite(world, b2_dynamicBody, type, PROJECTILE_SIZE, 0.0f)
+{
+	this->setPosition(pos);
+}
+
+Projectile::Projectile(b2World * world, glm::vec2 pos, SpriteType type, glm::vec2 size) : Sprite(world, b2_dynamicBody, type, size, 0.0f)
 {
 	this->setPosition(pos);
 }
