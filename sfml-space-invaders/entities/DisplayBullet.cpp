@@ -1,6 +1,6 @@
 #include "DisplayBullet.hpp"
 
-#define BULLET_SIZE glm::vec2(35.0f, 35.0f)
+#define BULLET_SIZE glm::vec2(25.0f, 40.0f)
 
 DisplayBullet::DisplayBullet(b2World * world) : StaticSprite(BULLET_SIZE)
 {

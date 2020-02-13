@@ -74,6 +74,7 @@ private:
 	ProjectileVector spent_bullets;
 	GameContactListener listener;
 	TextureManager *texture_mgr;
+	DisplayBullet *cannon_magazine[BULLET_MAGAZINE];
 	std::default_random_engine generator;
 	std::uniform_int_distribution<int> *dist;
 };

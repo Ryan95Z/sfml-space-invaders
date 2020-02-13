@@ -20,11 +20,13 @@
 #define SPRITE_SIZE glm::vec2(50.0f, 50.0f)
 #define WORLD_GRAVITY b2Vec2(0.0f, 0.0f)
 #define PLAYER_START_POS glm::vec2(350.0f, 700.0f)
-#define SCORE_TEXT_POS glm::vec2(20.0f, 10.0f)
-#define LIVES_TEXT_POS glm::vec2(600.0f, 10.0f)
+#define SCORE_TEXT_POS glm::vec2(15.0f, 10.0f)
+#define LIVES_TEXT_POS glm::vec2(610.0f, 10.0f)
 #define ARIAL_FONT_PATH "font/arial.ttf"
 #define SCORE_TXT_TEMPLATE "Score: "
 #define LIVES_TXT_TEMPLATE "Lives: "
+#define DISPLAY_ROUNDS_POS glm::vec2(270, 770)
+#define DISPLAY_ROUNDS_SPACING 50
 
 GameState::GameState(StateID id, StateManager *state_mgr, SharedContext *context) : BaseState(id, state_mgr, context),
 	world(nullptr), player(nullptr), dist(nullptr), background(nullptr)  {}
@@ -118,6 +120,15 @@ void GameState::init()
 	texture_mgr->loadTexture(BULLET_TEXTURE, PLAYER_BULLET_TEXTURE_PATH);
 	texture_mgr->loadTexture(ORB_TEXTURE, ALIEN_BULLET_TEXTURE_PATH);
 	texture_mgr->loadTexture(CANNON_TEXTURE, CANNON_TEXTURE_PATH);
+
+	glm::vec2 display_bullet_pos = DISPLAY_ROUNDS_POS;
+	for (int i = 0; i < BULLET_MAGAZINE; ++i)
+	{
+		cannon_magazine[i] = new DisplayBullet(world);
+		cannon_magazine[i]->setPosition(display_bullet_pos);
+		cannon_magazine[i]->setTexture(texture_mgr->getTexture(BULLET_TEXTURE));
+		display_bullet_pos.x += DISPLAY_ROUNDS_SPACING;
+	}
 }
 
 void GameState::destroy()
@@ -176,6 +187,12 @@ void GameState::destroy()
 	{
 		delete background;
 		background = nullptr;
+	}
+
+	for (int i = 0; i < BULLET_MAGAZINE; ++i)
+	{
+		delete cannon_magazine[i];
+		cannon_magazine[i] = nullptr;
 	}
 }
 
@@ -263,6 +280,12 @@ void GameState::draw()
 	{
 		sprite = (Sprite *)body_itr->GetUserData();
 		render.drawSprite(sprite);
+	}
+
+	// Render the player's magazine
+	for (unsigned int i = 0; i < bullet_rounds; ++i)
+	{
+		render.drawSprite(cannon_magazine[i]);
 	}
 
 	// Render the text
