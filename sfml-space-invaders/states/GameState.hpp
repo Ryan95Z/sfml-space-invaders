@@ -66,6 +66,7 @@ private:
 	Font font;
 	Text score_txt;
 	Text lives_txt;
+	Text reload_txt;
 	SpriteRender render;
 	AlienVector aliens;
 	AlienVector graveyard;

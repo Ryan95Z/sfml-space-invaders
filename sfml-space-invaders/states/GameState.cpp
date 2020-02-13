@@ -22,11 +22,15 @@
 #define PLAYER_START_POS glm::vec2(350.0f, 700.0f)
 #define SCORE_TEXT_POS glm::vec2(15.0f, 10.0f)
 #define LIVES_TEXT_POS glm::vec2(610.0f, 10.0f)
+#define RELOAD_TEXT_POS glm::vec2(310.0f, 10.0f)
 #define ARIAL_FONT_PATH "font/arial.ttf"
 #define SCORE_TXT_TEMPLATE "Score: "
 #define LIVES_TXT_TEMPLATE "Lives: "
+#define RELOAD_TXT_TEMPLATE "RELOAD"
 #define DISPLAY_ROUNDS_POS glm::vec2(270, 770)
 #define DISPLAY_ROUNDS_SPACING 50
+
+
 
 GameState::GameState(StateID id, StateManager *state_mgr, SharedContext *context) : BaseState(id, state_mgr, context),
 	world(nullptr), player(nullptr), dist(nullptr), background(nullptr)  {}
@@ -115,6 +119,12 @@ void GameState::init()
 	lives_txt.setFont(&font);
 	lives_txt.setProjection(proj);
 	lives_txt.setPosition(LIVES_TEXT_POS);
+
+	reload_txt.setFont(&font);
+	reload_txt.setProjection(proj);
+	reload_txt.setPosition(RELOAD_TEXT_POS);
+	reload_txt.setString(RELOAD_TXT_TEMPLATE);
+	reload_txt.setColour(glm::vec3(1.0f, 0.0f, 0.0f));
 
 	// Load in the relevant textures
 	texture_mgr = context->texture_mgr;
@@ -296,6 +306,12 @@ void GameState::draw()
 	// Render the text
 	score_txt.draw();
 	lives_txt.draw();
+
+	if (bullet_rounds == 0)
+	{
+		reload_txt.draw();
+	}
+	
 }
 
 void GameState::cleanup()
