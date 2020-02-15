@@ -97,7 +97,8 @@ void SpriteRender::initSpriteRender()
 {
 	glGenVertexArrays(NUM_VAO, vao);
 	glBindVertexArray(vao[0]);
-
+	
+	// Create the buffers
 	glGenBuffers(NUM_VBO, vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
@@ -108,6 +109,7 @@ void SpriteRender::initSpriteRender()
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
 
+	// Create the basic and texture shaders
 	shader = new Shader(VERTEX_SHADER, FRAG_SHADER);
 	texture_shader = new Shader(TEX_VERTEX_SHADER, TEX_FRAG_SHADER);
 }

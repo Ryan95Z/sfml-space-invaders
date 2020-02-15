@@ -30,8 +30,6 @@
 #define DISPLAY_ROUNDS_POS glm::vec2(270, 770)
 #define DISPLAY_ROUNDS_SPACING 50
 
-
-
 GameState::GameState(StateID id, StateManager *state_mgr, SharedContext *context) : BaseState(id, state_mgr, context),
 	world(nullptr), player(nullptr), dist(nullptr), background(nullptr)  {}
 
