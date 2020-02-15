@@ -13,7 +13,7 @@
 class ExperimentState : public BaseState
 {
 public:
-	ExperimentState(StateID id, SharedContext *context);
+	ExperimentState(StateID id, StateManager *state_mgr, SharedContext *context);
 	virtual ~ExperimentState();
 
 	virtual void start();
@@ -26,6 +26,7 @@ public:
 	virtual void draw();
 
 	virtual void cleanup();
+	virtual void reset();
 private:
 	b2Vec2 gravity;
 	b2World *world;

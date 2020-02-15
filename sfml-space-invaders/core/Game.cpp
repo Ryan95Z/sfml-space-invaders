@@ -2,14 +2,19 @@
 
 #include "Game.hpp"
 
+#include "../states/StateInfo.hpp"
 
 Game::Game() : state_mgr(&context), delta_time(0.0f), last_frame(0.0f), current_frame(0.0f)
 {
 	// Set up the shared context
 	context.window = &window;
 	context.event_mgr = window.getEventManager();
+	context.texture_mgr = &texture_mgr;
 
-	state_mgr.pushState(1);	
+	// Push the initial game state
+	state_mgr.registerNextState(TITLE_STATE_ID);
+
+	texture_mgr.loadTexture(BACKGROUND_TEXTURE, BACKGROUND_TEXTURE_PATH);
 }
 
 Game::~Game()
@@ -38,6 +43,10 @@ void Game::update()
 
 void Game::handleEvents()
 {
+	// Check that there are new states to add
+	state_mgr.checkNextState();
+
+	// Handle incoming events
 	window.handleEvents();
 }
 
@@ -45,4 +54,7 @@ void Game::restartClock()
 {
 	state_mgr.cleanup();
 	elapsed_time += clock.restart();
+
+	// Check that there are states to remove
+	state_mgr.checkStateRemoval();
 }

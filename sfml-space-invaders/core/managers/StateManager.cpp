@@ -4,75 +4,124 @@
 #include "../../states/GameState.hpp"
 #include "../../states/ExperimentState.hpp"
 #include "../../states/GameOverState.hpp"
+#include "../../states/TitleState.hpp"
 #include "../../states/StateInfo.hpp"
 
-StateManager::StateManager(SharedContext *context) : context(context)
+#include "../../core/tools/Logger.hpp"
+
+StateManager::StateManager(SharedContext *context) : context(context), num_to_pop(0), has_pop_request(false)
 {
 	registerState<GameState>(GAME_STATE_ID);
 	registerState<ExperimentState>(EXPERIMENT_STATE_ID);
 	registerState<GameOverState>(GAME_OVER_STATE_ID);
+	registerState<TitleState>(TITLE_STATE_ID);
 }
 
 StateManager::~StateManager()
 {
 	BaseState *state = nullptr;
 
-	// Remove any active states
-	while (active_states.begin() != active_states.end())
+	// Go through the stack until all states are deleted
+	while (!active_states.empty())
 	{
-		state = *active_states.begin();
-
-		// Clean up the memory used by the state
+		state = active_states.top();
+		active_states.pop();
+	
+		// Stop the states
 		state->stop();
 		state->destroy();
-		
-		// Deallocate the state from memory
+
 		delete state;
 		state = nullptr;
-		active_states.erase(active_states.begin());
 	}
 
-	active_states.clear();
 	factory.clear();
 }
 
 void StateManager::update(float dt)
 {
-	(*active_states.begin())->update(dt);
+	active_states.top()->update(dt);
 }
 
 void StateManager::render()
 {
-	(*active_states.begin())->draw();
+	active_states.top()->draw();
 }
 
 void StateManager::cleanup()
 {
-	(*active_states.begin())->cleanup();
+	active_states.top()->cleanup();
+}
+
+StateID StateManager::top() const
+{
+	return active_states.top()->getId();
+}
+
+void StateManager::checkNextState()
+{
+	if (next_states.size() < 1) { return;  }
+	pushState(*next_states.begin());
+	next_states.erase(next_states.begin());
+}
+
+void StateManager::checkStateRemoval()
+{
+	if (!has_pop_request) { return; }
+	for (int i = 0; i < num_to_pop; ++i)
+	{
+		popState();
+	}
+	num_to_pop = 0;
+	has_pop_request = false;
+}
+
+void StateManager::registerNextState(StateID state_id)
+{
+	next_states.push_back(state_id);
+}
+
+void StateManager::reigsterStateRemoval()
+{
+	has_pop_request = true;
+	++num_to_pop;
 }
 
 bool StateManager::pushState(StateID state_id)
 {
 	BaseState *state = factory[state_id]();
+	context->event_mgr->setCurrentState(state->getId());
 	state->init();
 	state->start();
-	active_states.push_back(state);
+	active_states.push(state);
 	return true;
 }
 
 StateID StateManager::popState()
 {
-	BaseState *state = *active_states.begin();
+	BaseState *state = active_states.top();
+	active_states.pop();
+
+	// Check that stack will be empty
+	// If this is happens then stop the state being popped
+	if (active_states.empty()) {
+		Logger::debug("Cannot pop last state!");
+		active_states.push(state);
+		return -1;
+	}
+
 	StateID id = state->getId();
 	state->stop();
 	state->destroy();
 	delete state;
 	state = nullptr;
-	active_states.erase(active_states.begin());
+	updateEventManager();
 	return id;
 }
 
-StateID StateManager::top() const
+void StateManager::updateEventManager()
 {
-	return (*active_states.begin())->getId();
+	EventManager *event_mgr = context->event_mgr;
+	BaseState *state = active_states.top();
+	event_mgr->setCurrentState(state->getId());
 }

@@ -1,16 +1,30 @@
 #include "EventManager.hpp"
 
-EventManager::EventManager() {}
+EventManager::EventManager()
+{
+	addBinding(LEFT_EVENT, EventType::KeyPressed, sf::Keyboard::A);
+	addBinding(RIGHT_EVENT, EventType::KeyPressed, sf::Keyboard::D);
+	addBinding(LEFT_RELEASE_EVENT, EventType::KeyReleased, sf::Keyboard::A);
+	addBinding(RIGHT_RELEASE_EVENT, EventType::KeyReleased, sf::Keyboard::D);
+	addBinding(SPACE_BAR_EVENT, EventType::KeyPressed, sf::Keyboard::Space);
+	addBinding(R_BUTTON_RELEASE_EVENT, EventType::KeyReleased, sf::Keyboard::R);
+}
 
 EventManager::~EventManager()
 {
+	while (state_callbacks.begin() != state_callbacks.end())
+	{
+		delete state_callbacks.begin()->second;
+		state_callbacks.erase(state_callbacks.begin());
+	}
+
 	while (bindings.begin() != bindings.end())
 	{
 		Logger::debug("Removing: " + bindings.begin()->first);
 		delete bindings.begin()->second;
 		bindings.erase(bindings.begin());
 	}
-	callbacks.clear();
+	// callbacks.clear();
 	event_queue.clear();
 }
 
@@ -57,7 +71,7 @@ bool EventManager::addBinding(std::string name, EventType type, sf::Keyboard::Ke
 	Bindings::iterator b_itr = bindings.find(name);
 	if (b_itr != bindings.end())
 	{
-		Logger::error(name + " is already in use as a binding");
+		Logger::debug(name + " is already in use as a binding");
 		return false;
 	}
 	binding = new EventBinding;
@@ -67,17 +81,38 @@ bool EventManager::addBinding(std::string name, EventType type, sf::Keyboard::Ke
 	return true;
 }
 
+void EventManager::setCurrentState(StateID state_id)
+{
+	current_state = state_id;
+	StateCallbacks::iterator callback_itr = state_callbacks.find(state_id);
+	if (callback_itr == state_callbacks.end())
+	{
+		state_callbacks[state_id] = new Callbacks();
+	}
+	current_state_callbacks = state_callbacks[state_id];
+}
+
+bool EventManager::removeCallback(std::string name)
+{
+	Callbacks::iterator c_itr = current_state_callbacks->find(name);
+	if (c_itr == current_state_callbacks->end()) {
+		return true;
+	}
+	current_state_callbacks->erase(c_itr);
+	return true;
+}
+
 void EventManager::processCallbacks()
 {
-	Callbacks::iterator c_itr = callbacks.end();
+	Callbacks::iterator c_itr = current_state_callbacks->end();
 	for (EventDetails details : event_queue)
 	{
-		c_itr = callbacks.find(details.name);
+		c_itr = current_state_callbacks->find(details.name);
 
 		// Check that the callback exists
-		if (c_itr == callbacks.end())
+		if (c_itr == current_state_callbacks->end())
 		{
-			Logger::error("Missing callback: " + details.name);
+			Logger::debug("Missing callback: " + details.name);
 			continue;
 		}
 

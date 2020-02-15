@@ -3,6 +3,7 @@
 
 #include <unordered_map>
 #include <vector>
+#include <stack>
 #include <functional>
 
 #include "../SharedContext.hpp"
@@ -10,8 +11,8 @@
 class BaseState;
 
 using StateID = unsigned int;
-using StateVector = std::vector<BaseState *>;
 using StateFactory = std::unordered_map <StateID, std::function<BaseState * (void)>>;
+using StateStack = std::stack<BaseState *>;
 
 class StateManager
 {
@@ -25,8 +26,6 @@ public:
 	void render();
 	void cleanup();
 
-	bool pushState(StateID state_id);
-	StateID popState();
 	StateID top() const;
 
 	template <class T>
@@ -34,14 +33,30 @@ public:
 	{
 		// Assign a lambda function to construct the State based on the ID
 		factory[state_id] = [state_id, this]() -> BaseState * {
-			return new T(state_id, this->context);
+			return new T(state_id, this, this->context);
 		};
 		return true;
 	}
+
+	void checkNextState();
+	void checkStateRemoval();
+
+	void registerNextState(StateID state_id);
+	void reigsterStateRemoval();
+
+protected:
+	bool pushState(StateID state_id);
+	StateID popState();
+
 private:
+	void updateEventManager();
+
+	int num_to_pop;
+	bool has_pop_request;
 	SharedContext *context;
+	std::vector<StateID> next_states;
 	StateFactory factory;
-	StateVector active_states;
+	StateStack active_states;
 };
 
 #endif // CORE_MANAGERS_STATE_MANAGER_HPP
