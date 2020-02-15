@@ -139,6 +139,7 @@
     <ClCompile Include="entities\AlienProjectile.cpp" />
     <ClCompile Include="entities\Background.cpp" />
     <ClCompile Include="entities\Cube.cpp" />
+    <ClCompile Include="entities\DisplayBullet.cpp" />
     <ClCompile Include="entities\Floor.cpp" />
     <ClCompile Include="entities\Player.cpp" />
     <ClCompile Include="entities\primitives\Square.cpp" />
@@ -177,6 +178,7 @@
     <ClInclude Include="entities\AlienProjectile.hpp" />
     <ClInclude Include="entities\Background.hpp" />
     <ClInclude Include="entities\Cube.hpp" />
+    <ClInclude Include="entities\DisplayBullet.hpp" />
     <ClInclude Include="entities\Floor.hpp" />
     <ClInclude Include="entities\Player.hpp" />
     <ClInclude Include="entities\primitives\Square.hpp" />

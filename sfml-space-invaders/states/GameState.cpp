@@ -20,12 +20,15 @@
 #define SPRITE_SIZE glm::vec2(50.0f, 50.0f)
 #define WORLD_GRAVITY b2Vec2(0.0f, 0.0f)
 #define PLAYER_START_POS glm::vec2(350.0f, 700.0f)
-#define SCORE_TEXT_POS glm::vec2(20.0f, 10.0f)
-#define LIVES_TEXT_POS glm::vec2(600.0f, 10.0f)
+#define SCORE_TEXT_POS glm::vec2(15.0f, 10.0f)
+#define LIVES_TEXT_POS glm::vec2(610.0f, 10.0f)
+#define RELOAD_TEXT_POS glm::vec2(310.0f, 10.0f)
 #define ARIAL_FONT_PATH "font/arial.ttf"
 #define SCORE_TXT_TEMPLATE "Score: "
 #define LIVES_TXT_TEMPLATE "Lives: "
-
+#define RELOAD_TXT_TEMPLATE "RELOAD"
+#define DISPLAY_ROUNDS_POS glm::vec2(270, 770)
+#define DISPLAY_ROUNDS_SPACING 50
 
 GameState::GameState(StateID id, StateManager *state_mgr, SharedContext *context) : BaseState(id, state_mgr, context),
 	world(nullptr), player(nullptr), dist(nullptr), background(nullptr)  {}
@@ -43,6 +46,7 @@ void GameState::start()
 	float alien_y = ALIEN_INITIAL_Y;
 
 	score = 0;
+	bullet_rounds = BULLET_MAGAZINE;
 	
 	// Set the context data
 	context->data.has_player_won = false;
@@ -65,6 +69,7 @@ void GameState::start()
 		s->setTexture(texture_mgr->getTexture(ALIEN_TEXTURE));
 	}
 
+	// Set the background
 	background = new Background(world);
 	background->setPosition(glm::vec2(window_size.x / 2.0f, window_size.y / 2.0f));
 	background->setTexture(texture_mgr->getTexture(BACKGROUND_TEXTURE));
@@ -98,6 +103,7 @@ void GameState::init()
 	event_mgr->addCallback(LEFT_RELEASE_EVENT, &GameState::stop, this);
 	event_mgr->addCallback(RIGHT_RELEASE_EVENT, &GameState::stop, this);
 	event_mgr->addCallback(SPACE_BAR_EVENT, &GameState::fire, this);
+	event_mgr->addCallback(R_BUTTON_RELEASE_EVENT, &GameState::reload, this);
 
 	// Load in the font file
 	font.loadFromFile(ARIAL_FONT_PATH);
@@ -112,11 +118,28 @@ void GameState::init()
 	lives_txt.setProjection(proj);
 	lives_txt.setPosition(LIVES_TEXT_POS);
 
+	reload_txt.setFont(&font);
+	reload_txt.setProjection(proj);
+	reload_txt.setPosition(RELOAD_TEXT_POS);
+	reload_txt.setString(RELOAD_TXT_TEMPLATE);
+	reload_txt.setColour(glm::vec3(1.0f, 0.0f, 0.0f));
+
+	// Load in the relevant textures
 	texture_mgr = context->texture_mgr;
 	texture_mgr->loadTexture(ALIEN_TEXTURE, ALIEN_TEXTURE_PATH);
 	texture_mgr->loadTexture(BULLET_TEXTURE, PLAYER_BULLET_TEXTURE_PATH);
 	texture_mgr->loadTexture(ORB_TEXTURE, ALIEN_BULLET_TEXTURE_PATH);
 	texture_mgr->loadTexture(CANNON_TEXTURE, CANNON_TEXTURE_PATH);
+
+	// Define the initial position of the player's magazine
+	glm::vec2 display_bullet_pos = DISPLAY_ROUNDS_POS;
+	for (int i = 0; i < BULLET_MAGAZINE; ++i)
+	{
+		cannon_magazine[i] = new DisplayBullet(world);
+		cannon_magazine[i]->setPosition(display_bullet_pos);
+		cannon_magazine[i]->setTexture(texture_mgr->getTexture(BULLET_TEXTURE));
+		display_bullet_pos.x += DISPLAY_ROUNDS_SPACING;
+	}
 }
 
 void GameState::destroy()
@@ -128,6 +151,7 @@ void GameState::destroy()
 	event_mgr->removeCallback(LEFT_RELEASE_EVENT);
 	event_mgr->removeCallback(RIGHT_RELEASE_EVENT);
 	event_mgr->removeCallback(SPACE_BAR_EVENT);
+	event_mgr->removeCallback(R_BUTTON_RELEASE_EVENT);
 
 	// Remove the textures from the manager
 	texture_mgr->removeTexture(ALIEN_TEXTURE);
@@ -170,10 +194,18 @@ void GameState::destroy()
 		dist = nullptr;
 	}
 
+	// Remove the background
 	if (background != nullptr)
 	{
 		delete background;
 		background = nullptr;
+	}
+
+	// Remove the players magazine
+	for (int i = 0; i < BULLET_MAGAZINE; ++i)
+	{
+		delete cannon_magazine[i];
+		cannon_magazine[i] = nullptr;
 	}
 }
 
@@ -263,9 +295,21 @@ void GameState::draw()
 		render.drawSprite(sprite);
 	}
 
+	// Render the player's magazine
+	for (unsigned int i = 0; i < bullet_rounds; ++i)
+	{
+		render.drawSprite(cannon_magazine[i]);
+	}
+
 	// Render the text
 	score_txt.draw();
 	lives_txt.draw();
+
+	if (bullet_rounds == 0)
+	{
+		reload_txt.draw();
+	}
+	
 }
 
 void GameState::cleanup()
@@ -309,11 +353,23 @@ void GameState::stop(EventDetails * details)
 
 void GameState::fire(EventDetails * details)
 {
+	if (bullet_rounds == 0)
+	{
+		Logger::debug("RELOAD");
+		return;
+	}
+
 	glm::vec2 bullet_initial_pos = player->getPosition();
 	bullet_initial_pos.y -= BULLET_INITIAL_POS_PADDING;
 	Projectile *bullet = new Projectile(world, bullet_initial_pos);
 	bullet->setTexture(texture_mgr->getTexture(BULLET_TEXTURE));
 	bullets.push_back(bullet);
+	--bullet_rounds;
+}
+
+void GameState::reload(EventDetails * details)
+{
+	bullet_rounds = BULLET_MAGAZINE;
 }
 
 void GameState::enemyFire(Alien * alien)
